@@ -103,7 +103,7 @@ public class Animal extends Mobile implements IEdible  {
     public boolean eat(IEdible food) {
         double y=diet.eat(this, food);
         if (y>0) {
-            this.setweight(getWeight()+y);
+            this.setWeight(getWeight()+y);
             return true;
         }
         return false;

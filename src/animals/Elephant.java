@@ -17,7 +17,7 @@ public class Elephant extends Animal{
     public Elephant(String name) {
         super(name,new Point(50,90));
         this.trunkLength=1;
-        this.setweight(500);
+        this.setWeight(500);
         setDiet(new Herbivore());
     }
 
