@@ -21,5 +21,7 @@ public class Giraffe extends Animal{
     public void chew() {
 
     }
+    public boolean setNeckLength(double len){return true;}
+
 }
 
