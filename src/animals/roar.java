@@ -1,17 +1,13 @@
 package animals;
 
-import mobility.Point;
+import mobility.*;
 
-public class roar  extends Animal{
-    public roar(String name){
-        super(name,new Point(20,0));
-    }
-    public void makeSound() {
-
-        this.roar();
-    }
+public abstract class roar  extends Animal{
     public roar(String name,Point p){
         super(name,p);
+    }
+    public void makeSound() {
+        roar();
     }
     public abstract void roar();
 }

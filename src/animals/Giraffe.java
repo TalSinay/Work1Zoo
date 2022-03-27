@@ -2,7 +2,7 @@ package animals;
 import mobility.*;
 import diet.*;
 
-public class Giraffe extends Animal{
+public class Giraffe extends chew{
     private double neckLength;
 
     public Giraffe(String name) {

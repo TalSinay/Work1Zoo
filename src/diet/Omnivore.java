@@ -22,12 +22,8 @@ public class Omnivore implements IDiet {
      * @return true/ false.
      */
     public boolean canEat(EFoodType food) {
-        if (food==EFoodType.VEGETABLE){
+        if (h.canEat(food) || c.canEat(food))
             return true;
-        }
-        if (food==EFoodType.MEAT) {
-            return true;
-        }
         return false;
     }
 

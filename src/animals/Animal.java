@@ -10,7 +10,7 @@ import mobility.*;
  * @author Tal and Shoham
  * @see {diet}
  * */
-public class Animal extends Mobile implements IEdible  {
+public abstract class Animal extends Mobile implements IEdible  {
     private String name;
     private double weight;
     private IDiet diet;
@@ -65,24 +65,7 @@ public class Animal extends Mobile implements IEdible  {
      * makeSound method- using to sort the animals sound.
      * check the animal's type and make the requirement sound.
      */
-    public void makeSound() {
-        if (this instanceof Lion) {
-            ((Lion) this).roar();// convert 'this' to a Lion obj.
-        }
-        else if(this instanceof Bear) {
-            ((Bear) this).roar();
-        }
-        else if(this instanceof Elephant) {
-            ((Elephant) this).chew();
-        }
-        else if(this instanceof Giraffe) {
-            ((Giraffe) this).chew();
-        }
-        else if(this instanceof Turtle) {
-            ((Turtle) this).chew();
-        }
-
-    }
+    public abstract void makeSound();// in roar or chew
 
     /**
      * method to get the animal's type of food.
