@@ -18,7 +18,7 @@ public class Turtle extends Animal{
     public Turtle (String name) {
         super(name,new Point(80,0));
         setDiet(new Herbivore());
-        this.setweight(1);
+        this.setWeight(1);
 
     }
 
@@ -30,7 +30,7 @@ public class Turtle extends Animal{
     public Turtle(String name,Point p) {
         super(name,p);
         setDiet(new Herbivore());
-        this.setweight(1);
+        this.setWeight(1);
     }
 
     /**

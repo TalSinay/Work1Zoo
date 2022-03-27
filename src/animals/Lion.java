@@ -8,7 +8,7 @@ import food.EFoodType;
  * @author Tal and Shoham
  * @see {Animal}
  * */
-public class Lion extends Animal {
+public class Lion extends roar {
     private int scarCount=0;
 
     /**
@@ -17,7 +17,7 @@ public class Lion extends Animal {
      * @param name the lion's name.
      */
     public Lion(String name) {
-        super(name,new Point(20,0));
+        super(name);
         setDiet(new Carnivore());
         this.setWeight(408.2);
     }
