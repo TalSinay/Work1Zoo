@@ -8,7 +8,7 @@ import mobility.*;
  * @author Tal and Shoham
  * @see {Animal}
  * */
-public class Bear extends Animal{
+public class Bear extends roar{
     private String furColor;
 
     /**
@@ -19,7 +19,7 @@ public class Bear extends Animal{
         super(name,new Point(100,5));
         this.furColor="GRAY";
         setDiet(new Herbivore());
-        this.setweight(308.2);
+        this.setWeight(308.2);
     }
 
     /**
@@ -32,7 +32,7 @@ public class Bear extends Animal{
         super(name,p);
         this.furColor=color;
         setDiet(new Herbivore());
-        this.setweight(308.2);
+        this.setWeight(308.2);
     }
 
     /**

@@ -8,7 +8,7 @@ import mobility.*;
  * @author Tal and Shoham
  * @see {Animal}
  * */
-public class Turtle extends Animal{
+public class Turtle extends chew{
     private int Age;
 
     /**

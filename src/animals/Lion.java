@@ -17,7 +17,7 @@ public class Lion extends roar {
      * @param name the lion's name.
      */
     public Lion(String name) {
-        super(name);
+        super(name,new Point(20,0));
         setDiet(new Carnivore());
         this.setWeight(408.2);
     }

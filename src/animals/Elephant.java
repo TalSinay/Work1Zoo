@@ -7,7 +7,7 @@ import mobility.*;
  * @author Tal and Shoham
  * @see {Animal}
  * */
-public class Elephant extends Animal{
+public class Elephant extends chew{
     private double trunkLength;
 
     /**
@@ -29,7 +29,7 @@ public class Elephant extends Animal{
      */
     public Elephant(String name,Point p,double num) {
         super(name,p);
-        this.setweight(500);
+        this.setWeight(500);
         setDiet(new Herbivore());
         if (num>0.5 && num<3)
             this.trunkLength=num;
