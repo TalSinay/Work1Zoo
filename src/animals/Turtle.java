@@ -37,13 +37,27 @@ public class Turtle extends chew{
      * this method use to make the turtle sound
      */
     public void chew() {
-
+        System.out.println("Retracts its head in then eats quietly");
     }
 
     /**
      * method to set the turtle's age.
-     * @param age
+     * @param age the new  age
      * @return true/ false.
      * */
-    public boolean setAge(int age){return true;}
+    public boolean setAge(int age){
+        if(age > 0 && age <= 500)
+            Age = age;
+        return true;
+    }
+
+    /**
+     * override method. use setAge.
+     * @param value the age
+     * @return true
+     */
+    @Override
+    public boolean setValue(int value) {
+        return setAge(value);
+    }
 }

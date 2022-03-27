@@ -17,11 +17,31 @@ public class Giraffe extends chew{
             this.neckLength=len;
         else
             this.neckLength=1.5;
+        setDiet(new Herbivore());
     }
     public void chew() {
-
+        System.out.println("Bleats and Stomps its legs, then chews");
     }
-    public boolean setNeckLength(double len){return true;}
 
+    /**
+     * setNeckLength method- set the neck length of the giraffe.
+     * @param len the new len.
+     * @return true/ false.
+     */
+    public boolean setNeckLength(double len){
+        if(len >= 1 && len <= 2.5)
+            neckLength = len;
+        return true;
+    }
+
+    /**
+     * overide method. use setNeckLength method
+     * @param value the new length
+     * @return true/ false.
+     */
+    @Override
+    public boolean setValue(double value) {
+        return setNeckLength(value);
+    }
 }
 

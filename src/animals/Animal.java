@@ -91,6 +91,9 @@ public abstract class Animal extends Mobile implements IEdible  {
         }
         return false;
     }
+    public boolean setValue(String value){return true;};
+    public boolean setValue(double value){return true;};
+    public boolean setValue(int value){return true;};
 
 
 

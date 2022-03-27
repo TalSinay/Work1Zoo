@@ -28,9 +28,9 @@ public class Bear extends roar{
      * @param p the bear's location.
      * @param color the bear's fur color.
      */
-    public Bear(String name,Point p,String color) {
+    public Bear(String name,Point p) {
         super(name,p);
-        this.furColor=color;
+        this.furColor="GRAY";
         setDiet(new Herbivore());
         this.setWeight(308.2);
     }
@@ -39,7 +39,28 @@ public class Bear extends roar{
      * this method used to make the bear sound.
      */
     public void roar() {
-
+        System.out.println("Stands on its hind legs, roars and scratches its belly");
     }
-    public boolean setFurColor(String color){return true;}
+
+    /**
+     * setFurColor method - set the fur color of the bear.
+     * @param color the new color
+     * @return true/ false.
+     */
+    public boolean setFurColor(String color){
+        if(color.equals("BLACK")||color.equals("WHITE")||color.equals("GRAY")){
+            furColor = color;
+        }
+        return true;
+    }
+
+    /**
+     * setValue - override method from Animal class. this method use setFurColor.
+     * @param color new color.
+     * @return true/ false
+     */
+    @Override
+    public boolean setValue(String color){
+        return setFurColor(color);
+    }
 }

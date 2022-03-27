@@ -3,7 +3,8 @@ import animals.*;
 import food.*;
 import diet.*;
 import mobility.*;
-
+import java.util.Scanner;
+import java.util.Random;
 /**
  * 'ZooActions' class, used to make all the actions in the zoo.
  * @version 24.3.22
@@ -58,6 +59,112 @@ public class ZooActions {
         }
         return false;
     }
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args){
+        System.out.println("Enter amount of animals: (MINIMUM 3):");
+        Scanner sc = new Scanner(System.in);
+        int size = sc.nextInt(), choice;
+        if (size < 3){size = 3;}
+        Animal[] animals = new Animal[size];
+        for(int i = 0; i < size; i++){
+            System.out.println("Choose the Animal Type:\n1.Lion\n2.Bear\n3.Turtle\n4.Giraffe\n5.Elephant");
+            sc = new Scanner(System.in);
+            Point p;
+            switch (sc.nextInt()){
+                case 1:
+                    System.out.println("Enter Lion's name");
+                    sc = new Scanner(System.in);
+                    animals[i] = new Lion(sc.nextLine());
+                    System.out.println("Enter Lion's place");
+                    sc = new Scanner(System.in);
+                    p = new Point(sc.nextInt(), sc.nextInt());
+                    // 'setLocation' will check if the point are available.
+                    animals[i].setLocation(p);
+                    System.out.println("Enter Lion's scars amount");
+                    sc = new Scanner(System.in);
+                    int scars = sc.nextInt();
+                    animals[i].setValue(scars);
+                    break;
+
+
+                case 2:
+                    System.out.println("Enter Bear's name");
+                    sc = new Scanner(System.in);
+                    animals[i] = new Bear(sc.nextLine());
+                    System.out.println("Enter Bear's place");
+                    sc = new Scanner(System.in);
+                    p = new Point(sc.nextInt(), sc.nextInt());
+                    // 'setLocation' will check if the point are available.
+                    animals[i].setLocation(p);
+                    System.out.println("Enter Bear's fur color");
+                    sc = new Scanner(System.in);
+                    String furColor = sc.nextLine();
+                    animals[i].setValue(furColor);
+                    break;
+
+                case 3:
+                    System.out.println("Enter turtle's name");
+                    sc = new Scanner(System.in);
+                    animals[i] = new Turtle(sc.nextLine());
+                    System.out.println("Enter turtle's place");
+                    sc = new Scanner(System.in);
+                    p = new Point(sc.nextInt(), sc.nextInt());
+                    // 'setLocation' will check if the point are available.
+                    animals[i].setLocation(p);
+                    System.out.println("Enter turtle's age");
+                    sc = new Scanner(System.in);
+                    int age = sc.nextInt();
+                    animals[i].setValue(age);
+                    break;
+
+                case 4:
+                    System.out.println("Enter Giraffe's name");
+                    sc = new Scanner(System.in);
+                    animals[i] = new Giraffe(sc.nextLine());
+                    System.out.println("Enter Giraffe's place");
+                    sc = new Scanner(System.in);
+                    p = new Point(sc.nextInt(), sc.nextInt());
+                    // 'setLocation' will check if the point are available.
+                    animals[i].setLocation(p);
+                    System.out.println("Enter Giraffe's neck length");
+                    sc = new Scanner(System.in);
+                    double neckLength = sc.nextDouble();
+                    animals[i].setValue(neckLength);
+                    break;
+                case 5:
+                    System.out.println("Enter Elephant's name");
+                    sc = new Scanner(System.in);
+                    animals[i] = new Elephant(sc.nextLine());
+                    System.out.println("Enter Elephant's place");
+                    sc = new Scanner(System.in);
+                    p = new Point(sc.nextInt(), sc.nextInt());
+                    // 'setLocation' will check if the point are available.
+                    animals[i].setLocation(p);
+                    System.out.println("Enter Elephant's trunk length");
+                    sc = new Scanner(System.in);
+                    int trunkLength = sc.nextInt();
+                    animals[i].setValue(trunkLength);
+                    break;
+                default:
+                    System.out.println("Bad Choice, try again");
+                    i--;
+                    break;
+            }// end switch.
+        }// end for loop.
+        Random rand = new Random();
+        for(Animal animal :animals){
+            move(animal,new Point(rand.nextInt(801), rand.nextInt(601)));
+        }
+
+        //////////////////////////
+        for(int i = 0; i< animals.length /2; i++){
+
+        }
+    }// end main().
 
 
 }
