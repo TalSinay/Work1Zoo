@@ -19,7 +19,7 @@ public class Turtle extends chew{
         super(name,new Point(80,0));
         setDiet(new Herbivore());
         this.setWeight(1);
-
+        System.out.println("[+] new Turtle: "+ name);
     }
 
     /**
@@ -31,6 +31,7 @@ public class Turtle extends chew{
         super(name,p);
         setDiet(new Herbivore());
         this.setWeight(1);
+        System.out.println("[+] new Turtle: "+ name);
     }
 
     /**
@@ -46,8 +47,13 @@ public class Turtle extends chew{
      * @return true/ false.
      * */
     public boolean setAge(int age){
-        if(age > 0 && age <= 500)
+        boolean flag = false;
+
+        if(age > 0 && age <= 500){
             Age = age;
+            flag = true;
+        }
+        System.out.print("[s] "+ getName() + "setAge("+age+ ") => " + flag);
         return true;
     }
 

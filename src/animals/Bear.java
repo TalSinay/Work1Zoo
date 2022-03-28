@@ -20,19 +20,21 @@ public class Bear extends roar{
         this.furColor="GRAY";
         setDiet(new Herbivore());
         this.setWeight(308.2);
+        System.out.println("[+] new Bear: "+ name);
     }
 
     /**
      * 'Bear' constructor.
      * @param name the bear's name.
      * @param p the bear's location.
-     * @param color the bear's fur color.
+     * //@param color the bear's fur color.
      */
     public Bear(String name,Point p) {
         super(name,p);
         this.furColor="GRAY";
         setDiet(new Herbivore());
         this.setWeight(308.2);
+        System.out.println("[+] new Bear: "+ name);
     }
 
     /**
@@ -48,10 +50,13 @@ public class Bear extends roar{
      * @return true/ false.
      */
     public boolean setFurColor(String color){
+        boolean flag = false;
         if(color.equals("BLACK")||color.equals("WHITE")||color.equals("GRAY")){
+            flag = true;
             furColor = color;
         }
-        return true;
+        System.out.print("[s] "+ getName() + "setFurColor("+furColor+ ") => " + flag);
+        return flag;
     }
 
     /**

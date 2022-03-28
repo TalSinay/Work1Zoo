@@ -33,6 +33,7 @@ public abstract class Animal extends Mobile implements IEdible  {
      */
     public boolean setDiet(IDiet diet) {
         this.diet=diet;
+        System.out.println("[s] "+ getName() + "setDiet("+diet.toString()+ ") => true");
         return true;
     }
 
@@ -40,7 +41,9 @@ public abstract class Animal extends Mobile implements IEdible  {
      * 'get' method to get the animal's weight.
      * @returnthe animal's weight.
      */
+
     public double getWeight() {
+        System.out.println("[g] " + name + ":getWeight() => true");
         return this.weight;
     }
 
@@ -48,9 +51,14 @@ public abstract class Animal extends Mobile implements IEdible  {
      * set weight method, use for set new weight
      * @param x the new animal's weight.
      */
-    public void setWeight(double x) {
-        this.weight=x;
-
+    public boolean setWeight(double x) {
+        boolean flag = false;
+        if(x > 0) {
+            this.weight = x;
+            flag = true;
+        }
+        System.out.println("[s] "+ getName() + "setWeight("+x+ ") => " + flag);
+        return true;
     }
 
     /**
@@ -59,6 +67,7 @@ public abstract class Animal extends Mobile implements IEdible  {
      */
     public void setName(String name) {
         this.name=name;
+        System.out.print("[s] "+ getName() + "setName("+name+ ") => true");
     }
 
     /**
@@ -69,10 +78,15 @@ public abstract class Animal extends Mobile implements IEdible  {
 
     /**
      * method to get the animal's type of food.
-     * (in that case- all of animal will return MEAT.
+     * (in that case- all animals will return MEAT.)
      * @return the animal's type.
      */
     public EFoodType getFoodtype() {
+        //////////////////
+        /**
+         * need to fix.
+         */
+        System.out.println("[g] " + name + ":getFoodtype() => ");
         return EFoodType.MEAT;
     }
 
@@ -95,7 +109,8 @@ public abstract class Animal extends Mobile implements IEdible  {
     public boolean setValue(double value){return true;};
     public boolean setValue(int value){return true;};
 
-
+    //
+    public String getName(){return name;}
 
 }
 

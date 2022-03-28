@@ -19,6 +19,7 @@ public class Elephant extends chew{
         this.trunkLength=1;
         this.setWeight(500);
         setDiet(new Herbivore());
+        System.out.println("[+] new Elephant: "+ name);
     }
 
     /**
@@ -35,6 +36,7 @@ public class Elephant extends chew{
             this.trunkLength=num;
         else
             this.trunkLength=1;
+        System.out.println("[+] new Elephant: "+ name);
 
     }
 
@@ -50,9 +52,13 @@ public class Elephant extends chew{
      * @return true/ false.
      */
     public boolean settrunkLength(double len){
-        if (len>0.5 && len<3)
+        boolean flag = false;
+        if (len>0.5 && len<3) {
             trunkLength = len;
-        return true;
+            flag = true;
+        }
+        System.out.print("[s] "+ getName() + "settrunkLength("+len+ ") => "+ flag);
+        return flag;
     }
 
     /**

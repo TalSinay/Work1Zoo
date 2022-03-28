@@ -9,6 +9,7 @@ public class Giraffe extends chew{
         super(name,new Point(50,0));
         this.neckLength=1.5;
         setDiet(new Herbivore());
+        System.out.println("[+] new Giraffe: "+ name);
     }
     public Giraffe(String name,Point p,double len) {
         super(name,p);
@@ -18,6 +19,7 @@ public class Giraffe extends chew{
         else
             this.neckLength=1.5;
         setDiet(new Herbivore());
+        System.out.println("[+] new Giraffe: "+ name);
     }
     public void chew() {
         System.out.println("Bleats and Stomps its legs, then chews");
@@ -29,9 +31,14 @@ public class Giraffe extends chew{
      * @return true/ false.
      */
     public boolean setNeckLength(double len){
-        if(len >= 1 && len <= 2.5)
+
+        boolean flag = false;
+        if(len >= 1 && len <= 2.5) {
             neckLength = len;
-        return true;
+            flag = true;
+        }
+        System.out.print("[s] "+ getName() + "setNeckLength("+len+ ") => "+ flag);
+        return flag;
     }
 
     /**

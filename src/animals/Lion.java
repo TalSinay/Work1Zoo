@@ -21,6 +21,7 @@ public class Lion extends roar {
         setDiet(new Carnivore());
         scarCount = 0;
         this.setWeight(408.2);
+        System.out.println("[+] new Lion: "+ name);
     }
 
     /**
@@ -33,6 +34,7 @@ public class Lion extends roar {
         setDiet(new Carnivore());
         scarCount = 0;
         this.setWeight(408.2);
+        System.out.println("[+] new Lion: "+ name);
     }
 
     /**
@@ -48,9 +50,13 @@ public class Lion extends roar {
      * @return true.
      */
     public boolean setScarCount(int scars){
-        if(scars > 0)
+        boolean flag = false;
+        if(scars > 0) {
             scarCount = scars;
-        return true;
+            flag = true;
+        }
+        System.out.print("[s] "+ getName() + "setScarCount("+scars+ ") => "+ flag);
+        return flag;
     }
 
     /**
