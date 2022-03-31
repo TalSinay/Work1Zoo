@@ -162,7 +162,10 @@ public class ZooActions {
 
         //////////////////////////
         for(int i = 0; i< animals.length /2; i++){
-            eat(animals[rand.nextInt(animals.length)], animals[rand.nextInt(animals.length)]);
+            int x=rand.nextInt(animals.length);
+            int y=rand.nextInt(animals.length);
+            if(x!=y)
+                eat(animals[x], animals[y]);
         }
     }// end main().
 
