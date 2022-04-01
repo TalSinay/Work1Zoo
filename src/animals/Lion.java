@@ -1,7 +1,11 @@
 package animals;
+import food.IEdible;
 import mobility.*;
 import diet.*;
 import food.EFoodType;
+
+import java.util.Random;
+
 /**
  * 'Lion' class, used to declare all the lions in the zoo.
  * @version 24.3.22
@@ -77,5 +81,15 @@ public class Lion extends roar {
     @Override
     public EFoodType getFoodtype() {
         return EFoodType.NOTFOOD;
+    }
+    public boolean eat(IEdible food){
+        if(super.eat(food)){
+            Random rand = new Random();
+            boolean scar_prob = rand.nextBoolean();
+            if(scar_prob)
+                scarCount++;
+            return true;
+        }
+        return false;
     }
 }

@@ -18,6 +18,7 @@ public class Mobile {
      * @param p (Point)
      */
     public Mobile(Point p){
+
         this.location.setx(p.getx());
         this.location.sety(p.gety());
     }

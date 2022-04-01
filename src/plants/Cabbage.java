@@ -1,5 +1,6 @@
 package plants;
 
+import mobility.Point;
 import utilities.MessageUtility;
 
 /**
@@ -11,4 +12,10 @@ public class Cabbage extends Plant {
 		MessageUtility.logConstractor("Cabbage", "Cabbage");
 	}
 
+
+
+	@Override
+	public boolean setlocation(Point p) {
+		return false;
+	}
 }

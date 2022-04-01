@@ -16,11 +16,18 @@ public class Point {
     private static final int miny=0;
     private static final int maxy=600;
 
+    public Point(){
+        this(0,0);
+    }
+    public Point(int x){
+        this(x, 0);
+    }
     /**
      *Point constructor.
      * @param x x axis value
      * @param y y axis value
      */
+
     public Point(int x,int y) {
         this.x=x;
         this.y=y;
@@ -52,6 +59,9 @@ public class Point {
         return false;
     }
 
+    public static boolean cheackBounderies(Point p){
+        return(p.x>=getminx() && p.x<= getmaxX() && p.y>=getminy() && p.y <= getmaxy());
+    }
     /**
      * getx method
      * @return the x value of point
@@ -71,29 +81,29 @@ public class Point {
      * getmaxX method
      * @return the max value in the x axis
      */
-    public int getmaxX() {
-        return this.maxx;
+    public static int getmaxX() {
+        return maxx;
     }
     /**
      * getminX method
      * @return the min value in the x axis
      */
-    public int getminx() {
-        return this.minx;
+    public static int getminx() {
+        return minx;
     }
     /**
      * getmaxY method
      * @return the max value in the y axis
      */
-    public int getmaxy() {
-        return this.maxy;
+    public static int getmaxy() {
+        return maxy;
     }
     /**
      * getminY method
      * @return the min value in the y axis
      */
-    public int getminy() {
-        return this.miny;
+    public static int getminy() {
+        return miny;
     }
 
 }
