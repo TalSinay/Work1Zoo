@@ -160,7 +160,7 @@ public class ZooActions {
             move(animal,new Point(rand.nextInt(801), rand.nextInt(601)));
         }
 
-        //////////////////////////
+        ////////////////////////// index 1 != index 2!!!!!
         for(int i = 0; i< animals.length /2; i++){
             eat(animals[rand.nextInt(animals.length)], animals[rand.nextInt(animals.length)]);
         }
