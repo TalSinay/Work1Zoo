@@ -5,6 +5,7 @@ import diet.*;
 import mobility.*;
 import java.util.Scanner;
 import java.util.Random;
+import utilities.*;
 /**
  * 'ZooActions' class, used to make all the actions in the zoo.
  * @version 24.3.22
@@ -160,12 +161,14 @@ public class ZooActions {
             move(animal,new Point(rand.nextInt(801), rand.nextInt(601)));
         }
 
-        //////////////////////////
+        ////////////////////////// index 1 != index 2!!!!!
         for(int i = 0; i< animals.length /2; i++){
             int x=rand.nextInt(animals.length);
             int y=rand.nextInt(animals.length);
             if(x!=y)
                 eat(animals[x], animals[y]);
+            else
+                i--;
         }
     }// end main().
 

@@ -63,7 +63,6 @@ public abstract class Plant implements IEdible, ILocatable {
 	 * 
 	 * @see mobility.ILocatable#getLocation()
 	 */
-	@Override
 	public Point getLocation() {
 		MessageUtility.logGetter(this.getClass().getSimpleName(), "getLocation", this.location);
 		return this.location;
@@ -99,7 +98,7 @@ public abstract class Plant implements IEdible, ILocatable {
 	 * @see mobility.ILocatable#setLocation(mobility.Point)
 	 */
 	@Override
-	public boolean setLocation(Point newLocation) {
+	public boolean setlocation(Point newLocation) {
 		boolean isSuccess = Point.cheackBounderies(newLocation);
 		if (isSuccess) {
 			this.location = newLocation;
@@ -133,5 +132,9 @@ public abstract class Plant implements IEdible, ILocatable {
 	public String toString() {
 		return "[" + this.getClass().getSimpleName() + "] ";
 	}
+
+	public Point getlocation(){return location;}
+
+
 
 }
