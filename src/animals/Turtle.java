@@ -1,6 +1,7 @@
 package animals;
 import diet.*;
 import mobility.*;
+import utilities.MessageUtility;
 
 /**
  * 'Turtle' class, used to declare all the turtles in the zoo.
@@ -17,9 +18,10 @@ public class Turtle extends chew{
      */
     public Turtle (String name) {
         super(name,new Point(80,0));
-        setDiet(new Herbivore());
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(1);
-        System.out.println("[+] new Turtle: "+ name);
+        this.setAge(1);
+        setDiet(new Herbivore());
     }
 
     /**
@@ -29,9 +31,11 @@ public class Turtle extends chew{
      */
     public Turtle(String name,Point p) {
         super(name,p);
-        setDiet(new Herbivore());
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(1);
-        System.out.println("[+] new Turtle: "+ name);
+        this.setAge(1);
+        setDiet(new Herbivore());
+
     }
 
     /**
@@ -53,7 +57,7 @@ public class Turtle extends chew{
             Age = age;
             flag = true;
         }
-        System.out.print("[s] "+ getName() + "setAge("+age+ ") => " + flag);
+        MessageUtility.logSetter(this.getName(),"setAge",age,flag);
         return true;
     }
 

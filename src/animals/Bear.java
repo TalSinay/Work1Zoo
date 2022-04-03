@@ -18,11 +18,10 @@ public class Bear extends roar{
      */
     public Bear(String name) {
         super(name,new Point(100,5));
-        this.furColor="GRAY";
-        setDiet(new Herbivore());
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(308.2);
-
-
+        this.setFurColor("GRAY");
+        setDiet(new Omnivore());
     }
 
     /**
@@ -33,10 +32,11 @@ public class Bear extends roar{
      */
     public Bear(String name,Point p) {
         super(name,p);
-        this.furColor="GRAY";
-        setDiet(new Herbivore());
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(308.2);
-       // System.out.println("[+] new Bear: "+ name);
+        this.setFurColor("GRAY");
+        setDiet(new Omnivore());
+
     }
 
     /**
@@ -58,7 +58,7 @@ public class Bear extends roar{
             flag = true;
             furColor = color;
         }
-         System.out.print("[s] "+ getName() + "setFurColor("+furColor+ ") => " + flag);
+         MessageUtility.logSetter(this.getName(),"setFurColor",color,flag);
         return flag;
     }
 

@@ -1,6 +1,8 @@
 package animals;
 import diet.*;
 import mobility.*;
+import utilities.MessageUtility;
+
 /**
  * 'Elephant' class, used to declare all the elephants in the zoo.
  * @version 24.3.22
@@ -16,10 +18,11 @@ public class Elephant extends chew{
      */
     public Elephant(String name) {
         super(name,new Point(50,90));
-        this.trunkLength=1;
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.settrunkLength(1);
         this.setWeight(500);
         setDiet(new Herbivore());
-        System.out.println("[+] new Elephant: "+ name);
+
     }
 
     /**
@@ -30,13 +33,14 @@ public class Elephant extends chew{
      */
     public Elephant(String name,Point p,double num) {
         super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(500);
-        setDiet(new Herbivore());
         if (num>0.5 && num<3)
-            this.trunkLength=num;
+            this.settrunkLength(num);
         else
-            this.trunkLength=1;
-        System.out.println("[+] new Elephant: "+ name);
+            this.settrunkLength(1);
+        setDiet(new Herbivore());
+
 
     }
 
@@ -57,7 +61,7 @@ public class Elephant extends chew{
             trunkLength = len;
             flag = true;
         }
-        System.out.print("[s] "+ getName() + "settrunkLength("+len+ ") => "+ flag);
+        MessageUtility.logSetter(this.getName(),"settrunkLength",len,flag);
         return flag;
     }
 

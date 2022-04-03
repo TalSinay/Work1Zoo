@@ -29,8 +29,11 @@ public class Point {
      */
 
     public Point(int x,int y) {
-        this.x=x;
-        this.y=y;
+        if(cheackBounderies(this)) {
+            this.x = x;
+            this.y = y;
+        }
+
     }
 
     /**
@@ -39,7 +42,7 @@ public class Point {
      * @return true/ false.
      */
     public boolean setx(int x) {
-        if (x < getmaxX() && x > getminx()) {
+        if (x <= getmaxX() && x >= getminx()) {
             this.x = x;
             return true;
         }
@@ -52,7 +55,7 @@ public class Point {
      * @return true/ false.
      */
     public boolean sety(int y) {
-        if (y < getmaxy() && y > getminy()) {
+        if (y <= getmaxy() && y >= getminy()) {
             this.y = y;
             return true;
         }
@@ -60,7 +63,7 @@ public class Point {
     }
 
     public static boolean cheackBounderies(Point p){
-        return(p.x>=getminx() && p.x<= getmaxX() && p.y>=getminy() && p.y <= getmaxy());
+        return(p.getx()>=getminx() && p.getx()<= getmaxX() && p.getx()>=getminy() && p.getx() <= getmaxy());
     }
     /**
      * getx method

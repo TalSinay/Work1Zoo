@@ -1,6 +1,7 @@
 package mobility;
 
 import animals.*;
+import utilities.MessageUtility;
 
 /**
  * Mobile class, declare location and total distance of objects.
@@ -20,6 +21,7 @@ public class Mobile {
     public Mobile(Point p){
         this.location.setx(p.getx());
         this.location.sety(p.gety());
+        this.totalDistance=0;
     }
 
     /**
@@ -28,7 +30,9 @@ public class Mobile {
      * @return the distance.
      */
     public double calcDistance(Point p) {
-        return Math.sqrt((this.location.getx()-p.getx())*(this.location.getx()-p.getx())+(this.location.gety()-p.gety())*(this.location.gety()-p.gety()));
+        double x=this.location.getx()-p.getx();
+        double y=this.location.gety()-p.gety();
+        return Math.sqrt(x*x+y*y);
     }
 
     /**
@@ -37,12 +41,16 @@ public class Mobile {
      * @return the distance of this travel.
      */
     public double move(Point p) {
+        addTotalDistance(calcDistance(p));
+        double distance=calcDistance(p);
         this.location.setx(p.getx());
         this.location.sety(p.gety());
-        this.totalDistance=this.totalDistance+ this.calcDistance(p);
         if(this instanceof Animal) {
-            ((Animal)this).setWeight(((Animal)this).getWeight()-(this.calcDistance(p)*((Animal)this).getWeight()*0.00025));
+            double x=((Animal) this).getWeight()-(distance*((Animal) this).getWeight()*0.00025);
+            ((Animal)this).setWeight(x);
         }
+        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "Move", p,Point.cheackBounderies(p));
+
         return this.calcDistance(p);
     }
 

@@ -1,25 +1,29 @@
 package animals;
 import mobility.*;
 import diet.*;
+import utilities.MessageUtility;
 
 public class Giraffe extends chew{
     private double neckLength;
 
     public Giraffe(String name) {
         super(name,new Point(50,0));
-        this.neckLength=1.5;
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(450);
+        this.setNeckLength(1.5);
         setDiet(new Herbivore());
-        System.out.println("[+] new Giraffe: "+ name);
+
     }
     public Giraffe(String name,Point p,double len) {
         super(name,p);
-        setDiet(new Omnivore());
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(450);
         if (len>1 && len<2.5)
-            this.neckLength=len;
+            this.setNeckLength(len);
         else
-            this.neckLength=1.5;
+            this.setNeckLength(1.5);
         setDiet(new Herbivore());
-        System.out.println("[+] new Giraffe: "+ name);
+
     }
     public void chew() {
         System.out.println("Bleats and Stomps its legs, then chews");
@@ -37,7 +41,7 @@ public class Giraffe extends chew{
             neckLength = len;
             flag = true;
         }
-        System.out.print("[s] "+ getName() + "setNeckLength("+len+ ") => "+ flag);
+        MessageUtility.logSetter(this.getName(),"setNeckLength",len,flag);
         return flag;
     }
 

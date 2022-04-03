@@ -5,6 +5,8 @@ import diet.*;
 import mobility.*;
 import java.util.Scanner;
 import java.util.Random;
+
+import plants.*;
 import utilities.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -65,7 +67,7 @@ public class ZooActions {
         if(point.getx()>point.getmaxX()||point.getx()<point.getminx()||point.gety()>point.getmaxy()||point.gety()<point.getminy())
             return false;
         if (animal instanceof Animal) {
-            ((Animal) animal).move(point);
+            ((Mobile) animal).move(point);
             return true;
         }
         return false;
@@ -92,15 +94,15 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     lion = new Lion(sc.nextLine());
                     animals.add(lion);
-                    System.out.println("Enter Lion's place");
-                    sc = new Scanner(System.in);
-                    p = new Point(sc.nextInt(), sc.nextInt());
-                    // 'setLocation' will check if the point are available.
-                    animals.get(i).setLocation(p);
-                    System.out.println("Enter Lion's scars amount");
-                    sc = new Scanner(System.in);
-                    int scars = sc.nextInt();
-                    animals.get(i).setValue(scars);
+//                    System.out.println("Enter Lion's place");
+//                    sc = new Scanner(System.in);
+//                    p = new Point(sc.nextInt(), sc.nextInt());
+//                    // 'setLocation' will check if the point are available.
+//                    animals.get(i).setLocation(p);
+//                    System.out.println("Enter Lion's scars amount");
+//                    sc = new Scanner(System.in);
+//                    int scars = sc.nextInt();
+//                    animals.get(i).setValue(scars);
                     break;
 
 
@@ -109,15 +111,15 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     bear = new Bear(sc.nextLine());
                     animals.add(bear);
-                    System.out.println("Enter Bear's place");
-                    sc = new Scanner(System.in);
-                    p = new Point(sc.nextInt(), sc.nextInt());
-                    // 'setLocation' will check if the point are available.
-                    animals.get(i).setLocation(p);
-                    System.out.println("Enter Bear's fur color");
-                    sc = new Scanner(System.in);
-                    String furColor = sc.nextLine();
-                    animals.get(i).setValue(furColor);
+//                    System.out.println("Enter Bear's place");
+//                    sc = new Scanner(System.in);
+//                    p = new Point(sc.nextInt(), sc.nextInt());
+//                    // 'setLocation' will check if the point are available.
+//                    animals.get(i).setLocation(p);
+//                    System.out.println("Enter Bear's fur color");
+//                    sc = new Scanner(System.in);
+//                    String furColor = sc.nextLine();
+//                    animals.get(i).setValue(furColor);
                     break;
 
                 case 3:
@@ -125,15 +127,15 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     turtle = new Turtle(sc.nextLine());
                     animals.add(turtle);
-                    System.out.println("Enter turtle's place");
-                    sc = new Scanner(System.in);
-                    p = new Point(sc.nextInt(), sc.nextInt());
-                    // 'setLocation' will check if the point are available.
-                    animals.get(i).setLocation(p);
-                    System.out.println("Enter turtle's age");
-                    sc = new Scanner(System.in);
-                    int age = sc.nextInt();
-                    animals.get(i).setValue(age);
+//                    System.out.println("Enter turtle's place");
+//                    sc = new Scanner(System.in);
+//                    p = new Point(sc.nextInt(), sc.nextInt());
+//                    // 'setLocation' will check if the point are available.
+//                    animals.get(i).setLocation(p);
+//                    System.out.println("Enter turtle's age");
+//                    sc = new Scanner(System.in);
+//                    int age = sc.nextInt();
+//                    animals.get(i).setValue(age);
                     break;
 
                 case 4:
@@ -141,30 +143,30 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     giraffe = new Giraffe(sc.nextLine());
                     animals.add(giraffe);
-                    System.out.println("Enter Giraffe's place");
-                    sc = new Scanner(System.in);
-                    p = new Point(sc.nextInt(), sc.nextInt());
-                    // 'setLocation' will check if the point are available.
-                    animals.get(i).setLocation(p);
-                    System.out.println("Enter Giraffe's neck length");
-                    sc = new Scanner(System.in);
-                    double neckLength = sc.nextDouble();
-                    animals.get(i).setValue(neckLength);
+//                    System.out.println("Enter Giraffe's place");
+//                    sc = new Scanner(System.in);
+//                    p = new Point(sc.nextInt(), sc.nextInt());
+//                    // 'setLocation' will check if the point are available.
+//                    animals.get(i).setLocation(p);
+//                    System.out.println("Enter Giraffe's neck length");
+//                    sc = new Scanner(System.in);
+//                    double neckLength = sc.nextDouble();
+//                    animals.get(i).setValue(neckLength);
                     break;
                 case 5:
                     System.out.println("Enter Elephant's name");
                     sc = new Scanner(System.in);
                     elephant = new Elephant(sc.nextLine());
                     animals.add(elephant);
-                    System.out.println("Enter Elephant's place");
-                    sc = new Scanner(System.in);
-                    p = new Point(sc.nextInt(), sc.nextInt());
-                    // 'setLocation' will check if the point are available.
-                    animals.get(i).setLocation(p);
-                    System.out.println("Enter Elephant's trunk length");
-                    sc = new Scanner(System.in);
-                    int trunkLength = sc.nextInt();
-                    animals.get(i).setValue(trunkLength);
+//                    System.out.println("Enter Elephant's place");
+//                    sc = new Scanner(System.in);
+//                    p = new Point(sc.nextInt(), sc.nextInt());
+//                    // 'setLocation' will check if the point are available.
+//                    animals.get(i).setLocation(p);
+//                    System.out.println("Enter Elephant's trunk length");
+//                    sc = new Scanner(System.in);
+//                    int trunkLength = sc.nextInt();
+//                    animals.get(i).setValue(trunkLength);
                     break;
                 default:
                     System.out.println("Bad Choice, try again");
@@ -172,6 +174,10 @@ public class ZooActions {
                     break;
             }// end switch.
         }// end for loop.
+        food = new LinkedList<>();
+		food.add(new Cabbage());
+		food.add(animals.get(0));
+		food.add(animals.get(1));
         Random rand = new Random();
         for(Animal animal :animals){
             move(animal,new Point(rand.nextInt(801), rand.nextInt(601)));
@@ -182,7 +188,8 @@ public class ZooActions {
             int x=rand.nextInt(animals.size());
             int y=rand.nextInt(animals.size());
             if(x!=y)
-                eat(animals.get(x), animals.get(y));
+                if(eat(animals.get(x), animals.get(y)))
+                    animals.remove(y);
             else
                 i--;
         }

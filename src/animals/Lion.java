@@ -3,6 +3,7 @@ import food.IEdible;
 import mobility.*;
 import diet.*;
 import food.EFoodType;
+import utilities.MessageUtility;
 
 import java.util.Random;
 
@@ -22,10 +23,12 @@ public class Lion extends roar {
      */
     public Lion(String name) {
         super(name,new Point(20,0));
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(408.2);
         setDiet(new Carnivore());
         scarCount = 0;
-        this.setWeight(408.2);
-        System.out.println("[+] new Lion: "+ name);
+
+
     }
 
     /**
@@ -35,10 +38,10 @@ public class Lion extends roar {
      */
     public Lion(String name,Point p) {
         super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(408.2);
         setDiet(new Carnivore());
         scarCount = 0;
-        this.setWeight(408.2);
-        System.out.println("[+] new Lion: "+ name);
     }
 
     /**

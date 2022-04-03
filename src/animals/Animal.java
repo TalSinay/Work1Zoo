@@ -23,8 +23,9 @@ public abstract class Animal extends Mobile implements IEdible  {
      */
     public Animal(String name,Point location) {
         super(location);
-        this.name=name;
-        MessageUtility.logConstractor(getClass().getName(), name);
+        MessageUtility.logConstractor(super.getClass().getSuperclass().getSuperclass().getSimpleName(), name);
+        this.setName(name);
+
     }
 
     /**
@@ -35,7 +36,7 @@ public abstract class Animal extends Mobile implements IEdible  {
     public boolean setDiet(IDiet diet) {
         boolean flag = true;
         this.diet=diet;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setDiet", diet, flag);
+        MessageUtility.logSetter(this.name, "setDiet", diet, flag);
         return true;
     }
 
@@ -45,7 +46,7 @@ public abstract class Animal extends Mobile implements IEdible  {
      */
 
     public double getWeight() {
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getWeight", this.weight);
+        MessageUtility.logGetter(this.name, "getWeight", this.weight);
         return this.weight;
     }
 
@@ -59,7 +60,7 @@ public abstract class Animal extends Mobile implements IEdible  {
             this.weight = x;
             flag = true;
         }
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setWeight", x, flag);
+        MessageUtility.logSetter(this.name, "setWeight", x, flag);
         return true;
     }
 
@@ -71,7 +72,7 @@ public abstract class Animal extends Mobile implements IEdible  {
         boolean flag = name != null;
         if(flag) {
             this.name = name;
-            MessageUtility.logSetter(this.getClass().getSimpleName(), "setName", name, flag);
+            MessageUtility.logSetter(this.name, "setName", name, flag);
 
         }
         return flag;
@@ -97,13 +98,6 @@ public abstract class Animal extends Mobile implements IEdible  {
         return EFoodType.MEAT;
     }
 
-
-
-    public boolean Move(Point p){
-        boolean flag = Point.cheackBounderies(p);
-        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "Move", p, flag);
-        return flag;
-    }
     /**
      * eat method - method for the animals to eat.
      * set a new weight after eats.
@@ -130,7 +124,7 @@ public abstract class Animal extends Mobile implements IEdible  {
 //    }
     //
     public String getName(){
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getName", this.name);
+//        MessageUtility.logGetter(this.getClass().getSimpleName(), "getName", this.name);
         return name;
     }
 
