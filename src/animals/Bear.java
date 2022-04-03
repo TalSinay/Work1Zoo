@@ -1,6 +1,7 @@
 package animals;
 import diet.*;
 import mobility.*;
+import utilities.MessageUtility;
 
 /**
  * 'Bear' class, used to declare all the bears in the zoo.
@@ -20,7 +21,8 @@ public class Bear extends roar{
         this.furColor="GRAY";
         setDiet(new Herbivore());
         this.setWeight(308.2);
-        System.out.println("[+] new Bear: "+ name);
+
+
     }
 
     /**
@@ -34,14 +36,15 @@ public class Bear extends roar{
         this.furColor="GRAY";
         setDiet(new Herbivore());
         this.setWeight(308.2);
-        System.out.println("[+] new Bear: "+ name);
+       // System.out.println("[+] new Bear: "+ name);
     }
 
     /**
      * this method used to make the bear sound.
      */
     public void roar() {
-        System.out.println("Stands on its hind legs, roars and scratches its belly");
+        MessageUtility.logSound(this.getClass().getSimpleName(), "Stands on its hind legs, roars and scratches its belly");
+
     }
 
     /**
@@ -55,7 +58,7 @@ public class Bear extends roar{
             flag = true;
             furColor = color;
         }
-        System.out.print("[s] "+ getName() + "setFurColor("+furColor+ ") => " + flag);
+         System.out.print("[s] "+ getName() + "setFurColor("+furColor+ ") => " + flag);
         return flag;
     }
 
