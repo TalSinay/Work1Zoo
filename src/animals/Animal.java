@@ -3,6 +3,7 @@ package animals;
 import diet.*;
 import food.*;
 import mobility.*;
+import utilities.MessageUtility;
 
 /**
  * 'Animal' class, used to declare all the animals in the zoo.
@@ -23,7 +24,7 @@ public abstract class Animal extends Mobile implements IEdible  {
     public Animal(String name,Point location) {
         super(location);
         this.name=name;
-
+        MessageUtility.logConstractor(getClass().getName(), name);
     }
 
     /**
@@ -32,8 +33,9 @@ public abstract class Animal extends Mobile implements IEdible  {
      * @return return true.
      */
     public boolean setDiet(IDiet diet) {
+        boolean flag = true;
         this.diet=diet;
-        System.out.println("[s] "+ getName() + "setDiet("+diet.toString()+ ") => true");
+        MessageUtility.logSetter(this.getClass().getSimpleName(), "setDiet", diet, flag);
         return true;
     }
 
@@ -43,7 +45,7 @@ public abstract class Animal extends Mobile implements IEdible  {
      */
 
     public double getWeight() {
-        System.out.println("[g] " + name + ":getWeight() => true");
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getWeight", this.weight);
         return this.weight;
     }
 
@@ -57,7 +59,7 @@ public abstract class Animal extends Mobile implements IEdible  {
             this.weight = x;
             flag = true;
         }
-        System.out.println("[s] "+ getName() + "setWeight("+x+ ") => " + flag);
+        MessageUtility.logSetter(this.getClass().getSimpleName(), "setWeight", x, flag);
         return true;
     }
 
@@ -65,9 +67,14 @@ public abstract class Animal extends Mobile implements IEdible  {
      * set name method, use for set new name
      * @param  name  new animal's name.
      */
-    public void setName(String name) {
-        this.name=name;
-        System.out.print("[s] "+ getName() + "setName("+name+ ") => true");
+    public boolean setName(String name) {
+        boolean flag = name != null;
+        if(flag) {
+            this.name = name;
+            MessageUtility.logSetter(this.getClass().getSimpleName(), "setName", name, flag);
+
+        }
+        return flag;
     }
 
     /**
@@ -86,10 +93,17 @@ public abstract class Animal extends Mobile implements IEdible  {
         /**
          * need to fix.
          */
-        System.out.println("[g] " + name + ":getFoodtype() => ");
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
         return EFoodType.MEAT;
     }
 
+
+
+    public boolean Move(Point p){
+        boolean flag = Point.cheackBounderies(p);
+        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "Move", p, flag);
+        return flag;
+    }
     /**
      * eat method - method for the animals to eat.
      * set a new weight after eats.
@@ -99,22 +113,26 @@ public abstract class Animal extends Mobile implements IEdible  {
      */
     public boolean eat(IEdible food) {
         double y=diet.eat(this, food);
-        if (y>0) {
+        boolean flag = y>0;
+        if (flag) {
             this.setWeight(getWeight()+y);
-            return true;
         }
-        return false;
+        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "eat", food, flag);
+        return flag;
     }
     public boolean setValue(String value){return true;};
     public boolean setValue(double value){return true;};
     public boolean setValue(int value){return true;};
-
-    @Override
-    public String toString() {
-        return "[" + this.getClass().getSimpleName() + "]: " + this.getName();
-    }
+//
+//    @Override
+//    public String toString() {
+//        return "[" + this.getClass().getSimpleName() + "]: " + this.getName();
+//    }
     //
-    public String getName(){return name;}
+    public String getName(){
+        MessageUtility.logGetter(this.getClass().getSimpleName(), "getName", this.name);
+        return name;
+    }
 
 }
 

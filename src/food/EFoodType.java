@@ -6,7 +6,9 @@ package food;
  * @author Tal and Shoham
  * @see {diet}
  * */
+
 public enum EFoodType {
     MEAT,NOTFOOD,VEGETABLE;
 
 }
+
