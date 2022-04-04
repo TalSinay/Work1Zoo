@@ -19,9 +19,6 @@ public class Point {
     public Point(){
         this(0,0);
     }
-    public Point(int x){
-        this(x, 0);
-    }
     /**
      *Point constructor.
      * @param x x axis value
@@ -29,11 +26,8 @@ public class Point {
      */
 
     public Point(int x,int y) {
-        if(cheackBounderies(this)) {
             this.x = x;
             this.y = y;
-        }
-
     }
 
     /**

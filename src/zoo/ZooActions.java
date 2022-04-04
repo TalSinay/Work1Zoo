@@ -43,20 +43,17 @@ public class ZooActions {
 
     /**
      * move method, moving animal from one point to another.
+     * @param p the destination
      * @param animal we want to move on.
      * @return true/ false.
      */
-    static public boolean move(Object animal) {
-        Point p;
-        Random rand = new Random();
-        System.out.println("Enter place");
-        Scanner sc = new Scanner(System.in);
-        //p = new Point(sc.nextInt(), sc.nextInt());
-        p = new Point(rand.nextInt(801),rand.nextInt(601));
+    static public boolean move(Object animal,Point p) {
         if (animal instanceof Animal) {
-            if(Point.cheackBounderies(p))
-            ((Animal) animal).move(p);
-            return true;
+            if(Point.cheackBounderies(p)){
+                ((Animal) animal).move(p);
+                return true;
+            }
+
         }
         return false;
     }
@@ -84,6 +81,7 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     lion = new Lion(sc.nextLine());
                     animals.add(lion);
+
 //                    System.out.println("Enter Lion's place");
 //                    sc = new Scanner(System.in);
 //                    p = new Point(sc.nextInt(), sc.nextInt());
@@ -92,7 +90,7 @@ public class ZooActions {
 //                    System.out.println("Enter Lion's scars amount");
 //                    sc = new Scanner(System.in);
 //                    int scars = sc.nextInt();
-//                    animals.get(i).setValue(scars);
+//                    ((Lion)animals.get(i)).setScarCount(scars);
                     break;
 
 
@@ -170,7 +168,7 @@ public class ZooActions {
         food.add(animals.get(1));
         Random rand = new Random();
         for (Animal animal : animals) {
-            move(animal);
+            move(animal,new Point(rand.nextInt(801),rand.nextInt(601)));
         }
         for (int i = 0; i <= animals.size() / 2; i++) {
             int x = rand.nextInt(animals.size());

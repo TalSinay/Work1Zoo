@@ -19,9 +19,12 @@ public class Mobile {
      * @param p (Point)
      */
     public Mobile(Point p){
-        this.location.setx(p.getx());
-        this.location.sety(p.gety());
-        this.totalDistance=0;
+        if(Point.cheackBounderies(p)){
+            this.location.setx(p.getx());
+            this.location.sety(p.gety());
+            this.totalDistance=0;
+        }
+
     }
 
     /**
