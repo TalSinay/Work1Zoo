@@ -63,7 +63,7 @@ public class Point {
     }
 
     public static boolean cheackBounderies(Point p){
-        return(p.getx()>=getminx() && p.getx()<= getmaxX() && p.getx()>=getminy() && p.getx() <= getmaxy());
+        return(p.getx()>=getminx() && p.getx()<= getmaxX() && p.gety()>=getminy() && p.gety() <= getmaxy());
     }
     /**
      * getx method

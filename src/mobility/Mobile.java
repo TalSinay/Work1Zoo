@@ -41,20 +41,21 @@ public class Mobile {
      * @return the distance of this travel.
      */
     public double move(Point p) {
-        addTotalDistance(calcDistance(p));
-        double distance=calcDistance(p);
-        this.location.setx(p.getx());
-        this.location.sety(p.gety());
-        if(this instanceof Animal) {
-            if(((Animal) this).Move(p)) {
-                double x = ((Animal) this).getWeight() - (distance * ((Animal) this).getWeight() * 0.00025);
-                ((Animal) this).setWeight(x);
-            }
+        boolean flag = false;
+        if(Point.cheackBounderies(p)){
+                flag = true;
+            addTotalDistance(calcDistance(p));
+            double distance = calcDistance(p);
+            this.location.setx(p.getx());
+            this.location.sety(p.gety());
+            if (this instanceof Animal) {
+                    double x = ((Animal) this).getWeight() - (distance * ((Animal) this).getWeight() * 0.00025);
+                    ((Animal) this).setWeight(x);
+                MessageUtility.logBooleanFunction(((Animal) this).getName(), "move", p.toString(), flag);
+                }
+            return this.calcDistance(p);
         }
-//       move();
-//        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "move", p.toString(),Point.cheackBounderies(p));
-
-        return this.calcDistance(p);
+        return 0;
     }
 
     /**
@@ -89,5 +90,8 @@ public class Mobile {
 
     }
 
+    public double getTotalDistance() {
+        return totalDistance;
+    }
 }
 

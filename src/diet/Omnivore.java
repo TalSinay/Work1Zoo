@@ -13,8 +13,8 @@ import food.IEdible;
  * */
 public class Omnivore implements IDiet {
 
-    private  Herbivore h;
-    private  Carnivore c;
+    private  Herbivore h=new Herbivore();
+    private  Carnivore c=new Carnivore();
 
     /**
      * canEat- method to check if the food isn't lion(NOTMEAT).
