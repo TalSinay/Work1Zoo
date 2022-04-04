@@ -41,5 +41,8 @@ public class Carnivore implements IDiet {
 
        return 0;
     }
+    public String toString(){
+        return "[Carnivore]";
+    }
 
 }

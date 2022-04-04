@@ -40,4 +40,7 @@ public class Omnivore implements IDiet {
 
         return 0;
     }
+    public String toString(){
+        return "[Omnivore]";
+    }
 }

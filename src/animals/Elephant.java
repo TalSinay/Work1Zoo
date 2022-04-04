@@ -48,7 +48,7 @@ public class Elephant extends chew{
      * tnis method use to make the elephant's sound.
      */
     public void chew() {
-        System.out.println("Trumpets with joy while flapping its ears, then chews");
+        MessageUtility.logSound(getName(),"Trumpets with joy while flapping its ears, then chews");
     }
     /**
      * settrunkLength method - set the trunk length of the elephant.

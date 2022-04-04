@@ -46,10 +46,13 @@ public class Mobile {
         this.location.setx(p.getx());
         this.location.sety(p.gety());
         if(this instanceof Animal) {
-            double x=((Animal) this).getWeight()-(distance*((Animal) this).getWeight()*0.00025);
-            ((Animal)this).setWeight(x);
+            if(((Animal) this).Move(p)) {
+                double x = ((Animal) this).getWeight() - (distance * ((Animal) this).getWeight() * 0.00025);
+                ((Animal) this).setWeight(x);
+            }
         }
-        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "Move", p,Point.cheackBounderies(p));
+//       move();
+//        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "move", p.toString(),Point.cheackBounderies(p));
 
         return this.calcDistance(p);
     }

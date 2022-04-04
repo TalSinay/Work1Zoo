@@ -36,7 +36,7 @@ public abstract class Animal extends Mobile implements IEdible  {
     public boolean setDiet(IDiet diet) {
         boolean flag = true;
         this.diet=diet;
-        MessageUtility.logSetter(this.name, "setDiet", diet, flag);
+        MessageUtility.logSetter(this.name, "setDiet", diet.toString(), flag);
         return true;
     }
 
@@ -97,7 +97,15 @@ public abstract class Animal extends Mobile implements IEdible  {
         MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
         return EFoodType.MEAT;
     }
-
+    // to get the animal's name.
+    public boolean Move(Point p){
+        boolean flag = false;
+        if(Point.cheackBounderies(p)){
+            flag = true;
+        }
+        MessageUtility.logBooleanFunction(name, "move", p.toString(), flag);
+        return flag;
+    }
     /**
      * eat method - method for the animals to eat.
      * set a new weight after eats.
@@ -111,7 +119,7 @@ public abstract class Animal extends Mobile implements IEdible  {
         if (flag) {
             this.setWeight(getWeight()+y);
         }
-        MessageUtility.logBooleanFunction(this.getClass().getSimpleName(), "eat", food, flag);
+        MessageUtility.logBooleanFunction(this.name, "eat", food.getClass().getSimpleName() , flag);
         return flag;
     }
     public boolean setValue(String value){return true;};

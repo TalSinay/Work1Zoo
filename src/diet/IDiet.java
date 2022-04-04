@@ -26,4 +26,6 @@ public interface IDiet {
      */
     double eat(Animal animal, IEdible food);
 
+    public String toString();
+
 }

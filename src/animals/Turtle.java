@@ -42,7 +42,7 @@ public class Turtle extends chew{
      * this method use to make the turtle sound
      */
     public void chew() {
-        System.out.println("Retracts its head in then eats quietly");
+        MessageUtility.logSound(getName(),"Retracts its head in then eats quietly");
     }
 
     /**

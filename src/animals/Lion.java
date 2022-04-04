@@ -48,7 +48,7 @@ public class Lion extends roar {
      * this methos is using to make the lion's sound.
      */
     public void roar() {
-        System.out.println("Roars, then stretches and shakes its mane");
+        MessageUtility.logSound(getName(),"Roars, then stretches and shakes its mane");
     }
 
     /**

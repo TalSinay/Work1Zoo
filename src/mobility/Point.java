@@ -109,4 +109,7 @@ public class Point {
         return miny;
     }
 
+    public String toString(){
+        return "("+ getx() + ", " + gety() + ")";
+    }
 }

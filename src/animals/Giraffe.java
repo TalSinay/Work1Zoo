@@ -26,7 +26,7 @@ public class Giraffe extends chew{
 
     }
     public void chew() {
-        System.out.println("Bleats and Stomps its legs, then chews");
+        MessageUtility.logSound(getName(), "Bleats and Stomps its legs, then chews");
     }
 
     /**
