@@ -25,7 +25,7 @@ public class Turtle extends chew{
     }
 
     /**
-     * turtle fully constructor.
+     * turtle constructor.
      * @param name turtle's name.
      * @param p the turtle's location.
      */
@@ -34,6 +34,20 @@ public class Turtle extends chew{
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(1);
         this.setAge(1);
+        setDiet(new Herbivore());
+
+    }
+    /**
+     * turtle fully constructor.
+     * @param name turtle's name.
+     * @param p the turtle's location.
+     * @param age the turtle's age.
+     */
+    public Turtle(String name,Point p, int age) {
+        super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(1);
+        this.setAge(age);
         setDiet(new Herbivore());
 
     }
@@ -61,6 +75,9 @@ public class Turtle extends chew{
         return true;
     }
 
+    public int getAge(){
+        return this.Age;
+    }
 //    /**
 //     * override method. use setAge.
 //     * @param value the age

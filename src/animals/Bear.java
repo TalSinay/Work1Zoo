@@ -38,6 +38,21 @@ public class Bear extends roar{
         setDiet(new Omnivore());
 
     }
+    /**
+     * 'Bear' fully constructor.
+     * @param name the bear's name.
+     * @param p the bear's location.
+     * @param furColor the bear's fur color.
+     * //@param color the bear's fur color.
+     */
+    public Bear(String name,Point p, String furColor) {
+        super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(308.2);
+        this.setFurColor(furColor);
+        setDiet(new Omnivore());
+
+    }
 
     /**
      * this method used to make the bear sound.
@@ -56,7 +71,9 @@ public class Bear extends roar{
         boolean flag = false;
         if(color.equals("BLACK")||color.equals("WHITE")||color.equals("GRAY")){
             flag = true;
-            furColor = color;
+            this.furColor = color;
+        }else{
+            this.furColor = "GRAY";
         }
          MessageUtility.logSetter(this.getName(),"setFurColor",color,flag);
         return flag;

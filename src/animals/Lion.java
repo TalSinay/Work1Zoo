@@ -26,7 +26,7 @@ public class Lion extends roar {
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(408.2);
         setDiet(new Carnivore());
-        this.scarCount = 0;
+        this.setScarCount(0);
 
 
     }
@@ -41,8 +41,21 @@ public class Lion extends roar {
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(408.2);
         setDiet(new Carnivore());
-        scarCount = 0;
+        this.setScarCount(0);
     }
+    /**
+     * Lion fully constructor.
+     * @param name the lion's name.
+     * @param p the lion's location.
+     */
+    public Lion(String name,Point p, int scarCount) {
+        super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(408.2);
+        setDiet(new Carnivore());
+        this.setScarCount(scarCount);
+    }
+
 
     /**
      * this methos is using to make the lion's sound.
@@ -58,7 +71,7 @@ public class Lion extends roar {
      */
     public boolean setScarCount(int scars){
         boolean flag = false;
-        if(scars > 0) {
+        if(scars >= 0) {
             this.scarCount = scars;
             flag = true;
         }

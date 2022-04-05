@@ -24,9 +24,21 @@ public class Elephant extends chew{
         setDiet(new Herbivore());
 
     }
-
     /**
      * the elephant constructor.
+     * @param name elephant's name.
+     * @param p location (point)
+     */
+    public Elephant(String name,Point p) {
+        super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(500);
+        this.settrunkLength(1);
+        setDiet(new Herbivore());
+    }
+
+    /**
+     * the elephant fully constructor.
      * @param name elephant's name.
      * @param p location (point)
      * @param num the trunk length
@@ -35,13 +47,8 @@ public class Elephant extends chew{
         super(name,p);
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(500);
-        if (num>0.5 && num<3)
-            this.settrunkLength(num);
-        else
-            this.settrunkLength(1);
+        this.settrunkLength(num);
         setDiet(new Herbivore());
-
-
     }
 
     /**
@@ -63,6 +70,9 @@ public class Elephant extends chew{
         }
         MessageUtility.logSetter(this.getName(),"settrunkLength",len,flag);
         return flag;
+    }
+    public double getTrunkLength(){
+        return this.trunkLength;
     }
 
 //    /**

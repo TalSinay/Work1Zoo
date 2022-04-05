@@ -27,18 +27,27 @@ public class Giraffe extends chew{
      * the giraffe constructor
      * @param name the giraffe name.
      * @param p the starts point.
+
+     */
+    public Giraffe(String name,Point p) {
+        super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(450);
+        this.setNeckLength(1.5);
+        setDiet(new Herbivore());
+    }
+    /**
+     * the giraffe fully constructor
+     * @param name the giraffe name.
+     * @param p the starts point.
      * @param len the neck length.
      */
     public Giraffe(String name,Point p,double len) {
         super(name,p);
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(450);
-        if (len>1 && len<2.5)
-            this.setNeckLength(len);
-        else
-            this.setNeckLength(1.5);
+        this.setNeckLength(len);
         setDiet(new Herbivore());
-
     }
     /**
      * tnis method use to make the giraffe's sound.
@@ -61,6 +70,9 @@ public class Giraffe extends chew{
         }
         MessageUtility.logSetter(this.getName(),"setNeckLength",len,flag);
         return flag;
+    }
+    double getNeckLength(){
+        return this.neckLength;
     }
 //
 //    /**
