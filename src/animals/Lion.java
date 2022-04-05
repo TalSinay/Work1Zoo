@@ -14,7 +14,7 @@ import java.util.Random;
  * @see {Animal}
  * */
 public class Lion extends roar {
-    private int scarCount=0;
+    private int scarCount;
 
     /**
      * Lion constructor(one parameter).
@@ -26,7 +26,7 @@ public class Lion extends roar {
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
         this.setWeight(408.2);
         setDiet(new Carnivore());
-        scarCount = 0;
+        this.scarCount = 0;
 
 
     }
@@ -59,11 +59,14 @@ public class Lion extends roar {
     public boolean setScarCount(int scars){
         boolean flag = false;
         if(scars > 0) {
-            scarCount = scars;
+            this.scarCount = scars;
             flag = true;
         }
-        System.out.print("[s] "+ getName() + "setScarCount("+scars+ ") => "+ flag);
+        MessageUtility.logSetter(this.getName(),"setScarCount",scars,flag);
         return flag;
+    }
+    public int getScarCount(){
+        return this.scarCount;
     }
 
     /**
@@ -90,9 +93,10 @@ public class Lion extends roar {
             Random rand = new Random();
             boolean scar_prob = rand.nextBoolean();
             if(scar_prob)
-                scarCount++;
+                this.scarCount++;
             return true;
         }
         return false;
     }
+
 }

@@ -94,18 +94,11 @@ public abstract class Animal extends Mobile implements IEdible  {
         /**
          * need to fix.
          */
-        MessageUtility.logGetter(this.getClass().getSimpleName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
+        MessageUtility.logGetter(this.getName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
         return EFoodType.MEAT;
     }
     // to get the animal's name.
-    public boolean Move(Point p){
-        boolean flag = false;
-        if(Point.cheackBounderies(p)){
-            flag = true;
-        }
-        MessageUtility.logBooleanFunction(name, "move", p.toString(), flag);
-        return flag;
-    }
+
     /**
      * eat method - method for the animals to eat.
      * set a new weight after eats.
@@ -117,9 +110,12 @@ public abstract class Animal extends Mobile implements IEdible  {
         double y=diet.eat(this, food);
         boolean flag = y>0;
         if (flag) {
-            this.setWeight(getWeight()+y);
+            this.setWeight(this.weight+y);
         }
-        MessageUtility.logBooleanFunction(this.name, "eat", food.getClass().getSimpleName() , flag);
+        String v=food instanceof Animal ?"\t"+((Animal) food).getName():"";
+        String s="["+food.getClass().getSimpleName()+"]"+v;
+        MessageUtility.logBooleanFunction(this.name, "eat", s , flag);
+        this.makeSound();
         return flag;
     }
     public boolean setValue(String value){return true;};
@@ -136,5 +132,11 @@ public abstract class Animal extends Mobile implements IEdible  {
         return name;
     }
 
+    public IDiet getDiet() {
+        return diet;
+    }
+    public String toString(){
+        return "[!] ["+this.getClass().getSimpleName()+"] "+this.name+" total distance: ["+this.getTotalDistance()+"],weight: ["+this.weight+"]";
+    }
 }
 
