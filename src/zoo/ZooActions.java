@@ -15,7 +15,7 @@ import java.util.List;
  * 'ZooActions' class, used to make all the actions in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * {@see animals}
+ * @see animals
  * */
 public class ZooActions {
     private static List<Animal> animals;
@@ -59,8 +59,8 @@ public class ZooActions {
     }
 
     /**
-     *
-     * @param args
+     * the main method, used to call all the actions in the zoo
+     * @param args contains the supplied command-line arguments as an array of String objects.
      */
     public static void main(String[] args) {
         System.out.println("Enter amount of animals: (MINIMUM 3):");
@@ -99,15 +99,7 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     bear = new Bear(sc.nextLine());
                     animals.add(bear);
-//                    System.out.println("Enter Bear's place");
-//                    sc = new Scanner(System.in);
-//                    p = new Point(sc.nextInt(), sc.nextInt());
-//                    // 'setLocation' will check if the point are available.
-//                    animals.get(i).setLocation(p);
-//                    System.out.println("Enter Bear's fur color");
-//                    sc = new Scanner(System.in);
-//                    String furColor = sc.nextLine();
-//                    animals.get(i).setValue(furColor);
+
                     break;
 
                 case 3:
@@ -115,15 +107,7 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     turtle = new Turtle(sc.nextLine());
                     animals.add(turtle);
-//                    System.out.println("Enter turtle's place");
-//                    sc = new Scanner(System.in);
-//                    p = new Point(sc.nextInt(), sc.nextInt());
-//                    // 'setLocation' will check if the point are available.
-//                    animals.get(i).setLocation(p);
-//                    System.out.println("Enter turtle's age");
-//                    sc = new Scanner(System.in);
-//                    int age = sc.nextInt();
-//                    animals.get(i).setValue(age);
+
                     break;
 
                 case 4:
@@ -131,30 +115,14 @@ public class ZooActions {
                     sc = new Scanner(System.in);
                     giraffe = new Giraffe(sc.nextLine());
                     animals.add(giraffe);
-//                    System.out.println("Enter Giraffe's place");
-//                    sc = new Scanner(System.in);
-//                    p = new Point(sc.nextInt(), sc.nextInt());
-//                    // 'setLocation' will check if the point are available.
-//                    animals.get(i).setLocation(p);
-//                    System.out.println("Enter Giraffe's neck length");
-//                    sc = new Scanner(System.in);
-//                    double neckLength = sc.nextDouble();
-//                    animals.get(i).setValue(neckLength);
+
                     break;
                 case 5:
                     System.out.println("Enter Elephant's name");
                     sc = new Scanner(System.in);
                     elephant = new Elephant(sc.nextLine());
                     animals.add(elephant);
-//                    System.out.println("Enter Elephant's place");
-//                    sc = new Scanner(System.in);
-//                    p = new Point(sc.nextInt(), sc.nextInt());
-//                    // 'setLocation' will check if the point are available.
-//                    animals.get(i).setLocation(p);
-//                    System.out.println("Enter Elephant's trunk length");
-//                    sc = new Scanner(System.in);
-//                    int trunkLength = sc.nextInt();
-//                    animals.get(i).setValue(trunkLength);
+
                     break;
                 default:
                     System.out.println("Bad Choice, try again");

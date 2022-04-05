@@ -7,7 +7,7 @@ import utilities.MessageUtility;
  * 'Bear' class, used to declare all the bears in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {Animal}
+ * @see Animal
  * */
 public class Bear extends roar{
     private String furColor;
@@ -63,12 +63,20 @@ public class Bear extends roar{
     }
 
     /**
-     * setValue - override method from Animal class. this method use setFurColor.
-     * @param color new color.
-     * @return true/ false
+     * getFurColor method
+     * @return the fur's color of the bear.
      */
-    @Override
-    public boolean setValue(String color){
-        return setFurColor(color);
+    public String getFurColor(){
+        return this.furColor;
     }
+
+//    /**
+//     * setValue - override method from Animal class. this method use setFurColor.
+//     * @param color new color.
+//     * @return true/ false
+//     */
+//    @Override
+//    public boolean setValue(String color){
+//        return setFurColor(color);
+//    }
 }

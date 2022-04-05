@@ -11,7 +11,7 @@ import java.util.Random;
  * 'Lion' class, used to declare all the lions in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {Animal}
+ * @see Animal
  * */
 public class Lion extends roar {
     private int scarCount;
@@ -69,19 +69,20 @@ public class Lion extends roar {
         return this.scarCount;
     }
 
+//    /**
+//     * override method. use setScarCount.
+//     * @param scars amount of scars
+//     * @return true
+//     */
+//    @Override
+//    public boolean setValue(int scars){
+//        return setScarCount(scars);
+//    }
     /**
-     * override method. use setScarCount.
-     * @param scars amount of scars
-     * @return true
-     */
-    @Override
-    public boolean setValue(int scars){
-        return setScarCount(scars);
-    }
-    /**
-     * {@see Animal}, override the base class method to return the right type.
-     * (only lions get this type)
      *
+     * override the base class method to return the right type.
+     * (only lions get this type)
+     *@see Animal
      * @return NOTFOOD (EFoodType).
      */
     @Override

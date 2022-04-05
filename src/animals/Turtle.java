@@ -7,7 +7,7 @@ import utilities.MessageUtility;
  * 'Turtle' class, used to declare all the turtles in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {Animal}
+ * @see Animal
  * */
 public class Turtle extends chew{
     private int Age;
@@ -61,13 +61,14 @@ public class Turtle extends chew{
         return true;
     }
 
-    /**
-     * override method. use setAge.
-     * @param value the age
-     * @return true
-     */
-    @Override
-    public boolean setValue(int value) {
-        return setAge(value);
-    }
+//    /**
+//     * override method. use setAge.
+//     * @param value the age
+//     * @return true
+//     */
+//    @Override
+//    public boolean setValue(int value) {
+//        return setAge(value);
+//    }
+
 }

@@ -9,7 +9,7 @@ import food.IEdible;
  * this class implements IDiet interface.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {food}
+ * @see food
  * */
 public class Omnivore implements IDiet {
 
@@ -40,6 +40,10 @@ public class Omnivore implements IDiet {
 
         return 0;
     }
+    /**
+     * toString method.
+     * @return the eating type in a String format.
+     */
     public String toString(){
         return "[Omnivore]";
     }

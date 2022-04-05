@@ -3,9 +3,18 @@ import mobility.*;
 import diet.*;
 import utilities.MessageUtility;
 
+/**
+ * 'Elephant' class, used to declare all the elephants in the zoo.
+ * @version 24.3.22
+ * @author Tal and Shoham
+ * @see Animal
+ * */
 public class Giraffe extends chew{
     private double neckLength;
-
+    /**
+     * the giraffe constructor
+     * @param name the giraffe name.
+     */
     public Giraffe(String name) {
         super(name,new Point(50,0));
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
@@ -14,6 +23,12 @@ public class Giraffe extends chew{
         setDiet(new Herbivore());
 
     }
+    /**
+     * the giraffe constructor
+     * @param name the giraffe name.
+     * @param p the starts point.
+     * @param len the neck length.
+     */
     public Giraffe(String name,Point p,double len) {
         super(name,p);
         MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
@@ -25,6 +40,9 @@ public class Giraffe extends chew{
         setDiet(new Herbivore());
 
     }
+    /**
+     * tnis method use to make the giraffe's sound.
+     */
     public void chew() {
         MessageUtility.logSound(getName(), "Bleats and Stomps its legs, then chews");
     }
@@ -44,15 +62,15 @@ public class Giraffe extends chew{
         MessageUtility.logSetter(this.getName(),"setNeckLength",len,flag);
         return flag;
     }
-
-    /**
-     * overide method. use setNeckLength method
-     * @param value the new length
-     * @return true/ false.
-     */
-    @Override
-    public boolean setValue(double value) {
-        return setNeckLength(value);
-    }
+//
+//    /**
+//     * overide method. use setNeckLength method
+//     * @param value the new length
+//     * @return true/ false.
+//     */
+//    @Override
+//    public boolean setValue(double value) {
+//        return setNeckLength(value);
+//    }
 }
 

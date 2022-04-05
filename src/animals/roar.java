@@ -2,12 +2,31 @@ package animals;
 
 import mobility.*;
 
+/**
+ * 'roar' an abstract class, used to declare all the animals in the zoo who roars.
+ * @version 2.4.22
+ * @author Tal and Shoham
+ * @see Bear
+ * @see Lion
+ * * */
 public abstract class roar  extends Animal{
+    /**
+     * roar constructor.
+     * @param name the object's name.
+     * @param p start location.
+     */
     public roar(String name,Point p){
         super(name,p);
     }
+
+    /**
+     * makeSound method. using to make the animal's sound (in this case: to roar).
+     */
     public void makeSound() {
         roar();
     }
+    /**
+     * roar method, this method must be override by the derived class.(animals who roar).
+     */
     public abstract void roar();
 }

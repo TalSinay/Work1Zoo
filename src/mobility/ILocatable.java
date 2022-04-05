@@ -4,7 +4,7 @@ package mobility;
 
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {Point}
+ * @see Point
  * */
 public interface ILocatable {
     /**

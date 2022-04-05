@@ -8,7 +8,7 @@ import food.IEdible;
 
  * @version 24.3.22
  * @author Tal and Shoham
- * {@see food}
+ * @see food
  * */
 public interface IDiet {
     /**

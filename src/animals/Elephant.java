@@ -7,7 +7,7 @@ import utilities.MessageUtility;
  * 'Elephant' class, used to declare all the elephants in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {Animal}
+ * @see Animal
  * */
 public class Elephant extends chew{
     private double trunkLength;
@@ -65,13 +65,13 @@ public class Elephant extends chew{
         return flag;
     }
 
-    /**
-     * override method. use settrunkLength method
-     * @param len the new len.
-     * @return true/ false.
-     */
-    @Override
-    public boolean setValue(double len) {
-        return settrunkLength(len);
-    }
+//    /**
+//     * override method. use settrunkLength method
+//     * @param len the new len.
+//     * @return true/ false.
+//     */
+//    @Override
+//    public boolean setValue(double len) {
+//        return settrunkLength(len);
+//    }
 }

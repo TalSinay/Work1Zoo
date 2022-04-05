@@ -7,7 +7,7 @@ import food.*;
  * this class implements IDiet interface.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {food}
+ * @see food
  * */
 public class Carnivore implements IDiet {
 
@@ -41,6 +41,11 @@ public class Carnivore implements IDiet {
 
        return 0;
     }
+
+    /**
+     * toString method.
+     * @return the eating type in a String format.
+     */
     public String toString(){
         return "[Carnivore]";
     }

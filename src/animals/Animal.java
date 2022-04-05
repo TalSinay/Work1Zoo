@@ -9,7 +9,7 @@ import utilities.MessageUtility;
  * 'Animal' class, used to declare all the animals in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {diet}
+ * @see diet
  * */
 public abstract class Animal extends Mobile implements IEdible  {
     private String name;
@@ -118,23 +118,38 @@ public abstract class Animal extends Mobile implements IEdible  {
         this.makeSound();
         return flag;
     }
-    public boolean setValue(String value){return true;};
-    public boolean setValue(double value){return true;};
-    public boolean setValue(int value){return true;};
+
+//    public boolean setValue(String value){return true;};
+//    public boolean setValue(double value){return true;};
+//    public boolean setValue(int value){return true;};
 //
 //    @Override
 //    public String toString() {
 //        return "[" + this.getClass().getSimpleName() + "]: " + this.getName();
 //    }
     //
+
+    /**
+     * getName method.
+     * @return the object's name.
+     */
     public String getName(){
 //        MessageUtility.logGetter(this.getClass().getSimpleName(), "getName", this.name);
         return name;
     }
 
+    /**
+     * getDiet method
+     * @return the object's diet.
+     */
     public IDiet getDiet() {
         return diet;
     }
+
+    /**
+     * toString method (override)
+     * @return return the object's details in a String format.
+     */
     public String toString(){
         return "[!] ["+this.getClass().getSimpleName()+"] "+this.name+" total distance: ["+this.getTotalDistance()+"],weight: ["+this.weight+"]";
     }
