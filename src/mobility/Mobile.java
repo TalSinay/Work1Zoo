@@ -47,6 +47,7 @@ public class Mobile {
         this.location.sety(p.gety());
         if(this instanceof Animal) {
             if(((Animal) this).Move(p)) {
+                //move this action to Animal.Move
                 double x = ((Animal) this).getWeight() - (distance * ((Animal) this).getWeight() * 0.00025);
                 ((Animal) this).setWeight(x);
             }

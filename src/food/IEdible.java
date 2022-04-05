@@ -11,7 +11,7 @@ public interface IEdible {
      * getFoodtype - method to get the food's type.
      * @return food's type.
      */
-    public EFoodType getFoodtype();
+    EFoodType getFoodtype();
 
 }
 
