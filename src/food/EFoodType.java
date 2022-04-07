@@ -4,9 +4,12 @@ package food;
 
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {diet}
+ * @see diet
  * */
 
+/**
+ * enum to declare the tree types of food.
+ */
 public enum EFoodType {
     MEAT,NOTFOOD,VEGETABLE;
 

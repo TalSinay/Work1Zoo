@@ -8,7 +8,7 @@ import utilities.MessageUtility;
 
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {Point}
+ * @see Point
  * */
 public class Mobile {
     private Point location = new Point();
@@ -93,6 +93,10 @@ public class Mobile {
 
     }
 
+    /**
+     * getTotalDistance method.
+     * @return the totalDistance the animals moved.
+     */
     public double getTotalDistance() {
         return totalDistance;
     }

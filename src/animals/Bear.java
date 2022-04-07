@@ -7,7 +7,7 @@ import utilities.MessageUtility;
  * 'Bear' class, used to declare all the bears in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {Animal}
+ * @see Animal
  * */
 public class Bear extends roar{
     private String furColor;
@@ -38,6 +38,21 @@ public class Bear extends roar{
         setDiet(new Omnivore());
 
     }
+    /**
+     * 'Bear' fully constructor.
+     * @param name the bear's name.
+     * @param p the bear's location.
+     * @param furColor the bear's fur color.
+     * //@param color the bear's fur color.
+     */
+    public Bear(String name,Point p, String furColor) {
+        super(name,p);
+        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+        this.setWeight(308.2);
+        this.setFurColor(furColor);
+        setDiet(new Omnivore());
+
+    }
 
     /**
      * this method used to make the bear sound.
@@ -56,19 +71,29 @@ public class Bear extends roar{
         boolean flag = false;
         if(color.equals("BLACK")||color.equals("WHITE")||color.equals("GRAY")){
             flag = true;
-            furColor = color;
+            this.furColor = color;
+        }else{
+            this.furColor = "GRAY";
         }
          MessageUtility.logSetter(this.getName(),"setFurColor",color,flag);
         return flag;
     }
 
     /**
-     * setValue - override method from Animal class. this method use setFurColor.
-     * @param color new color.
-     * @return true/ false
+     * getFurColor method
+     * @return the fur's color of the bear.
      */
-    @Override
-    public boolean setValue(String color){
-        return setFurColor(color);
+    public String getFurColor(){
+        return this.furColor;
     }
+
+//    /**
+//     * setValue - override method from Animal class. this method use setFurColor.
+//     * @param color new color.
+//     * @return true/ false
+//     */
+//    @Override
+//    public boolean setValue(String color){
+//        return setFurColor(color);
+//    }
 }

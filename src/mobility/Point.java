@@ -103,6 +103,10 @@ public class Point {
         return miny;
     }
 
+    /**
+     * toString - override method.
+     * @return the point in a custom String format.
+     */
     public String toString(){
         return "("+ getx() + ", " + gety() + ")";
     }

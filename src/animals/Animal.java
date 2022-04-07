@@ -1,5 +1,4 @@
 package animals;
-// import java.util.Scanner;
 import diet.*;
 import food.*;
 import mobility.*;
@@ -9,7 +8,7 @@ import utilities.MessageUtility;
  * 'Animal' class, used to declare all the animals in the zoo.
  * @version 24.3.22
  * @author Tal and Shoham
- * @see {diet}
+ * @see diet
  * */
 public abstract class Animal extends Mobile implements IEdible  {
     private String name;
@@ -29,7 +28,7 @@ public abstract class Animal extends Mobile implements IEdible  {
     }
 
     /**
-     * this method using to set the 'IDiet' interface in the animal's atribute
+     * this method using to set the 'IDiet' interface in the animal's attribute
      * @param diet the interface.
      * @return return true.
      */
@@ -42,7 +41,7 @@ public abstract class Animal extends Mobile implements IEdible  {
 
     /**
      * 'get' method to get the animal's weight.
-     * @returnthe animal's weight.
+     * @return the animal's weight.
      */
 
     public double getWeight() {
@@ -90,10 +89,6 @@ public abstract class Animal extends Mobile implements IEdible  {
      * @return the animal's type.
      */
     public EFoodType getFoodtype() {
-        //////////////////
-        /**
-         * need to fix.
-         */
         MessageUtility.logGetter(this.getName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
         return EFoodType.MEAT;
     }
@@ -118,23 +113,28 @@ public abstract class Animal extends Mobile implements IEdible  {
         this.makeSound();
         return flag;
     }
-    public boolean setValue(String value){return true;};
-    public boolean setValue(double value){return true;};
-    public boolean setValue(int value){return true;};
-//
-//    @Override
-//    public String toString() {
-//        return "[" + this.getClass().getSimpleName() + "]: " + this.getName();
-//    }
-    //
+
+
+    /**
+     * getName method.
+     * @return the object's name.
+     */
     public String getName(){
-//        MessageUtility.logGetter(this.getClass().getSimpleName(), "getName", this.name);
         return name;
     }
 
+    /**
+     * getDiet method
+     * @return the object's diet.
+     */
     public IDiet getDiet() {
         return diet;
     }
+
+    /**
+     * toString method (override)
+     * @return return the object's details in a String format.
+     */
     public String toString(){
         return "[!] ["+this.getClass().getSimpleName()+"] "+this.name+" total distance: ["+this.getTotalDistance()+"],weight: ["+this.weight+"]";
     }
