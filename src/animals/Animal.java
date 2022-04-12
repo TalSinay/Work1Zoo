@@ -1,8 +1,13 @@
 package animals;
 import diet.*;
 import food.*;
+import graphics.*;
 import mobility.*;
+import mobility.Point;
 import utilities.MessageUtility;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * 'Animal' class, used to declare all the animals in the zoo.
@@ -10,10 +15,22 @@ import utilities.MessageUtility;
  * @author Tal and Shoham
  * @see diet
  * */
-public abstract class Animal extends Mobile implements IEdible  {
+public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior {
     private String name;
     private double weight;
     private IDiet diet;
+    private final int EAT_DISTANCE = 5;
+    private int size;
+    private Color col;
+    private int horSpeed;
+    private int verSpeed;
+    private boolean coordChanged=false;
+    private Thread thread;
+    private int x_dir;
+    private int y_dir;
+    private int eatCount;
+    private ZooPanel pan;
+    private BufferedImage img1, img2; // img1 to move right,img2 to move left.
 
     /**
      * animal constructor.
@@ -137,6 +154,15 @@ public abstract class Animal extends Mobile implements IEdible  {
      */
     public String toString(){
         return "[!] ["+this.getClass().getSimpleName()+"] "+this.name+" total distance: ["+this.getTotalDistance()+"],weight: ["+this.weight+"]";
+    }
+
+    @Override
+    public void drawObject(Graphics g) {
+
+    }
+
+    public boolean getCoordChanged() {
+        return this.coordChanged;
     }
 }
 
