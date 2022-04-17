@@ -19,7 +19,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private String name;
     private double weight;
     private IDiet diet;
-    private final int EAT_DISTANCE = 5;
+    private final int EAT_DISTANCE = 10;
     private int size;
     private Color col;
     private int horSpeed;
