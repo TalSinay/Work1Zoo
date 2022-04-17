@@ -36,8 +36,12 @@ public class ZooPanel extends JPanel implements Runnable {
         super.paintComponent(g) ;
         if(img!=null)
             g.drawImage(img,0,0,getWidth(),getHeight(), this);
+        //need to call drawObject()
 
 
     }
+    public void callback(Animal animal){
+        animal.IncEatcount();
 
+    }
 }
