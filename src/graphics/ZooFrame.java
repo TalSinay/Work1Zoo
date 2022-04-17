@@ -10,7 +10,9 @@ import javax.swing.*;
 
 
 public class ZooFrame extends JFrame {
-    public static void main(String[] args){}
+    public static void main(String args[]){
 
+    }
+    private ZooPanel zoo;
 
 }

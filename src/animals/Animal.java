@@ -26,11 +26,12 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private int verSpeed;
     private boolean coordChanged=false;
     private Thread thread;
-    private int x_dir;
-    private int y_dir;
-    private int eatCount;
+    private int x_dir=1;
+    private int y_dir=1;
+    private int eatCount=0;
     private ZooPanel pan;
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
+    private static int TotalEatCount=0;
 
     /**
      * animal constructor.
@@ -164,5 +165,19 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public boolean getCoordChanged() {
         return this.coordChanged;
     }
+    public Color getCol(){return this.col;}
+    public int getX_dir(){return this.x_dir;}
+    public int getY_dir(){return this.y_dir;}
+    public int getSize(){return this.size;}
+    public ZooPanel getPan(){return this.pan;}
+    public BufferedImage getImg1(){return this.img1;}
+    public BufferedImage getImg2(){return this.img2;}
+    public void IncEatcount(){
+        this.eatCount=this.eatCount+1;
+        TotalEatCount=TotalEatCount+1;
+    }
+
+
+
 }
 
