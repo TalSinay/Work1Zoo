@@ -19,9 +19,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private String name;
     private double weight;
     private IDiet diet;
-    private final int EAT_DISTANCE = 5;
+    private final int EAT_DISTANCE = 10;
     private int size;
-    private Color col;
+    private String col;
     private int horSpeed;
     private int verSpeed;
     private boolean coordChanged=false;
@@ -107,10 +107,11 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @return the animal's type.
      */
     public EFoodType getFoodtype() {
-        MessageUtility.logGetter(this.getName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
+        MessageUtility.logGetter(this.getAnimalName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
         return EFoodType.MEAT;
     }
     // to get the animal's name.
+
 
     /**
      * eat method - method for the animals to eat.
@@ -125,7 +126,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         if (flag) {
             this.setWeight(this.weight+y);
         }
-        String v=food instanceof Animal ?"\t"+((Animal) food).getName():"";
+        String v=food instanceof Animal ?"\t"+((Animal) food).getAnimalName():"";
         String s="["+food.getClass().getSimpleName()+"]"+v;
         MessageUtility.logBooleanFunction(this.name, "eat", s , flag);
         this.makeSound();
@@ -134,12 +135,14 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
 
     /**
-     * getName method.
+     * getAnimalName method.
      * @return the object's name.
+     *
      */
-    public String getName(){
+    public String getAnimalName(){
         return name;
     }
+
 
     /**
      * getDiet method
@@ -157,15 +160,18 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         return "[!] ["+this.getClass().getSimpleName()+"] "+this.name+" total distance: ["+this.getTotalDistance()+"],weight: ["+this.weight+"]";
     }
 
-    @Override
-    public void drawObject(Graphics g) {
-
+    public void drawObject(Graphics g)
+    {
+        if(getX_dir()==1) // giraffe goes to the right side
+            g.drawImage(this.getImg1(), this.getLocation().getx()-getSize()/2, this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());
+        else // giraffe goes to the left side
+            g.drawImage(this.getImg2(), this.getLocation().getx(), this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());
     }
 
-    public boolean getCoordChanged() {
-        return this.coordChanged;
+    public String getName() {
+        return name;
     }
-    public Color getCol(){return this.col;}
+
     public int getX_dir(){return this.x_dir;}
     public int getY_dir(){return this.y_dir;}
     public int getSize(){return this.size;}
@@ -176,6 +182,27 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.eatCount=this.eatCount+1;
         TotalEatCount=TotalEatCount+1;
     }
+    public void loadImages(String nm){
+
+    }
+    public String getColor(){
+        return this.col;
+    }
+
+    public void eatInc(){
+
+    }
+    public int getEatCount(){
+        return this.eatCount;
+    }
+    public boolean getChanges (){
+        return this.coordChanged;
+    }
+    public void setChanges (boolean state){
+
+    }
+
+
 
 
 

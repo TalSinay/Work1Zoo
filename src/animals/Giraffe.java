@@ -78,14 +78,7 @@ public class Giraffe extends chew{
         return this.neckLength;
     }
 
-    public void drawObject (Graphics g)
-    {
-        g.setColor(getCol());
-        if(getX_dir()==1) // giraffe goes to the right side
-            g.drawImage(this.getImg1(), this.getLocation().getx()-getSize()/2, this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());
-        else // giraffe goes to the left side
-            g.drawImage(this.getImg2(), this.getLocation().getx(), this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());
-    }
+
 //
 //    /**
 //     * overide method. use setNeckLength method
