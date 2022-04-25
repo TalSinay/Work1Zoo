@@ -5,8 +5,10 @@ import animals.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Plant p=null; //this will be the food i think(needs to talk about that).
@@ -93,6 +95,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource()==Add){
+//            image = ImageIO.read(new File(path));
+//            JLabel picLabel = new JLabel(new ImageIcon(image));
 
         }
         if(e.getSource()==Move){
