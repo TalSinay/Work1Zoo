@@ -6,10 +6,14 @@ import mobility.*;
 import plants.*;
 import utilities.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 
 public class ZooFrame extends JFrame implements ActionListener {
@@ -27,6 +31,7 @@ public class ZooFrame extends JFrame implements ActionListener {
     JMenuItem greenItem;
     JMenuItem helpItem;
     JMenuItem exitItem;
+    JLabel label;
 
     ImageIcon image =new ImageIcon("savanna.png");
     JLabel label1;
@@ -111,10 +116,12 @@ public class ZooFrame extends JFrame implements ActionListener {
 
         }
         if(e.getSource()==NoneItem){
+            this.remove(label);
             this.getContentPane().setBackground(null);
 
         }
         if(e.getSource()==greenItem){
+            this.remove(label);
             this.getContentPane().setBackground(Color.GREEN);
 
         }
@@ -122,6 +129,20 @@ public class ZooFrame extends JFrame implements ActionListener {
 
         }
         if(e.getSource()==ImageItem){
+
+            try {
+
+                this.getContentPane().setBackground(null);
+                BufferedImage img = ImageIO.read(new File("D:/User Files/Desktop/טל לימודים/שנה ב סמסטר ב/תכנות מונחה עצמים מתקדם/עבודות הגשה/עבודה 2_pictures/assignment2_pictures/savanna.jpg"));
+                label = new JLabel();
+                label.setBounds(0, 0, 800, 600);
+                Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon imageIcon = new ImageIcon(dimg);
+                label.setIcon(imageIcon);
+                this.getContentPane().add(label);
+            }
+            catch (IOException a) { System.out.println("Cannot load image");
+                System.out.println(a.toString());}
 
             this.getContentPane().add(label1);
 
