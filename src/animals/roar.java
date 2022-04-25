@@ -10,15 +10,17 @@ import mobility.*;
  * @see Lion
  * * */
 public abstract class roar  extends Animal{
-    /**
-     * roar constructor.
-     * @param name the object's name.
-     * @param p start location.
-     */
-    public roar(String name,Point p){
-        super(name,p);
+//    /**
+//     * roar constructor.
+//     * @param name the object's name.
+//     * @param p start location.
+//     */
+//    public roar(String name,Point p){
+//        super(name,p);
+//    }
+    public roar(Point p, int size, int ver_speed, int hor_speed, String color, double weight){
+        super(p, size, ver_speed, hor_speed, color, weight);
     }
-
     /**
      * makeSound method. using to make the animal's sound (in this case: to roar).
      */

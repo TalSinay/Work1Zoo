@@ -11,47 +11,53 @@ import utilities.MessageUtility;
  * */
 public class Bear extends roar{
     private String furColor;
-
-    /**
-     * constructor with only one argument.
-     * @param name the bear's name.
-     */
-    public Bear(String name) {
-        super(name,new Point(100,5));
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(308.2);
-        this.setFurColor("GRAY");
-        setDiet(new Omnivore());
+    public static Point get_loc(){
+        return new Point(100, 5);
     }
+//    /**
+//     * constructor with only one argument.
+//     * @param name the bear's name.
+//     */
+//    public Bear(String name) {
+////        super(name,new Point(100,5));
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(308.2);
+//        this.setFurColor("GRAY");
+//        setDiet(new Omnivore());
+//    }
+//
+//    /**
+//     * 'Bear' constructor.
+//     * @param name the bear's name.
+//     * @param p the bear's location.
+//     * //@param color the bear's fur color.
+//     */
+//    public Bear(String name,Point p) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(308.2);
+//        this.setFurColor("GRAY");
+//        setDiet(new Omnivore());
+//
+//    }
+//    /**
+//     * 'Bear' fully constructor.
+//     * @param name the bear's name.
+//     * @param p the bear's location.
+//     * @param furColor the bear's fur color.
+//     * //@param color the bear's fur color.
+//     */
+//    public Bear(String name,Point p, String furColor) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(308.2);
+//        this.setFurColor(furColor);
+//        setDiet(new Omnivore());
+//
+//    }
 
-    /**
-     * 'Bear' constructor.
-     * @param name the bear's name.
-     * @param p the bear's location.
-     * //@param color the bear's fur color.
-     */
-    public Bear(String name,Point p) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(308.2);
-        this.setFurColor("GRAY");
-        setDiet(new Omnivore());
-
-    }
-    /**
-     * 'Bear' fully constructor.
-     * @param name the bear's name.
-     * @param p the bear's location.
-     * @param furColor the bear's fur color.
-     * //@param color the bear's fur color.
-     */
-    public Bear(String name,Point p, String furColor) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(308.2);
-        this.setFurColor(furColor);
-        setDiet(new Omnivore());
-
+    public Bear(int size, int ver_speed, int hor_speed, String color, double weight){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight);
     }
 
     /**

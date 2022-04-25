@@ -10,15 +10,18 @@ import mobility.Point;
  * @see Turtle
  * */
 public abstract class chew  extends Animal{
-    /**
-     * chew constructor.
-     * @param name the object's name.
-     * @param p start location.
-     */
-    public chew(String name, Point p){
-        super(name,p);
-    }
+//    /**
+//     * chew constructor.
+//     * @param name the object's name.
+//     * @param p start location.
+//     */
+//    public chew(String name, Point p){
+//        super(name,p);
+//    }
 
+    public chew(Point p, int size, int ver_speed, int hor_speed, String color, double weight){
+        super(p, size, ver_speed, hor_speed, color, weight);
+    }
     /**
      * makeSound method. using to make the animal's sound (in this case: to chew).
      */

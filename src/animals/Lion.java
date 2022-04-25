@@ -16,47 +16,51 @@ import java.util.Random;
 public class Lion extends roar {
     private int scarCount;
 
-    /**
-     * Lion constructor(one parameter).
-     *
-     * @param name the lion's name.
-     */
-    public Lion(String name) {
-        super(name,new Point(20,0));
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(408.2);
-        setDiet(new Carnivore());
-        this.setScarCount(0);
-
-
+//    /**
+//     * Lion constructor(one parameter).
+//     *
+//     * @param name the lion's name.
+//     */
+//    public Lion(String name) {
+//        super(name,new Point(20,0));
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(408.2);
+//        setDiet(new Carnivore());
+//        this.setScarCount(0);
+//
+//
+//    }
+//
+//    /**
+//     * Lion constructor.
+//     * @param name the lion's name.
+//     * @param p the lion's location.
+//     */
+//    public Lion(String name,Point p) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(408.2);
+//        setDiet(new Carnivore());
+//        this.setScarCount(0);
+//    }
+//    /**
+//     * Lion fully constructor.
+//     * @param name the lion's name.
+//     * @param p the lion's location.
+//     */
+//    public Lion(String name,Point p, int scarCount) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(408.2);
+//        setDiet(new Carnivore());
+//        this.setScarCount(scarCount);
+//    }
+    public Lion(int size, int ver_speed, int hor_speed, String color, double weight){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight);
     }
-
-    /**
-     * Lion constructor.
-     * @param name the lion's name.
-     * @param p the lion's location.
-     */
-    public Lion(String name,Point p) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(408.2);
-        setDiet(new Carnivore());
-        this.setScarCount(0);
+    public static Point get_loc(){
+        return new Point(20, 0);
     }
-    /**
-     * Lion fully constructor.
-     * @param name the lion's name.
-     * @param p the lion's location.
-     */
-    public Lion(String name,Point p, int scarCount) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(408.2);
-        setDiet(new Carnivore());
-        this.setScarCount(scarCount);
-    }
-
-
     /**
      * this methos is using to make the lion's sound.
      */

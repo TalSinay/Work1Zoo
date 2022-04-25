@@ -38,11 +38,27 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @param name the given name (string).
      * @param location the given location (point).
      */
-    public Animal(String name,Point location) {
-        super(location);
-        MessageUtility.logConstractor(super.getClass().getSuperclass().getSuperclass().getSimpleName(), name);
-        this.setName(name);
-
+//    public Animal(String name,Point location) {
+//        super(location);
+//        MessageUtility.logConstractor(super.getClass().getSuperclass().getSuperclass().getSimpleName(), name);
+//        this.setName(name);
+//
+//    }
+    /**
+     * animal constructor.
+     * @param size the given size (int).
+     * @param ver the given vertical speed (int).
+     * @param hor the given horizontal speed (int).
+     * @param color the given color (String).
+     * @param weight the given  weight (double).
+     */
+    public Animal(Point p, int size, int ver, int hor, String color, double weight){
+        super(p);
+        this.size = size;
+        this.verSpeed = ver;
+        this.horSpeed = hor;
+        this.col = color;
+        this.weight = weight;
     }
 
     /**
@@ -157,7 +173,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @return return the object's details in a String format.
      */
     public String toString(){
-        return "[!] ["+this.getClass().getSimpleName()+"] "+this.name+" total distance: ["+this.getTotalDistance()+"],weight: ["+this.weight+"]";
+        return "[!] ["+this.getClass().getSimpleName()+"] "+" weight: ["+this.weight+"], color: ["+this.getColor()+"]";
     }
 
     public void drawObject(Graphics g)

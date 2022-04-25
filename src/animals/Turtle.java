@@ -10,46 +10,53 @@ import utilities.MessageUtility;
  * @see Animal
  * */
 public class Turtle extends chew{
-    private int Age;
 
-    /**
-     * the turtle constructor.
-     * @param name the turtle's name.
-     */
-    public Turtle (String name) {
-        super(name,new Point(80,0));
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(1);
-        this.setAge(1);
-        setDiet(new Herbivore());
+    public Turtle(int size, int ver_speed, int hor_speed, String color, double weight){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight);
     }
 
-    /**
-     * turtle constructor.
-     * @param name turtle's name.
-     * @param p the turtle's location.
-     */
-    public Turtle(String name,Point p) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(1);
-        this.setAge(1);
-        setDiet(new Herbivore());
 
-    }
-    /**
-     * turtle fully constructor.
-     * @param name turtle's name.
-     * @param p the turtle's location.
-     * @param age the turtle's age.
-     */
-    public Turtle(String name,Point p, int age) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(1);
-        this.setAge(age);
-        setDiet(new Herbivore());
-
+    //    /**
+//     * the turtle constructor.
+//     * @param name the turtle's name.
+//     */
+//    public Turtle (String name) {
+//        super(name,new Point(80,0));
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(1);
+//        this.setAge(1);
+//        setDiet(new Herbivore());
+//    }
+//
+//    /**
+//     * turtle constructor.
+//     * @param name turtle's name.
+//     * @param p the turtle's location.
+//     */
+//    public Turtle(String name,Point p) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(1);
+//        this.setAge(1);
+//        setDiet(new Herbivore());
+//
+//    }
+//    /**
+//     * turtle fully constructor.
+//     * @param name turtle's name.
+//     * @param p the turtle's location.
+//     * @param age the turtle's age.
+//     */
+//    public Turtle(String name,Point p, int age) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(1);
+//        this.setAge(age);
+//        setDiet(new Herbivore());
+//
+//    }
+    public static Point get_loc(){
+        return new Point(80, 0);
     }
 
     /**
@@ -59,25 +66,8 @@ public class Turtle extends chew{
         MessageUtility.logSound(getName(),"Retracts its head in then eats quietly");
     }
 
-    /**
-     * method to set the turtle's age.
-     * @param age the new  age
-     * @return true/ false.
-     * */
-    public boolean setAge(int age){
-        boolean flag = false;
 
-        if(age > 0 && age <= 500){
-            Age = age;
-            flag = true;
-        }
-        MessageUtility.logSetter(this.getName(),"setAge",age,flag);
-        return true;
-    }
 
-    public int getAge(){
-        return this.Age;
-    }
 //    /**
 //     * override method. use setAge.
 //     * @param value the age

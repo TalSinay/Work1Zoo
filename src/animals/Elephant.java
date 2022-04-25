@@ -10,45 +10,50 @@ import utilities.MessageUtility;
  * @see Animal
  * */
 public class Elephant extends chew{
-    private double trunkLength;
-
-    /**
-     * the elephant constructor
-     * @param name the elephant name.
-     */
-    public Elephant(String name) {
-        super(name,new Point(50,90));
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.settrunkLength(1);
-        this.setWeight(500);
-        setDiet(new Herbivore());
-
+    public static Point get_loc(){
+        return new Point(50, 90);
     }
-    /**
-     * the elephant constructor.
-     * @param name elephant's name.
-     * @param p location (point)
-     */
-    public Elephant(String name,Point p) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(500);
-        this.settrunkLength(1);
-        setDiet(new Herbivore());
-    }
+//
+//    /**
+//     * the elephant constructor
+//     * @param name the elephant name.
+//     */
+//    public Elephant(String name) {
+//        super(name,new Point(50,90));
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.settrunkLength(1);
+//        this.setWeight(500);
+//        setDiet(new Herbivore());
+//
+//    }
+//    /**
+//     * the elephant constructor.
+//     * @param name elephant's name.
+//     * @param p location (point)
+//     */
+//    public Elephant(String name,Point p) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(500);
+//        this.settrunkLength(1);
+//        setDiet(new Herbivore());
+//    }
 
-    /**
-     * the elephant fully constructor.
-     * @param name elephant's name.
-     * @param p location (point)
-     * @param num the trunk length
-     */
-    public Elephant(String name,Point p,double num) {
-        super(name,p);
-        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-        this.setWeight(500);
-        this.settrunkLength(num);
-        setDiet(new Herbivore());
+//    /**
+//     * the elephant fully constructor.
+//     * @param name elephant's name.
+//     * @param p location (point)
+//     * @param num the trunk length
+//     */
+//    public Elephant(String name,Point p,double num) {
+//        super(name,p);
+//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
+//        this.setWeight(500);
+//        this.settrunkLength(num);
+//        setDiet(new Herbivore());
+//    }
+    public Elephant(int size, int ver_speed, int hor_speed, String color, double weight){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight);
     }
 
     /**
@@ -62,26 +67,7 @@ public class Elephant extends chew{
      * @param len the new length.
      * @return true/ false.
      */
-    public boolean settrunkLength(double len){
-        boolean flag = false;
-        if (len>0.5 && len<3) {
-            trunkLength = len;
-            flag = true;
-        }
-        MessageUtility.logSetter(this.getName(),"settrunkLength",len,flag);
-        return flag;
-    }
-    public double getTrunkLength(){
-        return this.trunkLength;
-    }
 
-//    /**
-//     * override method. use settrunkLength method
-//     * @param len the new len.
-//     * @return true/ false.
-//     */
-//    @Override
-//    public boolean setValue(double len) {
-//        return settrunkLength(len);
-//    }
+
+
 }

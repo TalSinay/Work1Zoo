@@ -60,7 +60,7 @@ public class ZooActions {
     /**
      * the main method, used to call all the actions in the zoo
      * @param args contains the supplied command-line arguments as an array of String objects.
-     */
+
     public static void main(String[] args) {
         System.out.println("Enter amount of animals: (MINIMUM 3):");
         Scanner sc = new Scanner(System.in);
@@ -156,7 +156,7 @@ public class ZooActions {
             System.out.println(animal.toString());
         }
     }// end main().
-
+  */
 
 }
 
