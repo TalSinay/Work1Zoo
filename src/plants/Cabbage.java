@@ -18,4 +18,14 @@ public class Cabbage extends Plant {
 	public boolean setlocation(Point p) {
 		return false;
 	}
+
+	@Override
+	public void loadImages(String nm) {
+
+	}
+
+	@Override
+	public String getColor() {
+		return null;
+	}
 }

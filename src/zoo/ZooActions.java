@@ -1,13 +1,12 @@
 package zoo;
 import animals.*;
 import food.*;
-import diet.*;
 import mobility.*;
 import java.util.Scanner;
 import java.util.Random;
 
 import plants.*;
-import utilities.*;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;

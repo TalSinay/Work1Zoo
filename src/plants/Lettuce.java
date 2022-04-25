@@ -11,4 +11,13 @@ public class Lettuce extends Plant {
 		MessageUtility.logConstractor("Lettuce", "Lettuce");
 	}
 
+	@Override
+	public void loadImages(String nm) {
+
+	}
+
+	@Override
+	public String getColor() {
+		return null;
+	}
 }
