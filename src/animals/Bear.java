@@ -60,6 +60,8 @@ public class Bear extends roar {
 
     public Bear(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan) {
         super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
+        loadImages(get_nm());
+        setDiet(new Omnivore());
     }
 
     /**

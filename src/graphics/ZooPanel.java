@@ -71,6 +71,9 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void manageZoo() {
         if (isChange())
             repaint();
+        for(Animal animal: animals){
+
+        }
 
     }
 

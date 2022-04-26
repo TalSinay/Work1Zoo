@@ -63,7 +63,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.horSpeed = hor;
         this.col = color;
         this.weight = weight;
-        loadImages(get_nm());
+
         this.pan = pan;
         coordChanged = true;
     }
