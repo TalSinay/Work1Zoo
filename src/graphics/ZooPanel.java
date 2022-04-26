@@ -1,4 +1,5 @@
 package graphics;
+import food.Meat;
 import plants.Plant;
 import animals.*;
 
@@ -23,6 +24,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private JDialog addAnimalDialog;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
     private Plant plant;
+    private Meat meat;
 
     public ZooPanel(){
         this.setSize(new Dimension(800,600));
@@ -72,14 +74,47 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         if (isChange())
             repaint();
         for(Animal animal: animals){
+            if(meat!=null){
+                if(animal.getLocation().getx()<=meat.getlocation().getx()&&animal.getLocation().gety()<=meat.getlocation().gety()){
+                    if(animal.eat(meat)){
+                        animal.IncEatcount();
+                        animal.setChanges(true);
+                    }
 
+                }
+            }
+            if(plant!=null){
+                if(animal.getLocation().getx()<=plant.getlocation().getx()&&animal.getLocation().gety()<=plant.getlocation().gety()){
+                    if(animal.eat(plant)){
+                        animal.IncEatcount();
+                        animal.setChanges(true);
+                    }
+
+                }
+            }
+
+        }
+        for(Animal animal: animals){
+            for (Animal foodAnimal:animals){
+                if(!(animal.equals(foodAnimal))){
+                    if(animal.getWeight()>foodAnimal.getWeight()*2 && animal.calcDistance(foodAnimal.getLocation())<foodAnimal.getSize()){
+                        animal.eat(foodAnimal);
+                        animal.IncEatcount();
+                        animal.setChanges(true);
+                        animals.remove(animals.indexOf(foodAnimal));
+                        repaint();
+                        return;
+                    }
+                }
+
+
+            }
         }
 
     }
 
     public boolean isChange() {
-        //if (getChanges())
-        //return true;
+
         for(Animal animal: animals){
             if(animal.getChanges()){
                 animal.setChanges(false);

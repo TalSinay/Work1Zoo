@@ -11,3 +11,4 @@ public interface IDrawable {
     public String getColor();
 
 }
+

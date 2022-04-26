@@ -22,10 +22,7 @@ public class Cabbage extends Plant {
 		return false;
 	}
 
-	@Override
-	public void loadImages(String nm) {
 
-	}
 
 	@Override
 	public String getColor() {
