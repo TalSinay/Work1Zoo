@@ -6,8 +6,12 @@ import mobility.*;
 import mobility.Point;
 import utilities.MessageUtility;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 'Animal' class, used to declare all the animals in the zoo.
@@ -52,13 +56,16 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @param color the given color (String).
      * @param weight the given  weight (double).
      */
-    public Animal(Point p, int size, int ver, int hor, String color, double weight){
+    public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan){
         super(p);
         this.size = size;
         this.verSpeed = ver;
         this.horSpeed = hor;
         this.col = color;
         this.weight = weight;
+        loadImages(get_nm());
+        this.pan = pan;
+        coordChanged = true;
     }
 
     /**
@@ -199,7 +206,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         TotalEatCount=TotalEatCount+1;
     }
     public void loadImages(String nm){
-
+        try {
+            img1 = ImageIO.read(new File(IDrawable.PICTURE_PATH + "\\" + get_nm() +"_1.png"));
+            img2 = ImageIO.read(new File(IDrawable.PICTURE_PATH + "\\" + get_nm() +"_2.png"));
+        }
+        catch(IOException e) {
+            System.out.println("Shit");
+        }
     }
     public String getColor(){
         return this.col;
@@ -217,6 +230,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public void setChanges (boolean state){
 
     }
+    public String get_nm(){return "Animal";}
 
 
 

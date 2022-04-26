@@ -1,5 +1,6 @@
 package animals;
 import diet.*;
+import graphics.*;
 import mobility.*;
 import utilities.MessageUtility;
 
@@ -11,8 +12,8 @@ import utilities.MessageUtility;
  * */
 public class Turtle extends chew{
 
-    public Turtle(int size, int ver_speed, int hor_speed, String color, double weight){
-        super(get_loc(), size, ver_speed, hor_speed, color, weight);
+    public Turtle(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
     }
 
 
@@ -78,4 +79,13 @@ public class Turtle extends chew{
 //        return setAge(value);
 //    }
 
+    public String get_nm() {
+        String s = new String("");
+        switch (getColor()) {
+            case "Red" -> s = "trt_r";
+            case "Blue" -> s = "trt_b";
+            case "Natural" -> s = "trt_n";
+        }
+        return s;
+    }
 }

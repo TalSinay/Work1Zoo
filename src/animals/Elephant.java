@@ -1,5 +1,6 @@
 package animals;
 import diet.*;
+import graphics.ZooPanel;
 import mobility.*;
 import utilities.MessageUtility;
 
@@ -52,8 +53,8 @@ public class Elephant extends chew{
 //        this.settrunkLength(num);
 //        setDiet(new Herbivore());
 //    }
-    public Elephant(int size, int ver_speed, int hor_speed, String color, double weight){
-        super(get_loc(), size, ver_speed, hor_speed, color, weight);
+    public Elephant(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
     }
 
     /**
@@ -64,10 +65,19 @@ public class Elephant extends chew{
     }
     /**
      * settrunkLength method - set the trunk length of the elephant.
-     * @param len the new length.
+     * //@param  the new length.
      * @return true/ false.
      */
 
+    public String get_nm() {
+        String s = new String("");
+        switch (getColor()) {
+            case "Red" -> s = "elf_r";
+            case "Blue" -> s = "elf_b";
+            case "Natural" -> s = "elf_n";
+        }
+        return s;
+    }
 
 
 }

@@ -126,14 +126,14 @@ public class ZooFrame extends JFrame implements ActionListener {
 
         }
         if(e.getSource()==helpItem){
-
+            JOptionPane.showMessageDialog(this, "Home Work 2\nGUI");
         }
         if(e.getSource()==ImageItem){
 
             try {
 
                 this.getContentPane().setBackground(null);
-                BufferedImage img = ImageIO.read(new File("D:/User Files/Desktop/טל לימודים/שנה ב סמסטר ב/תכנות מונחה עצמים מתקדם/עבודות הגשה/עבודה 2_pictures/assignment2_pictures/savanna.jpg"));
+                BufferedImage img = ImageIO.read(new File("C:\\Users\\moyal\\IdeaProjects\\Work1Zoo\\src\\assignment2_pictures\\savanna.jpg"));
                 label = new JLabel();
                 label.setBounds(0, 0, 800, 600);
                 Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);

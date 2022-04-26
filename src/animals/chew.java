@@ -1,5 +1,6 @@
 package animals;
 
+import graphics.ZooPanel;
 import mobility.Point;
 /**
  * 'chew' an abstract class, used to declare all the animals in the zoo who chews.
@@ -19,8 +20,8 @@ public abstract class chew  extends Animal{
 //        super(name,p);
 //    }
 
-    public chew(Point p, int size, int ver_speed, int hor_speed, String color, double weight){
-        super(p, size, ver_speed, hor_speed, color, weight);
+    public chew(Point p, int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
+        super(p, size, ver_speed, hor_speed, color, weight, pan);
     }
     /**
      * makeSound method. using to make the animal's sound (in this case: to chew).

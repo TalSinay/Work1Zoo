@@ -1,5 +1,6 @@
 package animals;
 
+import graphics.ZooPanel;
 import mobility.*;
 
 /**
@@ -18,8 +19,8 @@ public abstract class roar  extends Animal{
 //    public roar(String name,Point p){
 //        super(name,p);
 //    }
-    public roar(Point p, int size, int ver_speed, int hor_speed, String color, double weight){
-        super(p, size, ver_speed, hor_speed, color, weight);
+    public roar(Point p, int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
+        super(p, size, ver_speed, hor_speed, color, weight, pan);
     }
     /**
      * makeSound method. using to make the animal's sound (in this case: to roar).

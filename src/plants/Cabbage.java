@@ -13,6 +13,9 @@ public class Cabbage extends Plant {
 	}
 
 
+	public String get_nm() {
+		return "\\cabbage.png";
+	}
 
 	@Override
 	public boolean setlocation(Point p) {

@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
 public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Plant p=null; //this will be the food i think(needs to talk about that).
@@ -19,7 +20,9 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     Button Food;
     Button Info;
     Button Exit;
-
+    private JDialog addAnimalDialog;
+    private ArrayList<Animal> animals = new ArrayList<Animal>();
+    private Plant plant;
 
     public ZooPanel(){
         this.setSize(new Dimension(800,600));
@@ -74,15 +77,28 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public boolean isChange() {
         //if (getChanges())
         //return true;
-
+        for(Animal animal: animals){
+            if(animal.getChanges()){
+                animal.setChanges(false);
+                return true;
+            }
+        }
         return false;
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g) ;
-        if(img!=null)
-            g.drawImage(img,0,0,getWidth(),getHeight(), this);
+
+        if(animals.size() > 0){
+            for(Animal animal: animals){
+                animal.drawObject(g);
+            }
+        }
+        if(plant != null)
+            plant.drawObject(g);
         //need to call drawObject()
+
+
 
 
     }
@@ -95,18 +111,18 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource()==Add){
-//            image = ImageIO.read(new File(path));
-//            JLabel picLabel = new JLabel(new ImageIcon(image));
-
+            new AddAnimalDialog(this, animals);
         }
         if(e.getSource()==Move){
 
         }
         if(e.getSource()==Clear){
-
+//            for()
         }
         if(e.getSource()==Info){
-
+            for(Animal animal: animals){
+                System.out.println(animal);
+            }
         }
         if(e.getSource()==Food){
 

@@ -27,6 +27,7 @@ public class Mobile {
 
     }
 
+
     /**
      * calc the distance between two points, using the distance law.
      * @param p the second point.

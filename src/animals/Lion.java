@@ -1,5 +1,6 @@
 package animals;
 import food.IEdible;
+import graphics.ZooPanel;
 import mobility.*;
 import diet.*;
 import food.EFoodType;
@@ -55,8 +56,8 @@ public class Lion extends roar {
 //        setDiet(new Carnivore());
 //        this.setScarCount(scarCount);
 //    }
-    public Lion(int size, int ver_speed, int hor_speed, String color, double weight){
-        super(get_loc(), size, ver_speed, hor_speed, color, weight);
+    public Lion(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
     }
     public static Point get_loc(){
         return new Point(20, 0);
@@ -115,6 +116,15 @@ public class Lion extends roar {
             return true;
         }
         return false;
+    }
+    public String get_nm() {
+        String s = new String("");
+        switch (getColor()) {
+            case "Red" -> s = "lio_r";
+            case "Blue" -> s = "lio_b";
+            case "Natural" -> s = "lio_n";
+        }
+        return s;
     }
 
 }

@@ -1,4 +1,5 @@
 package animals;
+import graphics.ZooPanel;
 import mobility.*;
 import diet.*;
 import mobility.Point;
@@ -17,8 +18,8 @@ public class Giraffe extends chew{
     public static Point get_loc(){
         return new Point(100, 5);
     }
-    public Giraffe(int size, int ver_speed, int hor_speed, String color, double weight){
-        super(get_loc(), size, ver_speed, hor_speed, color, weight);
+    public Giraffe(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
     }
 //
 //    /**
@@ -96,5 +97,14 @@ public class Giraffe extends chew{
 //    public boolean setValue(double value) {
 //        return setNeckLength(value);
 //    }
+public String get_nm() {
+    String s = new String("");
+    switch (getColor()) {
+        case "Red" -> s = "grf_r";
+        case "Blue" -> s = "grf_b";
+        case "Natural" -> s = "grf_n";
+    }
+    return s;
+}
 }
 

@@ -1,5 +1,6 @@
 package animals;
 import diet.*;
+import graphics.ZooPanel;
 import mobility.*;
 import utilities.MessageUtility;
 
@@ -9,9 +10,10 @@ import utilities.MessageUtility;
  * @author Tal and Shoham
  * @see Animal
  * */
-public class Bear extends roar{
+public class Bear extends roar {
     private String furColor;
-    public static Point get_loc(){
+
+    public static Point get_loc() {
         return new Point(100, 5);
     }
 //    /**
@@ -56,8 +58,8 @@ public class Bear extends roar{
 //
 //    }
 
-    public Bear(int size, int ver_speed, int hor_speed, String color, double weight){
-        super(get_loc(), size, ver_speed, hor_speed, color, weight);
+    public Bear(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan) {
+        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
     }
 
     /**
@@ -70,36 +72,32 @@ public class Bear extends roar{
 
     /**
      * setFurColor method - set the fur color of the bear.
+     *
      * @param color the new color
      * @return true/ false.
      */
-    public boolean setFurColor(String color){
+    public boolean setFurColor(String color) {
         boolean flag = false;
-        if(color.equals("BLACK")||color.equals("WHITE")||color.equals("GRAY")){
+        if (color.equals("BLACK") || color.equals("WHITE") || color.equals("GRAY")) {
             flag = true;
             this.furColor = color;
-        }else{
+        } else {
             this.furColor = "GRAY";
         }
-         MessageUtility.logSetter(this.getName(),"setFurColor",color,flag);
+        MessageUtility.logSetter(this.getName(), "setFurColor", color, flag);
         return flag;
     }
 
-    /**
-     * getFurColor method
-     * @return the fur's color of the bear.
-     */
-    public String getFurColor(){
-        return this.furColor;
+    public String get_nm() {
+        String s = new String("");
+        switch (getColor()) {
+            case "Red" -> s = "bea_r";
+            case "Blue" -> s = "bea_b";
+            case "Natural" -> s = "bea_n";
+        }
+        return s;
     }
-
-//    /**
-//     * setValue - override method from Animal class. this method use setFurColor.
-//     * @param color new color.
-//     * @return true/ false
-//     */
-//    @Override
-//    public boolean setValue(String color){
-//        return setFurColor(color);
-//    }
 }
+
+
+
