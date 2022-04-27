@@ -79,6 +79,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     if(animal.eat(meat)){
                         animal.IncEatcount();
                         animal.setChanges(true);
+
                     }
 
                 }
@@ -135,6 +136,9 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         if(plant != null)
             plant.drawObject(g);
         //need to call drawObject()
+        if(meat != null)
+            meat.drawObject(g);
+
 
 
 

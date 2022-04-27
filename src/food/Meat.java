@@ -1,9 +1,11 @@
 package food;
 
+import graphics.IDrawable;
 import graphics.ZooPanel;
 import mobility.Point;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.Random;
 
 import static graphics.IDrawable.PICTURE_PATH;
 
-public class Meat implements IEdible {
+public class Meat implements IEdible , IDrawable {
 
     private double height;
     /**
@@ -57,4 +59,14 @@ public class Meat implements IEdible {
     public EFoodType getFoodtype() {
         return EFoodType.MEAT;
     }
+    public void drawObject(Graphics g)
+    {
+        g.drawImage(this.img,300, 400, 25, 25, pan);
+    }
+
+    @Override
+    public String getColor() {
+        return col;
+    }
+
 }

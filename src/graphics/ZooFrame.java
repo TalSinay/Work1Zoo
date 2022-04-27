@@ -116,12 +116,15 @@ public class ZooFrame extends JFrame implements ActionListener {
 
         }
         if(e.getSource()==NoneItem){
-            this.remove(label);
+            if(label!=null)
+
+                this.remove(label);
             this.getContentPane().setBackground(null);
 
         }
         if(e.getSource()==greenItem){
-            this.remove(label);
+            if(label!=null)
+                this.remove(label);
             this.getContentPane().setBackground(Color.GREEN);
 
         }
@@ -131,9 +134,11 @@ public class ZooFrame extends JFrame implements ActionListener {
         if(e.getSource()==ImageItem){
 
             try {
+                if(label!=null)
+                    this.remove(label);
 
                 this.getContentPane().setBackground(null);
-                BufferedImage img = ImageIO.read(new File("C:\\Users\\moyal\\IdeaProjects\\Work1Zoo\\src\\assignment2_pictures\\savanna.jpg"));
+                BufferedImage img = ImageIO.read(new File(IDrawable.PICTURE_PATH+"\\savanna.jpg"));
                 label = new JLabel();
                 label.setBounds(0, 0, 800, 600);
                 Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);

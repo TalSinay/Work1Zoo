@@ -66,6 +66,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
         this.pan = pan;
         coordChanged = true;
+        this.loadImages(get_nm());
     }
 
     /**
@@ -207,8 +208,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     }
     public void loadImages(String nm){
         try {
-            img1 = ImageIO.read(new File(IDrawable.PICTURE_PATH + "\\" + get_nm() +"_1.png"));
-            img2 = ImageIO.read(new File(IDrawable.PICTURE_PATH + "\\" + get_nm() +"_2.png"));
+            img1 = ImageIO.read(new File(IDrawable.PICTURE_PATH + "\\" + nm +"_1.png"));
+            img2 = ImageIO.read(new File(IDrawable.PICTURE_PATH + "\\" + nm +"_2.png"));
         }
         catch(IOException e) {
             System.out.println("Shit");
