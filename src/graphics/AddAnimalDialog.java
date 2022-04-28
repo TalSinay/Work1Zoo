@@ -9,8 +9,8 @@ public class AddAnimalDialog extends JDialog {
 
     //need to change the function name (only tests)
     public AddAnimalDialog( ZooPanel zoopanel, ArrayList<Animal> animals){
-        if(animals.size() == 2){
-            JOptionPane.showMessageDialog(null, "You cannot add more than 10 animals");
+        if(animals.size() == 10){
+            JOptionPane.showMessageDialog(zoopanel, "You cannot add more than 10 animals");
             return;
         }
         int size;
@@ -33,7 +33,10 @@ public class AddAnimalDialog extends JDialog {
                 case "Turtle" -> animals.add(new Turtle(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.5, zoopanel));
                 case "Elephant" -> animals.add(new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel));
                 default -> JOptionPane.showMessageDialog(null, "You Entered a bad choice");
+
             }
+            zoopanel.paintComponent(zoopanel.getGraphics());
+//            animals.get(animals.size() - 1).drawObject(animals.get(animals.size() - 1).getPan().getGraphics());
             zoopanel.manageZoo();
 //          animals.get(animals.size() - 1).drawObject(zoopanel);
         }

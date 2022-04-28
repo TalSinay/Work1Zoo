@@ -77,7 +77,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public boolean setDiet(IDiet diet) {
         boolean flag = true;
         this.diet=diet;
-        MessageUtility.logSetter(this.name, "setDiet", diet.toString(), flag);
+        MessageUtility.logSetter(this.getClass().getSimpleName(), "setDiet", diet.toString(), flag);
         return true;
     }
 
@@ -181,12 +181,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @return return the object's details in a String format.
      */
     public String toString(){
-        return "[!] ["+this.getClass().getSimpleName()+"] "+" weight: ["+this.weight+"], color: ["+this.getColor()+"]";
+        return "[!] ["+this.name+"] "+" weight: ["+this.weight+"], color: ["+this.getColor()+"]";
     }
 
     public void drawObject(Graphics g)
     {
         if(getX_dir()==1) // giraffe goes to the right side
+
             g.drawImage(this.getImg1(), this.getLocation().getx()-getSize()/2, this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());
         else // giraffe goes to the left side
             g.drawImage(this.getImg2(), this.getLocation().getx(), this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());

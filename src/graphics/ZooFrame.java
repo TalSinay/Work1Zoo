@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import animals.*;
 
 public class ZooFrame extends JFrame implements ActionListener {
     private ZooPanel zoo;
@@ -82,7 +82,12 @@ public class ZooFrame extends JFrame implements ActionListener {
         this.add(zoo,BorderLayout.SOUTH);
 
         label1=new JLabel(image);
-
+        Lion l = new Lion(400, 10,12,"Natural", 350, zoo);
+        this.getContentPane();
+//        Bear b = new Bear(400, 10,12,"Natural", 350, zoo);
+//        Giraffe g = new Giraffe(400, 10,12,"Natural", 350, zoo);
+////        l.drawObject(zoo.getGraphics());
+//        paintComponents(zoo.getGraphics());
 
 
 
@@ -92,15 +97,6 @@ public class ZooFrame extends JFrame implements ActionListener {
 
 
     }
-
-
-
-
-
-
-
-
-
 
     public static void main(String args[]){
         new ZooFrame();
@@ -117,7 +113,6 @@ public class ZooFrame extends JFrame implements ActionListener {
         }
         if(e.getSource()==NoneItem){
             if(label!=null)
-
                 this.remove(label);
             this.getContentPane().setBackground(null);
 
