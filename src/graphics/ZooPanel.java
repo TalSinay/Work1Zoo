@@ -21,6 +21,9 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     Button Food;
     Button Info;
     Button Exit;
+    Button cabbage;
+    Button lettuce;
+    Button Meat;
     private JDialog addAnimalDialog;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
     private Plant plant;
@@ -173,14 +176,17 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         }
         if(e.getSource()==Clear){
 
-            for (int i=0;i<animals.size();i++){
-                animals.remove(0);
+            for (int i=0;i<=animals.size();i++){
+                Animal temp=animals.get(0);
                 animals.get(0).setChanges(true);
+                animals.remove(0);
+                repaint();
+
 
 
             }
 
-            manageZoo();
+
         }
         if(e.getSource()==Info){
             for(Animal animal: animals){
@@ -188,6 +194,25 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             }
         }
         if(e.getSource()==Food){
+            Meat=new Button("meat");
+            Meat.setSize(10,15);
+            Meat.addActionListener(this);
+            cabbage=new Button("cabbage");
+            cabbage.setSize(10,15);
+            cabbage.addActionListener(this);
+            lettuce=new Button("lettuce");
+            lettuce.setSize(10,15);
+            lettuce.addActionListener(this);
+            JPanel p=new JPanel();
+            p.add(lettuce);
+            p.add(cabbage);
+            p.add(Meat);
+
+            p.setLayout(new FlowLayout(FlowLayout.CENTER,60,2));
+            JOptionPane.
+
+
+
 
         }
         if(e.getSource()==Exit){
