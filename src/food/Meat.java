@@ -33,9 +33,8 @@ public class Meat implements IEdible , IDrawable {
      */
     public Meat() {
         Random rand = new Random();
-        int x = rand.nextInt(30);
-        int y = rand.nextInt(12);
-        this.location = new Point(x, y);
+
+        this.location = new Point(400, 300);
         this.height = rand.nextInt(30);
         this.weight = rand.nextInt(12);
         loadImages(get_nm());
@@ -43,7 +42,7 @@ public class Meat implements IEdible , IDrawable {
     public Point getlocation(){return location;}
 
     public String get_nm() {
-        return "\\meat.png";
+        return "\\meat.gif";
     }
 
 
@@ -62,7 +61,7 @@ public class Meat implements IEdible , IDrawable {
     }
     public void drawObject(Graphics g)
     {
-        g.drawImage(this.img,300, 400, 25, 25, pan);
+        g.drawImage(this.img,400, 300, 25, 25, pan);
     }
 
     @Override

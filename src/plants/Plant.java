@@ -41,9 +41,8 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable {
 	 */
 	public Plant() {
 		Random rand = new Random();
-		int x = rand.nextInt(30);
-		int y = rand.nextInt(12);
-		this.location = new Point(x, y);
+
+		this.location = new Point(400, 300);
 		this.height = rand.nextInt(30);
 		this.weight = rand.nextInt(12);
 		loadImages(get_nm());
@@ -157,7 +156,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable {
 	}
 	public void drawObject(Graphics g)
 	{
-		g.drawImage(this.img,300, 400, 25, 25, pan);
+		g.drawImage(this.img,400, 300, 25, 25, pan);
 	}
 
 	public String get_nm() {
