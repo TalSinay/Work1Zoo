@@ -5,14 +5,15 @@ import java.util.ArrayList;
 public class AddAnimalDialog extends JDialog {
 //    private static ArrayList<Animal> my_list = new ArrayList<>();
 //    public static ArrayList<Animal> get_animals(){return my_list;}
-
+private ZooPanel zopanel;
 
     //need to change the function name (only tests)
     public AddAnimalDialog( ZooPanel zoopanel, ArrayList<Animal> animals){
-        if(animals.size() == 2){
+        if(animals.size() == 10){
             JOptionPane.showMessageDialog(null, "You cannot add more than 10 animals");
             return;
         }
+        this.zopanel=zoopanel;
         int size;
         int ver_speed;
         int hor_speed;
@@ -34,8 +35,9 @@ public class AddAnimalDialog extends JDialog {
                 case "Elephant" -> animals.add(new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel));
                 default -> JOptionPane.showMessageDialog(null, "You Entered a bad choice");
             }
-            zoopanel.manageZoo();
-//          animals.get(animals.size() - 1).drawObject(zoopanel);
+
+             zoopanel.manageZoo();
+
         }
     }
 

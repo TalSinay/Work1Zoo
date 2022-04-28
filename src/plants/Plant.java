@@ -46,6 +46,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable {
 		this.location = new Point(x, y);
 		this.height = rand.nextInt(30);
 		this.weight = rand.nextInt(12);
+		loadImages(get_nm());
 		MessageUtility.logConstractor("Plant", "Plant");
 	}
 
@@ -147,7 +148,7 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable {
 
 	public void loadImages(String nm){
 		try {
-			img = ImageIO.read(new File(PICTURE_PATH + get_nm()));
+			img = ImageIO.read(new File(PICTURE_PATH + nm));
 
 		}
 		catch(IOException e) {
