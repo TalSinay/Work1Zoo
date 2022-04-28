@@ -219,7 +219,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public String getColor(){
         return this.col;
     }
-
     public void eatInc(){
 
     }
@@ -236,9 +235,5 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public int getHorSpeed(){return horSpeed;}
     public int getVerSpeed(){return verSpeed;}
     public int getEatCounter(){return eatCount;}
-
-
-
-
 }
 

@@ -2,14 +2,11 @@ package graphics;
 
 import animals.Animal;
 import mobility.Point;
-
 import javax.swing.*;
 import java.util.ArrayList;
-
 public class MoveAnimalDialog extends JDialog {
 
     public MoveAnimalDialog(ZooPanel zoo, ArrayList<Animal> animals){
-
     int x;
     int y;
     String [] names=new String[animals.size()] ;
@@ -22,10 +19,5 @@ public class MoveAnimalDialog extends JDialog {
     y =Integer.parseInt(JOptionPane.showInputDialog(zoo,"Enter the animal's location-> y (0-600) "));
     animals.get(cb_type.getSelectedIndex()).move(new Point(x,y));
     repaint();
-
-
-
-
-
     }
 }

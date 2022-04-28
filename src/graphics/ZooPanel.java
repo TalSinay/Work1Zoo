@@ -18,12 +18,12 @@ import java.util.ArrayList;
 public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Plant p = null; //this will be the food i think(needs to talk about that).
     private BufferedImage img = null;
-    Button Add;
-    Button Move;
-    Button Clear;
-    Button Food;
-    Button Info;
-    Button Exit;
+    private Button Add;
+    private Button Move;
+    private Button Clear;
+    private Button Food;
+    private  Button Info;
+    private  Button Exit;
 
     private JDialog addAnimalDialog;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
@@ -34,11 +34,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
     public ZooPanel() {
         this.setSize(800, 600);
-//        BorderLayout myBorderLayout = new BorderLayout();
-////        myBorderLayout.setHgap(20);
-////        myBorderLayout.setVgap(50);
-//        this.setLayout(myBorderLayout);//layout
-
 
         Add = new Button("Add Animal");
         Move = new Button("Move Animal");
@@ -59,8 +54,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         Clear.addActionListener(this);
         Food.addActionListener(this);
         Info.addActionListener(this);
-        panel = new JPanel();//panel
-        panel.setPreferredSize(new Dimension(800, 25));//the blue panel
+        panel = new JPanel();
+        panel.setPreferredSize(new Dimension(800, 25));
         panel.add(Add);
         panel.add(Move);
         panel.add(Clear);
@@ -87,27 +82,23 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             if (meat != null) {
                 if (animal.calcDistance(meat.getlocation()) <= 10 && animal.calcDistance(meat.getlocation()) <= 10) {
                     if (animal.eat(meat)) {
-                        animal.IncEatcount();
+                        this.callback(animal);
                         animal.setChanges(true);
                         meat=null;
                         repaint();
-
                     }
-
                 }
             }
             if (plant != null) {
                 if (animal.calcDistance(plant.getlocation()) <= 10 && animal.calcDistance(plant.getlocation()) <= 10) {
                     if (animal.eat(plant)) {
-                        animal.IncEatcount();
+                        this.callback(animal);
                         animal.setChanges(true);
                         plant=null;
                         repaint();
                     }
-
                 }
             }
-
         }
         for (Animal animal : animals) {
             for (Animal foodAnimal : animals) {
@@ -120,15 +111,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                             repaint();
                             break;
                         }
-
-
                     }
                 }
-
-
             }
         }
-
     }
 
     public boolean isChange() {
@@ -157,13 +143,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         //need to call drawObject()
         if (meat != null)
             meat.drawObject(g);
-
-
     }
 
     public void callback(Animal animal) {
         animal.IncEatcount();
-
     }
 
     @Override
@@ -184,15 +167,11 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 animals.get(0).setChanges(true);
                 animals.remove(0);
                 repaint();
-
-
             }
             for(int i=0;i<=foods.size();i++){
                 foods.remove(foods.get(0));
                 repaint();
             }
-
-
         }
         if (e.getSource() == Info) {
             JFrame frame = new JFrame();
@@ -213,15 +192,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             frame.add(scroll_pane);
             frame.setSize(300, 400);
             frame.setVisible(true);
-
-
         }
         if (e.getSource() == Food) {
 
             String[] op = {"lettuce", "cabbage", "meat"};
-//            JOptionPane.showOptionDialog(this,"please choose food","Food for animals",0,JOptionPane.INFORMATION_MESSAGE,null,op,0);
-
-
             int x = JOptionPane.showOptionDialog(this, "Please choose food", "Food for animal",
                     JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, null);
 
@@ -242,17 +216,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     foods.add(meat);
                     meat.drawObject(this.getGraphics());
                     break;
-
-
             }
             manageZoo();
         }
         if (e.getSource() == Exit) {
             System.exit(0);
-
         }
-
-
     }
 }
 

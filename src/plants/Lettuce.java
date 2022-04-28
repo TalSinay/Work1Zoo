@@ -10,10 +10,6 @@ public class Lettuce extends Plant {
 	public Lettuce() {
 		MessageUtility.logConstractor("Lettuce", "Lettuce");
 	}
-
-
-
-
 	@Override
 	public String getColor() {
 		return null;

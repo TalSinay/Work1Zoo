@@ -12,7 +12,6 @@ public class Cabbage extends Plant {
 		MessageUtility.logConstractor("Cabbage", "Cabbage");
 	}
 
-
 	public String get_nm() {
 		return "\\cabbage.png";
 	}
@@ -21,8 +20,6 @@ public class Cabbage extends Plant {
 	public boolean setlocation(Point p) {
 		return false;
 	}
-
-
 
 	@Override
 	public String getColor() {

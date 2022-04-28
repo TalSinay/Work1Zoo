@@ -22,19 +22,19 @@ public class ZooFrame extends JFrame implements ActionListener {
     JComboBox comboBox;
 
 
-    JMenuBar menuBar;
-    JMenu fileMenu;
-    JMenu backGroundMenu;
-    JMenu helpMenu;
-    JMenuItem NoneItem;
-    JMenuItem ImageItem;
-    JMenuItem greenItem;
-    JMenuItem helpItem;
-    JMenuItem exitItem;
-    JLabel label;
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenu backGroundMenu;
+    private  JMenu helpMenu;
+    private JMenuItem NoneItem;
+    private JMenuItem ImageItem;
+    private JMenuItem greenItem;
+    private JMenuItem helpItem;
+    private JMenuItem exitItem;
+    private JLabel label;
 
-    ImageIcon image =new ImageIcon("savanna.png");
-    JLabel label1;
+    private  ImageIcon image =new ImageIcon("savanna.png");
+    private JLabel label1;
 
 
 
@@ -44,10 +44,7 @@ public class ZooFrame extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800,600);
 
-        //zoo.manageZoo();
-
         menuBar=new JMenuBar();
-
         fileMenu = new JMenu("File");
         backGroundMenu = new JMenu("Background");
         helpMenu = new JMenu("Help");
@@ -74,55 +71,31 @@ public class ZooFrame extends JFrame implements ActionListener {
         menuBar.add(backGroundMenu);
         menuBar.add(helpMenu);
         label1=new JLabel(image);
-
-
         this.setJMenuBar(menuBar);
         BorderLayout myBorderLayout = new BorderLayout();
         myBorderLayout.setHgap(2);
         myBorderLayout.setVgap(5);
-        this.setLayout(myBorderLayout);//layout
+        this.setLayout(myBorderLayout);
         this.add(zoo);
-
-
-
-
-
-
-
         this.setVisible(true);
 
-
-
     }
-
-
-
-
-
-
-
-
-
 
     public static void main(String args[]){
         new ZooFrame();
 
     }
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource()==exitItem){
             System.exit(0);
-
         }
         if(e.getSource()==NoneItem){
             if(label!=null)
 
                 this.remove(label);
             this.getContentPane().setBackground(null);
-
         }
         if(e.getSource()==greenItem){
             if(label!=null)
@@ -150,13 +123,6 @@ public class ZooFrame extends JFrame implements ActionListener {
             }
             catch (IOException a) { System.out.println("Cannot load image");
                 System.out.println(a.toString());}
-
-
-
-
         }
-
-
-
     }
 }

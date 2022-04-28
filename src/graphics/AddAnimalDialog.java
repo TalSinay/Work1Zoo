@@ -35,11 +35,7 @@ private ZooPanel zopanel;
                 case "Elephant" -> animals.add(new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel));
                 default -> JOptionPane.showMessageDialog(null, "You Entered a bad choice");
             }
-
-
              zoopanel.manageZoo();
-
         }
     }
-
 }
