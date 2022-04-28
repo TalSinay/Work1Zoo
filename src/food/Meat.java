@@ -38,6 +38,7 @@ public class Meat implements IEdible , IDrawable {
         this.location = new Point(x, y);
         this.height = rand.nextInt(30);
         this.weight = rand.nextInt(12);
+        loadImages(get_nm());
     }
     public Point getlocation(){return location;}
 
@@ -48,7 +49,7 @@ public class Meat implements IEdible , IDrawable {
 
     public void loadImages(String nm) {
         try {
-            img = ImageIO.read(new File(PICTURE_PATH + get_nm()));
+            img = ImageIO.read(new File(PICTURE_PATH + nm));
 
         } catch (IOException e) {
             System.out.println("Shit");

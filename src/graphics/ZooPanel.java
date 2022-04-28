@@ -21,17 +21,21 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     Button Food;
     Button Info;
     Button Exit;
+    Button cabbage;
+    Button lettuce;
+    Button Meat;
     private JDialog addAnimalDialog;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
     private Plant plant;
     private Meat meat;
+    private JPanel panel;
 
     public ZooPanel(){
-        this.setSize(new Dimension(800,600));
-        BorderLayout myBorderLayout = new BorderLayout();
-        myBorderLayout.setHgap(20);
-        myBorderLayout.setVgap(50);
-        this.setLayout(myBorderLayout);//layout
+         this.setSize(800,600);
+//        BorderLayout myBorderLayout = new BorderLayout();
+////        myBorderLayout.setHgap(20);
+////        myBorderLayout.setVgap(50);
+//        this.setLayout(myBorderLayout);//layout
 
 
 
@@ -54,8 +58,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         Clear.addActionListener(this);
         Food.addActionListener(this);
         Info.addActionListener(this);
-        JPanel panel=new JPanel();//panel
-        panel.setPreferredSize(new Dimension(60, 25));//the blue panel
+        panel=new JPanel();//panel
+        panel.setPreferredSize(new Dimension(800, 25));//the blue panel
         panel.add(Add);
         panel.add(Move);
         panel.add(Clear);
@@ -65,7 +69,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
         panel.setLayout(new FlowLayout(FlowLayout.CENTER,60,2));
         panel.setBackground(Color.BLUE);
-        this.add(panel);
+        this.setOpaque(false);
+        this.setLayout(new BorderLayout());
+        this.add(panel,BorderLayout.PAGE_END);
+        manageZoo();
     }
     public void run() {
 
@@ -79,6 +86,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     if(animal.eat(meat)){
                         animal.IncEatcount();
                         animal.setChanges(true);
+                        repaint();
 
                     }
 
@@ -89,6 +97,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     if(animal.eat(plant)){
                         animal.IncEatcount();
                         animal.setChanges(true);
+                        repaint();
                     }
 
                 }
@@ -99,12 +108,15 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             for (Animal foodAnimal:animals){
                 if(!(animal.equals(foodAnimal))){
                     if(animal.getWeight()>foodAnimal.getWeight()*2 && animal.calcDistance(foodAnimal.getLocation())<foodAnimal.getSize()){
-                        animal.eat(foodAnimal);
-                        animal.IncEatcount();
-                        animal.setChanges(true);
-                        animals.remove(animals.indexOf(foodAnimal));
-                        repaint();
-                        return;
+                        if(animal.eat(foodAnimal)){
+                            animal.IncEatcount();
+                            animal.setChanges(true);
+                            animals.remove(foodAnimal);
+                            repaint();
+                            break;
+                        }
+
+
                     }
                 }
 
@@ -116,8 +128,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
     public boolean isChange() {
 
+
         for(Animal animal: animals){
             if(animal.getChanges()){
+
                 animal.setChanges(false);
                 return true;
             }
@@ -154,12 +168,25 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
         if(e.getSource()==Add){
             new AddAnimalDialog(this, animals);
+            manageZoo();
         }
         if(e.getSource()==Move){
-
+            new MoveAnimalDialog(this, animals);
+            manageZoo();
         }
         if(e.getSource()==Clear){
-//            for()
+
+            for (int i=0;i<=animals.size();i++){
+                Animal temp=animals.get(0);
+                animals.get(0).setChanges(true);
+                animals.remove(0);
+                repaint();
+
+
+
+            }
+
+
         }
         if(e.getSource()==Info){
             for(Animal animal: animals){
@@ -167,6 +194,25 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             }
         }
         if(e.getSource()==Food){
+            Meat=new Button("meat");
+            Meat.setSize(10,15);
+            Meat.addActionListener(this);
+            cabbage=new Button("cabbage");
+            cabbage.setSize(10,15);
+            cabbage.addActionListener(this);
+            lettuce=new Button("lettuce");
+            lettuce.setSize(10,15);
+            lettuce.addActionListener(this);
+            JPanel p=new JPanel();
+            p.add(lettuce);
+            p.add(cabbage);
+            p.add(Meat);
+
+            p.setLayout(new FlowLayout(FlowLayout.CENTER,60,2));
+            JOptionPane.
+
+
+
 
         }
         if(e.getSource()==Exit){

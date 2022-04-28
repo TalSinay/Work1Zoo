@@ -66,7 +66,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
         this.pan = pan;
         coordChanged = true;
-        this.loadImages(get_nm());
+
     }
 
     /**

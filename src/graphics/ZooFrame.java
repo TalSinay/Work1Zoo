@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import animals.*;
+
 
 public class ZooFrame extends JFrame implements ActionListener {
     private ZooPanel zoo;
@@ -73,21 +73,18 @@ public class ZooFrame extends JFrame implements ActionListener {
         menuBar.add(fileMenu);
         menuBar.add(backGroundMenu);
         menuBar.add(helpMenu);
+        label1=new JLabel(image);
+
 
         this.setJMenuBar(menuBar);
         BorderLayout myBorderLayout = new BorderLayout();
         myBorderLayout.setHgap(2);
         myBorderLayout.setVgap(5);
         this.setLayout(myBorderLayout);//layout
-        this.add(zoo,BorderLayout.SOUTH);
+        this.add(zoo);
 
-        label1=new JLabel(image);
-        Lion l = new Lion(400, 10,12,"Natural", 350, zoo);
-        this.getContentPane();
-//        Bear b = new Bear(400, 10,12,"Natural", 350, zoo);
-//        Giraffe g = new Giraffe(400, 10,12,"Natural", 350, zoo);
-////        l.drawObject(zoo.getGraphics());
-//        paintComponents(zoo.getGraphics());
+
+
 
 
 
@@ -97,6 +94,15 @@ public class ZooFrame extends JFrame implements ActionListener {
 
 
     }
+
+
+
+
+
+
+
+
+
 
     public static void main(String args[]){
         new ZooFrame();
@@ -113,6 +119,7 @@ public class ZooFrame extends JFrame implements ActionListener {
         }
         if(e.getSource()==NoneItem){
             if(label!=null)
+
                 this.remove(label);
             this.getContentPane().setBackground(null);
 
@@ -129,13 +136,13 @@ public class ZooFrame extends JFrame implements ActionListener {
         if(e.getSource()==ImageItem){
 
             try {
-                if(label!=null)
+               if(label!=null)
                     this.remove(label);
 
                 this.getContentPane().setBackground(null);
                 BufferedImage img = ImageIO.read(new File(IDrawable.PICTURE_PATH+"\\savanna.jpg"));
                 label = new JLabel();
-                label.setBounds(0, 0, 800, 600);
+                label.setBounds(0, -30, 800, 600);
                 Image dimg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
                 ImageIcon imageIcon = new ImageIcon(dimg);
                 label.setIcon(imageIcon);
@@ -144,7 +151,6 @@ public class ZooFrame extends JFrame implements ActionListener {
             catch (IOException a) { System.out.println("Cannot load image");
                 System.out.println(a.toString());}
 
-            this.getContentPane().add(label1);
 
 
 
