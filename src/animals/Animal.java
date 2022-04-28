@@ -233,7 +233,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
     }
     public String get_nm(){return "Animal";}
-
+    public int getHorSpeed(){return horSpeed;}
+    public int getVerSpeed(){return verSpeed;}
+    public int getEatCounter(){return eatCount;}
 
 
 

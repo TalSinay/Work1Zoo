@@ -189,9 +189,27 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
         }
         if(e.getSource()==Info){
-            for(Animal animal: animals){
-                System.out.println(animal);
+            JFrame frame = new JFrame();
+            String[][] data = new String[animals.size()][6];
+            for(int i=0; i<animals.size(); i++){
+                data[i][0] = animals.get(i).getClass().getSimpleName();
+                data[i][1] = animals.get(i).getColor();
+                data[i][2] = String.valueOf(animals.get(i).getWeight());
+                data[i][3] = String.valueOf(animals.get(i).getHorSpeed());
+                data[i][4] = String.valueOf(animals.get(i).getVerSpeed());
+                data[i][5] = String.valueOf(animals.get(i).getEatCounter());
+
             }
+            String[] col = {"Animal", "Color", "Weight", "Hor.speed", "Ver.speed", "Eat Counter"};
+            JTable table = new JTable(data, col);
+            table.setBounds(60, 90, 200, 300);
+            JScrollPane scroll_pane = new JScrollPane(table);
+            frame.add(scroll_pane);
+            frame.setSize(300, 400);
+            frame.setVisible(true);
+
+
+
         }
         if(e.getSource()==Food){
             Meat=new Button("meat");
@@ -209,7 +227,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             p.add(Meat);
 
             p.setLayout(new FlowLayout(FlowLayout.CENTER,60,2));
-            JOptionPane.
+//            JOptionPane.
 
 
 

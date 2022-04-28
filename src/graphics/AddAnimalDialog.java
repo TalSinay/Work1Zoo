@@ -36,6 +36,7 @@ private ZooPanel zopanel;
                 default -> JOptionPane.showMessageDialog(null, "You Entered a bad choice");
             }
 
+
              zoopanel.manageZoo();
 
         }
