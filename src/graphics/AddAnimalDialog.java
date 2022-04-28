@@ -20,11 +20,11 @@ private ZooPanel zopanel;
         String[] objects = {"Lion", "Turtle", "Bear", "Giraffe", "Elephant"};
         String[] colors = {"Red", "Blue", "Natural"};
         JComboBox cb_type = new JComboBox(objects), cb_color = new JComboBox(colors);
-        int input = JOptionPane.showConfirmDialog(null, cb_type, "Choose animal's type: ",JOptionPane.DEFAULT_OPTION);
-        JOptionPane.showConfirmDialog(null, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
-        size = Integer.parseInt(JOptionPane.showInputDialog("Enter the animal's size: "));
-        ver_speed = Integer.parseInt(JOptionPane.showInputDialog("Enter the animal's vertical speed: "));
-        hor_speed = Integer.parseInt(JOptionPane.showInputDialog("Enter the animal's horitional speed: "));
+        int input = JOptionPane.showConfirmDialog(zoopanel, cb_type, "Choose animal's type: ",JOptionPane.DEFAULT_OPTION);
+        JOptionPane.showConfirmDialog(zoopanel, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
+        size = Integer.parseInt(JOptionPane.showInputDialog(zoopanel,"Enter the animal's size: "));
+        ver_speed = Integer.parseInt(JOptionPane.showInputDialog(zoopanel,"Enter the animal's vertical speed: "));
+        hor_speed = Integer.parseInt(JOptionPane.showInputDialog(zoopanel,"Enter the animal's horitional speed: "));
         if(input == JOptionPane.OK_OPTION) {
             String typeItemAt = ((String) cb_type.getItemAt(cb_type.getSelectedIndex()));
             switch (typeItemAt) {

@@ -105,12 +105,15 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             for (Animal foodAnimal:animals){
                 if(!(animal.equals(foodAnimal))){
                     if(animal.getWeight()>foodAnimal.getWeight()*2 && animal.calcDistance(foodAnimal.getLocation())<foodAnimal.getSize()){
-                        animal.eat(foodAnimal);
-                        animal.IncEatcount();
-                        animal.setChanges(true);
-                        animals.remove(animals.indexOf(foodAnimal));
-                        repaint();
-                        return;
+                        if(animal.eat(foodAnimal)){
+                            animal.IncEatcount();
+                            animal.setChanges(true);
+                            animals.remove(foodAnimal);
+                            repaint();
+                            break;
+                        }
+
+
                     }
                 }
 
@@ -165,10 +168,19 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             manageZoo();
         }
         if(e.getSource()==Move){
-
+            new MoveAnimalDialog(this, animals);
+            manageZoo();
         }
         if(e.getSource()==Clear){
-//            for()
+
+            for (int i=0;i<animals.size();i++){
+                animals.remove(0);
+                animals.get(0).setChanges(true);
+
+
+            }
+
+            manageZoo();
         }
         if(e.getSource()==Info){
             for(Animal animal: animals){

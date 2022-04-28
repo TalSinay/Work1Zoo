@@ -58,6 +58,7 @@ public class Lion extends roar {
 //    }
     public Lion(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
         super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
+        setName("Lion");
         loadImages(get_nm());
         setDiet(new Carnivore());
     }
