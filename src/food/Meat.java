@@ -1,4 +1,10 @@
 package food;
+/**
+ * 'Meat' class, used to declare all the meat objects in the zoo.
+ * @version 29.4.22
+ * @author Tal and Shoham
+ * @see food.IEdible
+ * */
 
 import graphics.IDrawable;
 import graphics.ZooPanel;
@@ -16,20 +22,15 @@ import static graphics.IDrawable.PICTURE_PATH;
 public class Meat implements IEdible , IDrawable {
 
     private double height;
-    /**
-     *
-     */
-    private Point location;
-    /**
-     *
-     */
     private double weight;
     private String col;
-    private BufferedImage img;
     private ZooPanel pan;
+    private Point location;
+    private BufferedImage img;
+
 
     /**
-     *
+     * Meat default Constructor.
      */
     public Meat() {
         Random rand = new Random();
@@ -39,13 +40,26 @@ public class Meat implements IEdible , IDrawable {
         this.weight = rand.nextInt(12);
         loadImages(get_nm());
     }
-    public Point getlocation(){return location;}
 
+    /**
+     * getloction method.
+     * @return the location of meat.
+     */
+    public Point getlocation(){return location;}
+    /**
+     * get_nm method
+     * @return the name of the meat in files.
+     */
     public String get_nm() {
         return "\\meat.gif";
     }
 
-
+    /**
+     * loadImage method - try to load the meat's photos from the file
+     * @param nm the meat's code (\\meat.gif)
+     * @exception IOException java.io.FileNotFoundException
+     *
+     */
     public void loadImages(String nm) {
         try {
             img = ImageIO.read(new File(PICTURE_PATH + nm));
@@ -55,15 +69,27 @@ public class Meat implements IEdible , IDrawable {
         }
     }
 
+    /**
+     * getFoodtype - method to get the food's type.
+     * @return food's type.
+     */
     @Override
     public EFoodType getFoodtype() {
         return EFoodType.MEAT;
     }
+    /**
+     * drawObject method
+     * @param g Graphic Object to draw.
+     */
     public void drawObject(Graphics g)
     {
         g.drawImage(this.img,400, 300, 25, 25, pan);
     }
 
+    /**
+     * getColor method -
+     * @return the color.
+     */
     @Override
     public String getColor() {
         return col;

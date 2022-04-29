@@ -56,6 +56,11 @@ public class Point {
         return false;
     }
 
+    /**
+     * method to check if the point is in the board
+     * @param p the given point
+     * @return boolean
+     */
     public static boolean cheackBounderies(Point p){
         return(p.getx()>=getminx() && p.getx()<= getmaxX() && p.gety()>=getminy() && p.gety() <= getmaxy());
     }

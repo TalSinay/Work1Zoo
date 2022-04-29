@@ -13,10 +13,18 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-
+/**
+ * 'ZooPanel' class, used to declare the panel of the zoo, using ActionListener.
+ * @version 29.4.22
+ * @author Tal and Shoham
+ * @see JPanel
+ * @see Runnable
+ * @see ActionListener
+ * @see Animal
+ * */
 public class ZooPanel extends JPanel implements Runnable, ActionListener {
-    private Plant p = null; //this will be the food i think(needs to talk about that).
     private BufferedImage img = null;
     private Button Add;
     private Button Move;
@@ -24,7 +32,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Button Food;
     private  Button Info;
     private  Button Exit;
-
     private JDialog addAnimalDialog;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
     private Plant plant;
@@ -32,9 +39,11 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private JPanel panel;
     private ArrayList<Object> foods = new ArrayList<Object>();
 
+    /**
+     * ZooPanel constructor.
+     */
     public ZooPanel() {
         this.setSize(800, 600);
-
         Add = new Button("Add Animal");
         Move = new Button("Move Animal");
         Clear = new Button("Clear");
@@ -47,7 +56,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         Food.setBackground(Color.WHITE);
         Info.setBackground(Color.WHITE);
         Exit.setBackground(Color.WHITE);
-
         Exit.addActionListener(this);
         Add.addActionListener(this);
         Move.addActionListener(this);
@@ -62,7 +70,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         panel.add(Food);
         panel.add(Info);
         panel.add(Exit);
-
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 60, 2));
         panel.setBackground(Color.BLUE);
         this.setOpaque(false);
@@ -75,6 +82,9 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
     }
 
+    /**
+     * manageZoo method - repaint all the objects in the zoo.
+     */
     public void manageZoo() {
         if (isChange())
             repaint();
@@ -117,9 +127,11 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         }
     }
 
+    /**
+     * isChange method, checks if some object moved.
+     * @return boolean
+     */
     public boolean isChange() {
-
-
         for (Animal animal : animals) {
             if (animal.getChanges()) {
 
@@ -130,9 +142,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         return false;
     }
 
+    /**
+     * paintComponent method
+     * @param g the panel we want to draw in.
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         if (animals.size() > 0) {
             for (Animal animal : animals) {
                 animal.drawObject(g);
@@ -145,10 +160,18 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             meat.drawObject(g);
     }
 
+    /**
+     * increase the animal's EatCount
+     * @param animal the animal that ate.
+     */
     public void callback(Animal animal) {
         animal.IncEatcount();
     }
-
+    /**
+     * actionPerformed override method.
+     * @param e the interaction between the user to the system.
+     * @exception IOException java.io.FileNotFoundException
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

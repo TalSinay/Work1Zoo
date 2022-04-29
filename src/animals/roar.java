@@ -11,14 +11,16 @@ import mobility.*;
  * @see Lion
  * * */
 public abstract class roar  extends Animal{
-//    /**
-//     * roar constructor.
-//     * @param name the object's name.
-//     * @param p start location.
-//     */
-//    public roar(String name,Point p){
-//        super(name,p);
-//    }
+    /**
+     * roar Constructor.
+     * @param p the starting point.
+     * @param size the animal's size
+     * @param ver_speed the animal's ver speed.
+     * @param hor_speed the animal's hor speed.
+     * @param color the animal's color
+     * @param weight the animal's weight
+     * @param pan the zoo panel.
+     */
     public roar(Point p, int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
         super(p, size, ver_speed, hor_speed, color, weight, pan);
     }

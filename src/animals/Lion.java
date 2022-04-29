@@ -15,53 +15,25 @@ import java.util.Random;
  * @see Animal
  * */
 public class Lion extends roar {
-    private int scarCount;
-
-//    /**
-//     * Lion constructor(one parameter).
-//     *
-//     * @param name the lion's name.
-//     */
-//    public Lion(String name) {
-//        super(name,new Point(20,0));
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(408.2);
-//        setDiet(new Carnivore());
-//        this.setScarCount(0);
-//
-//
-//    }
-//
-//    /**
-//     * Lion constructor.
-//     * @param name the lion's name.
-//     * @param p the lion's location.
-//     */
-//    public Lion(String name,Point p) {
-//        super(name,p);
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(408.2);
-//        setDiet(new Carnivore());
-//        this.setScarCount(0);
-//    }
-//    /**
-//     * Lion fully constructor.
-//     * @param name the lion's name.
-//     * @param p the lion's location.
-//     */
-//    public Lion(String name,Point p, int scarCount) {
-//        super(name,p);
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(408.2);
-//        setDiet(new Carnivore());
-//        this.setScarCount(scarCount);
-//    }
+    /**
+     * Lion Constructor.
+     * @param size the animal's size
+     * @param ver_speed the animal's vertical speed
+     * @param hor_speed the animal's horizontal speed.
+     * @param color the animal's color
+     * @param weight the animal's weight
+     * @param pan the zoo panel.
+     */
     public Lion(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
         super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
         setName("Lion");
         loadImages(get_nm());
         this.setDiet(new Carnivore());
     }
+    /**
+     * get_loc -> give the default location of the Lion.
+     * @return default location(Point).
+     */
     public static Point get_loc(){
         return new Point(20, 0);
     }
@@ -72,33 +44,6 @@ public class Lion extends roar {
         MessageUtility.logSound(getName(),"Roars, then stretches and shakes its mane");
     }
 
-    /**
-     * this method sets the amount of scars of the lion
-     * @param scars the new amount of scars
-     * @return true.
-     */
-    public boolean setScarCount(int scars){
-        boolean flag = false;
-        if(scars >= 0) {
-            this.scarCount = scars;
-            flag = true;
-        }
-        MessageUtility.logSetter(this.getName(),"setScarCount",scars,flag);
-        return flag;
-    }
-    public int getScarCount(){
-        return this.scarCount;
-    }
-
-//    /**
-//     * override method. use setScarCount.
-//     * @param scars amount of scars
-//     * @return true
-//     */
-//    @Override
-//    public boolean setValue(int scars){
-//        return setScarCount(scars);
-//    }
     /**
      *
      * override the base class method to return the right type.
@@ -112,14 +57,14 @@ public class Lion extends roar {
     }
     public boolean eat(IEdible food){
         if(super.eat(food)){
-            Random rand = new Random();
-            boolean scar_prob = rand.nextBoolean();
-            if(scar_prob)
-                this.scarCount++;
             return true;
         }
         return false;
     }
+    /**
+     * get_nm method
+     * @return the name of the animal in the files.
+     */
     public String get_nm() {
         String s = new String("");
         switch (getColor()) {

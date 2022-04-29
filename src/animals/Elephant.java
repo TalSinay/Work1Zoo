@@ -11,48 +11,24 @@ import utilities.MessageUtility;
  * @see Animal
  * */
 public class Elephant extends chew{
+
+    /**
+     * get_loc -> give the default location of the Elephant.
+     * @return default location(Point).
+     */
     public static Point get_loc(){
         return new Point(50, 90);
     }
-//
-//    /**
-//     * the elephant constructor
-//     * @param name the elephant name.
-//     */
-//    public Elephant(String name) {
-//        super(name,new Point(50,90));
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.settrunkLength(1);
-//        this.setWeight(500);
-//        setDiet(new Herbivore());
-//
-//    }
-//    /**
-//     * the elephant constructor.
-//     * @param name elephant's name.
-//     * @param p location (point)
-//     */
-//    public Elephant(String name,Point p) {
-//        super(name,p);
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(500);
-//        this.settrunkLength(1);
-//        setDiet(new Herbivore());
-//    }
 
-//    /**
-//     * the elephant fully constructor.
-//     * @param name elephant's name.
-//     * @param p location (point)
-//     * @param num the trunk length
-//     */
-//    public Elephant(String name,Point p,double num) {
-//        super(name,p);
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(500);
-//        this.settrunkLength(num);
-//        setDiet(new Herbivore());
-//    }
+    /**
+     * Elephant Constructor.
+     * @param size the animal's size
+     * @param ver_speed the animal's vertical speed
+     * @param hor_speed the animal's horizontal speed.
+     * @param color the animal's color
+     * @param weight the animal's weight
+     * @param pan the zoo panel.
+     */
     public Elephant(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
         super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
         loadImages(get_nm());
@@ -66,12 +42,11 @@ public class Elephant extends chew{
     public void chew() {
         MessageUtility.logSound(getName(),"Trumpets with joy while flapping its ears, then chews");
     }
-    /**
-     * settrunkLength method - set the trunk length of the elephant.
-     * //@param  the new length.
-     * @return true/ false.
-     */
 
+    /**
+     * get_nm method
+     * @return the name of the animal in the files.
+     */
     public String get_nm() {
         String s = new String("");
         switch (getColor()) {

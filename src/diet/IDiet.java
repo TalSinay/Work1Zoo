@@ -25,7 +25,10 @@ public interface IDiet {
      * @return the gain weight(could be 0)
      */
     double eat(Animal animal, IEdible food);
-
+    /**
+     * toString method.
+     * @return the eating type in a String format.
+     */
     public String toString();
 
 }

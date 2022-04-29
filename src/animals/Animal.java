@@ -36,25 +36,16 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private ZooPanel pan;
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
     private static int TotalEatCount=0;
-
     /**
      * animal constructor.
-     * @param name the given name (string).
-     * @param location the given location (point).
-     */
-//    public Animal(String name,Point location) {
-//        super(location);
-//        MessageUtility.logConstractor(super.getClass().getSuperclass().getSuperclass().getSimpleName(), name);
-//        this.setName(name);
-//
-//    }
-    /**
-     * animal constructor.
+     *
+     * @param p the given location (Point).
      * @param size the given size (int).
      * @param ver the given vertical speed (int).
      * @param hor the given horizontal speed (int).
      * @param color the given color (String).
      * @param weight the given  weight (double).
+     * @param pan the given  panel (ZooPanel).
      */
     public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan){
         super(p);
@@ -184,6 +175,10 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         return "[!] ["+this.name+"] "+" weight: ["+this.weight+"], color: ["+this.getColor()+"]";
     }
 
+    /**
+     * drawObject method
+     * @param g Graphic Object to draw.
+     */
     public void drawObject(Graphics g)
     {
         if(getX_dir()==1) // giraffe goes to the right side
@@ -193,20 +188,65 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             g.drawImage(this.getImg2(), this.getLocation().getx(), this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());
     }
 
+
+    /**
+     * getName method.
+     * @return the object's name.
+     *
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * getX_dir method
+     * @return the x_dir data member
+     */
     public int getX_dir(){return this.x_dir;}
+    /**
+     * getY_dir method
+     * @return the y_dir data member
+     */
     public int getY_dir(){return this.y_dir;}
+
+    /**
+     * getSize method
+     * @return the animal's size.
+     */
     public int getSize(){return this.size;}
+
+    /**
+     * getPan method
+     * @return the animal's panel
+     */
     public ZooPanel getPan(){return this.pan;}
+
+    /**
+     * getImg1 method
+     * @return the image of the animal walking right
+     */
     public BufferedImage getImg1(){return this.img1;}
+
+    /**
+     * getImg2 method
+     * @return the image of the animal walking left
+     */
     public BufferedImage getImg2(){return this.img2;}
+
+    /**
+     * IncEatcount method - increase the eatCount by one.
+     */
     public void IncEatcount(){
         this.eatCount=this.eatCount+1;
         TotalEatCount=TotalEatCount+1;
     }
+
+    /**
+     * loadImage method - try to load the animal's photos from the file
+     * @param nm the animal's code (name_1/2.png)
+     * @exception IOException java.io.FileNotFoundException
+     *
+     */
     public void loadImages(String nm){
         try {
             img1 = ImageIO.read(new File(IDrawable.PICTURE_PATH + "\\" + nm +"_1.png"));
@@ -216,24 +256,67 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             System.out.println("Shit");
         }
     }
+
+    /**
+     * getColor method -
+     * @return the animal's color.
+     */
     public String getColor(){
         return this.col;
     }
+
+    /**
+     * eatInc method.
+     * increase eat count.
+     */
     public void eatInc(){
 
     }
+
+    /**
+     * getEatCount
+     * @return the eatCounter.
+     */
     public int getEatCount(){
         return this.eatCount;
     }
+
+    /**
+     * getChanges
+     * @return if the animal has changed
+     */
     public boolean getChanges (){
         return this.coordChanged;
     }
+
+    /**
+     * setChange method
+     * @param state the new state of coordChange.
+     */
     public void setChanges (boolean state){
 
     }
+
+    /**
+     * get_nm method
+     * @return the name of the animal in the files.
+     */
     public String get_nm(){return "Animal";}
+
+    /**
+     * getHorSpeed
+     * @return the hor speed.
+     */
     public int getHorSpeed(){return horSpeed;}
+    /**
+     * getVerSpeed
+     * @return the ver speed.
+     */
     public int getVerSpeed(){return verSpeed;}
+    /**
+     * getEatCounter
+     * @return the eat counter.
+     */
     public int getEatCounter(){return eatCount;}
 }
 

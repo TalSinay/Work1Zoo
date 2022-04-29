@@ -12,6 +12,16 @@ import utilities.MessageUtility;
  * */
 public class Turtle extends chew{
 
+    /**
+     * Turtle constructor.
+     *
+     * @param size the given location (Point).
+     * @param ver_speed the given vertical speed (int).
+     * @param hor_speed the given horizontal speed (int).
+     * @param color the given color (String).
+     * @param weight the given  weight (double).
+     * @param pan the given  panel (ZooPanel).
+     */
     public Turtle(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
         super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
         setName("Turtle");
@@ -19,46 +29,10 @@ public class Turtle extends chew{
         setDiet(new Herbivore());
     }
 
-
-    //    /**
-//     * the turtle constructor.
-//     * @param name the turtle's name.
-//     */
-//    public Turtle (String name) {
-//        super(name,new Point(80,0));
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(1);
-//        this.setAge(1);
-//        setDiet(new Herbivore());
-//    }
-//
-//    /**
-//     * turtle constructor.
-//     * @param name turtle's name.
-//     * @param p the turtle's location.
-//     */
-//    public Turtle(String name,Point p) {
-//        super(name,p);
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(1);
-//        this.setAge(1);
-//        setDiet(new Herbivore());
-//
-//    }
-//    /**
-//     * turtle fully constructor.
-//     * @param name turtle's name.
-//     * @param p the turtle's location.
-//     * @param age the turtle's age.
-//     */
-//    public Turtle(String name,Point p, int age) {
-//        super(name,p);
-//        MessageUtility.logConstractor(this.getClass().getSimpleName(),name);
-//        this.setWeight(1);
-//        this.setAge(age);
-//        setDiet(new Herbivore());
-//
-//    }
+    /**
+     * get_loc -> give the default location of the Turtle.
+     * @return default location(Point).
+     */
     public static Point get_loc(){
         return new Point(80, 0);
     }
@@ -69,19 +43,10 @@ public class Turtle extends chew{
     public void chew() {
         MessageUtility.logSound(getName(),"Retracts its head in then eats quietly");
     }
-
-
-
-//    /**
-//     * override method. use setAge.
-//     * @param value the age
-//     * @return true
-//     */
-//    @Override
-//    public boolean setValue(int value) {
-//        return setAge(value);
-//    }
-
+    /**
+     * get_nm method
+     * @return the name of the animal in the files.
+     */
     public String get_nm() {
         String s = new String("");
         switch (getColor()) {

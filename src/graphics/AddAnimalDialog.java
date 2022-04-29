@@ -2,12 +2,23 @@ package graphics;
 import animals.*;
 import javax.swing.*;
 import java.util.ArrayList;
+/**
+ * 'AddAnimalDialog' class, used to add animal to zoo, using message dialog with user.
+ * @version 29.4.22
+ * @author Tal and Shoham
+ * @see JDialog
+ * @see Animal
+ * */
 public class AddAnimalDialog extends JDialog {
 //    private static ArrayList<Animal> my_list = new ArrayList<>();
 //    public static ArrayList<Animal> get_animals(){return my_list;}
 private ZooPanel zopanel;
 
-    //need to change the function name (only tests)
+    /**
+     * AddAnimalDialog Constructor.
+      * @param zoopanel the zoo panel (were we want to show the dialog).
+     * @param animals ArrayList of animals
+     */
     public AddAnimalDialog( ZooPanel zoopanel, ArrayList<Animal> animals){
         if(animals.size() == 10){
             JOptionPane.showMessageDialog(null, "You cannot add more than 10 animals");

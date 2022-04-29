@@ -4,8 +4,20 @@ import animals.Animal;
 import mobility.Point;
 import javax.swing.*;
 import java.util.ArrayList;
+/**
+ * 'MoveAnimalDialog' class, used to move animals in zoo, using message dialog with user.
+ * @version 29.4.22
+ * @author Tal and Shoham
+ * @see JDialog
+ * @see Animal
+ * */
 public class MoveAnimalDialog extends JDialog {
 
+    /**
+     * MoveAnimalDialog constructor.
+     * @param zoo the zoopanel (were we want to show the message dialog).
+     * @param animals ArrayList of animals.
+     */
     public MoveAnimalDialog(ZooPanel zoo, ArrayList<Animal> animals){
     int x;
     int y;
