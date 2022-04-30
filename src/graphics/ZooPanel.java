@@ -110,21 +110,24 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 }
             }
         }
-        for (Animal animal : animals) {
-            for (Animal foodAnimal : animals) {
-                if (!(animal.equals(foodAnimal))) {
-                    if (animal.getWeight() > foodAnimal.getWeight() * 2 && animal.calcDistance(foodAnimal.getLocation()) < foodAnimal.getSize()) {
-                        if (animal.eat(foodAnimal)) {
-                            animal.IncEatcount();
-                            animal.setChanges(true);
-                            animals.remove(foodAnimal);
-                            repaint();
-                            break;
+        if ((animals.size()>0)){
+            for (Animal animal : animals) {
+                for (Animal foodAnimal : animals) {
+                    if (!(animal.equals(foodAnimal))) {
+                        if (animal.getWeight() > foodAnimal.getWeight() * 2 && animal.calcDistance(foodAnimal.getLocation()) < foodAnimal.getSize()) {
+                            if (animal.eat(foodAnimal)) {
+                                animal.IncEatcount();
+                                animal.setChanges(true);
+                                animals.remove(foodAnimal);
+                                repaint();
+                                break;
+                            }
                         }
                     }
                 }
             }
         }
+
     }
 
     /**
@@ -191,10 +194,22 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 animals.remove(0);
                 repaint();
             }
-            for(int i=0;i<=foods.size();i++){
-                foods.remove(foods.get(0));
-                repaint();
+            if(foods.size()>0){
+                for(int i=0;i<=foods.size();i++){
+                    foods.remove(foods.get(0));
+                    repaint();
+                }
             }
+
+            if(animals.size()>0){
+                for (int i = 0; i <= animals.size(); i++) {
+                    Animal temp = animals.get(0);
+                    animals.get(0).setChanges(true);
+                    animals.remove(0);
+                    repaint();
+                }
+            }
+            repaint();
         }
         if (e.getSource() == Info) {
             JFrame frame = new JFrame();
