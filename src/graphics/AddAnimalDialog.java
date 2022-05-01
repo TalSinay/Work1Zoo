@@ -29,8 +29,8 @@ public class AddAnimalDialog extends JDialog {
         this.zopanel = zoopanel;
         int size = -1, hor_speed = -1, ver_speed = -1;
         boolean flag=false;
-        String[] objects = {"Lion", "Turtle", "Bear", "Giraffe", "Elephant"};
-        String[] colors = {"Red", "Blue", "Natural"};
+        String[] objects = {"Lion", "Bear" ,"Turtle", "Giraffe", "Elephant"};
+        String[] colors = {"Natural","Red", "Blue"};
         JComboBox cb_type = new JComboBox(objects), cb_color = new JComboBox(colors);
         int type = -1, col = -1;
         type = JOptionPane.showConfirmDialog(zoopanel, cb_type, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
@@ -40,9 +40,9 @@ public class AddAnimalDialog extends JDialog {
             if (col == JOptionPane.YES_OPTION) {
                 try {
                     while ((!flag)) {
-                        size = Integer.parseInt(JOptionPane.showInputDialog(zoopanel, "Enter the animal's size: "));
-                        ver_speed = Integer.parseInt(JOptionPane.showInputDialog(zoopanel, "Enter the animal's vertical speed: "));
-                        hor_speed = Integer.parseInt(JOptionPane.showInputDialog(zoopanel, "Enter the animal's horizontal speed: "));
+                        size = Integer.parseInt(JOptionPane.showInputDialog(zoopanel, "Enter the animal's size(50-300): "));
+                        ver_speed = Integer.parseInt(JOptionPane.showInputDialog(zoopanel, "Enter the animal's vertical speed(1-10): "));
+                        hor_speed = Integer.parseInt(JOptionPane.showInputDialog(zoopanel, "Enter the animal's horizontal speed(1-10): "));
                         if ((ver_speed < 1 || ver_speed > 10) || (hor_speed < 1 || hor_speed > 10) || (size > 300 || size < 50)) {
                             flag = false;
                             JOptionPane.showMessageDialog(zoopanel, "Input wrong");
@@ -55,11 +55,11 @@ public class AddAnimalDialog extends JDialog {
                     return;
                 }
             } else {
-                JOptionPane.showMessageDialog(zoopanel, "you have not choose a color");
+                JOptionPane.showMessageDialog(zoopanel, "You have not choose a color");
                 return;
             }
         } else {
-            JOptionPane.showMessageDialog(zoopanel, "you have not choose an animal");
+            JOptionPane.showMessageDialog(zoopanel, "You have not choose an animal");
             return;
         }
 
