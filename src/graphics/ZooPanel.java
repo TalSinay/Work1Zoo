@@ -188,11 +188,13 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         }
         if (e.getSource() == Clear) {
 
-            for (int i = 0; i <= animals.size(); i++) {
-                Animal temp = animals.get(0);
-                animals.get(0).setChanges(true);
-                animals.remove(0);
-                repaint();
+            if(foods.size()>0) {
+                for (int i = 0; i <= animals.size(); i++) {
+                    Animal temp = animals.get(0);
+                    animals.get(0).setChanges(true);
+                    animals.remove(0);
+                    repaint();
+                }
             }
             if(foods.size()>0){
                 for(int i=0;i<=foods.size();i++){
