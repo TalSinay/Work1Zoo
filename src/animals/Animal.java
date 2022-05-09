@@ -65,7 +65,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
     }
 
+    public void setSuspended(){
 
+    }
+
+    public void setResumed(){
+
+    }
 
 
     /**
