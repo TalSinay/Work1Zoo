@@ -1,5 +1,4 @@
 package graphics;
-import food.EFoodType;
 import food.Meat;
 import plants.Cabbage;
 import plants.Lettuce;
@@ -9,10 +8,8 @@ import animals.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
@@ -27,7 +24,8 @@ import java.util.ArrayList;
 public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private BufferedImage img = null;
     private Button Add;
-    private Button Move;
+    private Button Sleep;
+    private Button WakeUp;
     private Button Clear;
     private Button Food;
     private  Button Info;
@@ -38,6 +36,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Meat meat;
     private JPanel panel;
     private ArrayList<Object> foods = new ArrayList<Object>();
+    private Thread controller;
 
     /**
      * ZooPanel constructor.
@@ -45,27 +44,31 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public ZooPanel() {
         this.setSize(800, 600);
         Add = new Button("Add Animal");
-        Move = new Button("Move Animal");
+        Sleep = new Button("Sleep");
+        WakeUp = new Button("Wake up");
         Clear = new Button("Clear");
         Food = new Button("Food");
         Info = new Button("Info");
         Exit = new Button("Exit");
         Add.setBackground(Color.WHITE);
-        Move.setBackground(Color.WHITE);
+        Sleep.setBackground(Color.WHITE);
+        WakeUp.setBackground(Color.WHITE);
         Clear.setBackground(Color.WHITE);
         Food.setBackground(Color.WHITE);
         Info.setBackground(Color.WHITE);
         Exit.setBackground(Color.WHITE);
         Exit.addActionListener(this);
         Add.addActionListener(this);
-        Move.addActionListener(this);
+        Sleep.addActionListener(this);
+        WakeUp.addActionListener(this);
         Clear.addActionListener(this);
         Food.addActionListener(this);
         Info.addActionListener(this);
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(800, 25));
         panel.add(Add);
-        panel.add(Move);
+        panel.add(Sleep);
+        panel.add(WakeUp);
         panel.add(Clear);
         panel.add(Food);
         panel.add(Info);
@@ -182,9 +185,16 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             new AddAnimalDialog(this, animals);
             manageZoo();
         }
-        if (e.getSource() == Move) {
-            new MoveAnimalDialog(this, animals);
+        if (e.getSource() == Sleep) {
+
+
+
             manageZoo();
+        }
+        if(e.getSource()==WakeUp){
+
+
+
         }
         if (e.getSource() == Clear) {
 

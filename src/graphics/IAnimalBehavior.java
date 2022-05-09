@@ -41,4 +41,7 @@ public interface IAnimalBehavior {
      * @param state the new state of coordChange.
      */
     public void setChanges (boolean state);
+
+    public void setSuspended();
+    public void setResumed();
 }

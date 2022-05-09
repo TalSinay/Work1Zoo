@@ -19,7 +19,7 @@ import java.io.IOException;
  * @author Tal and Shoham
  * @see diet
  * */
-public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior {
+public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior,Runnable {
     private String name;
     private double weight;
     private IDiet diet;
@@ -29,13 +29,14 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private int horSpeed;
     private int verSpeed;
     private boolean coordChanged=false;
-    private Thread thread;
     private int x_dir=1;
     private int y_dir=1;
     private int eatCount=0;
     private ZooPanel pan;
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
     private static int TotalEatCount=0;
+    protected Thread thread;
+    protected boolean threadSuspended;
     /**
      * animal constructor.
      *
@@ -59,6 +60,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         coordChanged = true;
 
     }
+
+    public void run() {
+
+    }
+
+
+
 
     /**
      * this method using to set the 'IDiet' interface in the animal's attribute
@@ -318,5 +326,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @return the eat counter.
      */
     public int getEatCounter(){return eatCount;}
+
+
+
 }
 
