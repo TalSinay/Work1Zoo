@@ -37,6 +37,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private JPanel panel;
     private ArrayList<Object> foods = new ArrayList<Object>();
     private Thread controller;
+    private boolean flag = true;
 
     /**
      * ZooPanel constructor.
@@ -78,10 +79,16 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.PAGE_END);
-        manageZoo();
+        this.controller=new Thread(this);
+        controller.start();
+
+
     }
 
     public void run() {
+
+        manageZoo();
+
 
     }
 
@@ -89,41 +96,52 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
      * manageZoo method - repaint all the objects in the zoo.
      */
     public void manageZoo() {
+
+
+        for (Animal animal : animals) {
+            animal.run();
+            repaint();
+        }
         if (isChange())
             repaint();
         for (Animal animal : animals) {
-            if (meat != null) {
-                if (animal.calcDistance(meat.getlocation()) <= 10 && animal.calcDistance(meat.getlocation()) <= 10) {
-                    if (animal.eat(meat)) {
-                        this.callback(animal);
-                        animal.setChanges(true);
-                        meat=null;
-                        repaint();
+            synchronized (this) {
+                if (meat != null) {
+                    if (animal.calcDistance(meat.getlocation()) <= 10 && animal.calcDistance(meat.getlocation()) <= 10) {
+                        if (animal.eat(meat)) {
+                            this.callback(animal);
+                            animal.setChanges(true);
+                            meat = null;
+                            repaint();
+                        }
                     }
                 }
-            }
-            if (plant != null) {
-                if (animal.calcDistance(plant.getlocation()) <= 10 && animal.calcDistance(plant.getlocation()) <= 10) {
-                    if (animal.eat(plant)) {
-                        this.callback(animal);
-                        animal.setChanges(true);
-                        plant=null;
-                        repaint();
+                if (plant != null) {
+                    if (animal.calcDistance(plant.getlocation()) <= 10 && animal.calcDistance(plant.getlocation()) <= 10) {
+                        if (animal.eat(plant)) {
+                            this.callback(animal);
+                            animal.setChanges(true);
+                            plant = null;
+                            repaint();
+                        }
                     }
                 }
             }
         }
-        if ((animals.size()>0)){
+
+        if ((animals.size() > 0)) {
             for (Animal animal : animals) {
-                for (Animal foodAnimal : animals) {
-                    if (!(animal.equals(foodAnimal))) {
-                        if (animal.getWeight() > foodAnimal.getWeight() * 2 && animal.calcDistance(foodAnimal.getLocation()) < foodAnimal.getSize()) {
-                            if (animal.eat(foodAnimal)) {
-                                animal.IncEatcount();
-                                animal.setChanges(true);
-                                animals.remove(foodAnimal);
-                                repaint();
-                                break;
+                synchronized (this) {
+                    for (Animal foodAnimal : animals) {
+                        if (!(animal.equals(foodAnimal))) {
+                            if (animal.getWeight() > foodAnimal.getWeight() * 2 && animal.calcDistance(foodAnimal.getLocation()) < foodAnimal.getSize()) {
+                                if (animal.eat(foodAnimal)) {
+                                    animal.IncEatcount();
+                                    animal.setChanges(true);
+                                    animals.remove(foodAnimal);
+                                    repaint();
+                                    break;
+                                }
                             }
                         }
                     }
@@ -132,6 +150,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         }
 
     }
+
 
     /**
      * isChange method, checks if some object moved.
@@ -187,6 +206,14 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         }
         if (e.getSource() == Sleep) {
 
+//            for (Animal animal:animals){
+//                try {
+//                    animal.wait();
+//                } catch (InterruptedException ex) {
+//                    ex.printStackTrace();
+//                }
+//            }
+
 
 
             manageZoo();
@@ -195,10 +222,11 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
 
 
+
         }
         if (e.getSource() == Clear) {
 
-            if(foods.size()>0) {
+            if(animals.size()>0) {
                 for (int i = 0; i <= animals.size(); i++) {
                     Animal temp = animals.get(0);
                     animals.get(0).setChanges(true);
@@ -218,6 +246,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     Animal temp = animals.get(0);
                     animals.get(0).setChanges(true);
                     animals.remove(0);
+                    repaint();
+                }
+            }
+            if(foods.size()>0){
+                for(int i=0;i<=foods.size();i++){
+                    foods.remove(foods.get(0));
                     repaint();
                 }
             }
