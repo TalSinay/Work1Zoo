@@ -59,26 +59,34 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.pan = pan;
         coordChanged = true;
         this.thread=new Thread(this);
+        this.threadSuspended=true;
         thread.start();
 
     }
+    public boolean getThreadSuspended(){return this.threadSuspended;}
 
     public void run() {
+        while(getThreadSuspended()) {
+            try {
+                int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                if (x >= 800 || x <= 0) {
+                    x_dir = x_dir * (-1);
+                    x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                }
+                int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                if (y >= 600 || y <= 0) {
+                    y_dir = y_dir * (-1);
+                    y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                }
+                this.move(new Point(x, y));
+            }
+            catch (Exception e){
+                System.out.println("throw Exception!");
+                return;
+            }
 
-        int x=this.getLocation().getx()+this.getHorSpeed()*getX_dir();
-        if (x>=800 || x<=0){
-            x_dir=x_dir*(-1);
-            x=this.getLocation().getx()+this.getHorSpeed()*getX_dir();
+
         }
-        int y=this.getLocation().gety()+this.getHorSpeed()*getY_dir();
-        if (y>=600 || y<=0){
-            y_dir=y_dir*(-1);
-            y=this.getLocation().gety()+this.getHorSpeed()*getY_dir();
-        }
-        this.move(new Point(x,y));
-
-
-
     }
 
     public void setSuspended(){
