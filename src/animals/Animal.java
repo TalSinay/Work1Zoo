@@ -36,7 +36,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
     private static int TotalEatCount=0;
     protected Thread thread;
-    protected boolean threadSuspended;
+    protected boolean threadSuspended=false;
     /**
      * animal constructor.
      *
@@ -55,39 +55,45 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.horSpeed = hor;
         this.col = color;
         this.weight = weight;
-
         this.pan = pan;
         coordChanged = true;
         this.thread=new Thread(this);
         setSuspended();
 
+
     }
     public void start(){
         this.thread.start();
     }
+    public Thread getThread(){return this.thread;}
 
     public void run() {
-        if(threadSuspended) {
-            int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-            if (x >= 800 || x <= 0) {
-                x_dir = x_dir * (-1);
-                x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-            }
-            int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-            if (y >= 600 || y <= 0) {
-                y_dir = y_dir * (-1);
-                y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-            }
-            this.move(new Point(x, y));
-            setChanges(true);
+        if (threadSuspended) {
+            try {
+                int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                if (x >= 750 || x <= 0) {
+                    x_dir = x_dir * (-1);
+                    x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                }
+                int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                if (y >= 550 || y <= 0) {
+                    y_dir = y_dir * (-1);
+                    y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                }
+                this.move(new Point(x, y));
+                setChanges(true);
+            } catch (Exception e) {
+                System.out.println("throw exception!");
 
+            }
 
         }
-
     }
 
+
+
     public void setSuspended(){
-        this.threadSuspended = !threadSuspended;
+        this.threadSuspended = !this.threadSuspended;
     }
 
     public void setResumed(){
