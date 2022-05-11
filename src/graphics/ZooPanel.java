@@ -97,8 +97,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
      * manageZoo method - repaint all the objects in the zoo.
      */
     public void manageZoo() {
-
-
+        if (animals.size()>0) {
+            for (Animal animal : animals) {
+                animal.getThread().start();
+                repaint();
+            }
+        }
         if (isChange())
             repaint();
         for (Animal animal : animals) {
@@ -199,27 +203,27 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
         if (e.getSource() == Add) {
             new AddAnimalDialog(this, animals);
-            manageZoo();
+            repaint();
+
         }
         if (e.getSource() == Sleep) {
-
-//            for (Animal animal:animals){
-//                try {
-//                    animal.wait();
-//                } catch (InterruptedException ex) {
-//                    ex.printStackTrace();
-//                }
-//            }
-
-
-
-            manageZoo();
+                try {
+                    controller.wait(10000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            repaint();
         }
-        if(e.getSource()==WakeUp){
+        if(e.getSource()==WakeUp) {
+            if (animals.size() > 0) {
 
+                try {
+                    controller.notifyAll();
+                    repaint();
+                } catch (Exception es) {
 
-
-
+                }
+            }
         }
         if (e.getSource() == Clear) {
 
