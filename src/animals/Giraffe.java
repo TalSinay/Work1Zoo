@@ -41,7 +41,7 @@ public class Giraffe extends chew{
      * tnis method use to make the giraffe's sound.
      */
     public void chew() {
-        MessageUtility.logSound(getName(), "Bleats and Stomps its legs, then chews");
+//        MessageUtility.logSound(getName(), "Bleats and Stomps its legs, then chews");
     }
 
     /**

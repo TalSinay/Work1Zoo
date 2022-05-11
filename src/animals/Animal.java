@@ -59,38 +59,35 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.pan = pan;
         coordChanged = true;
         this.thread=new Thread(this);
-        this.threadSuspended=true;
-        thread.start();
+        setSuspended();
 
     }
-    public boolean getThreadSuspended(){return this.threadSuspended;}
+    public void start(){
+        this.thread.start();
+    }
 
     public void run() {
-        while(getThreadSuspended()) {
-            try {
-                int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                if (x >= 800 || x <= 0) {
-                    x_dir = x_dir * (-1);
-                    x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                }
-                int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-                if (y >= 600 || y <= 0) {
-                    y_dir = y_dir * (-1);
-                    y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-                }
-                this.move(new Point(x, y));
+        if(threadSuspended) {
+            int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+            if (x >= 800 || x <= 0) {
+                x_dir = x_dir * (-1);
+                x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
             }
-            catch (Exception e){
-                System.out.println("throw Exception!");
-                return;
+            int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+            if (y >= 600 || y <= 0) {
+                y_dir = y_dir * (-1);
+                y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
             }
+            this.move(new Point(x, y));
+            setChanges(true);
 
 
         }
+
     }
 
     public void setSuspended(){
-
+        this.threadSuspended = !threadSuspended;
     }
 
     public void setResumed(){
@@ -106,7 +103,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public boolean setDiet(IDiet diet) {
         boolean flag = true;
         this.diet=diet;
-        MessageUtility.logSetter(this.getClass().getSimpleName(), "setDiet", diet.toString(), flag);
+//        MessageUtility.logSetter(this.getClass().getSimpleName(), "setDiet", diet.toString(), flag);
         return true;
     }
 
@@ -116,7 +113,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      */
 
     public double getWeight() {
-        MessageUtility.logGetter(this.name, "getWeight", this.weight);
+//        MessageUtility.logGetter(this.name, "getWeight", this.weight);
         return this.weight;
     }
 
@@ -130,7 +127,18 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             this.weight = x;
             flag = true;
         }
-        MessageUtility.logSetter(this.name, "setWeight", x, flag);
+//        MessageUtility.logSetter(this.name, "setWeight", x, flag);
+        if(this instanceof Lion){
+            this.size = (int)(x/0.8);
+        }       else if(this instanceof Bear){
+            this.size = (int)(x/1.5);
+        }       else if(this instanceof Giraffe){
+            this.size = (int)(x/2.2);
+        }       else if(this instanceof Elephant){
+            this.size = (int)(x/10);
+        }        else{
+            this.size = (int)(x/0.5);
+        }
         return true;
     }
 
@@ -142,7 +150,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         boolean flag = name != null;
         if(flag) {
             this.name = name;
-            MessageUtility.logSetter(this.name, "setName", name, flag);
+//            MessageUtility.logSetter(this.name, "setName", name, flag);
 
         }
         return flag;
@@ -160,7 +168,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @return the animal's type.
      */
     public EFoodType getFoodtype() {
-        MessageUtility.logGetter(this.getAnimalName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
+//        MessageUtility.logGetter(this.getAnimalName(), "getFoodType", this instanceof Lion ? EFoodType.NOTFOOD: EFoodType.MEAT);
         return EFoodType.MEAT;
     }
     // to get the animal's name.
@@ -181,7 +189,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         }
         String v=food instanceof Animal ?"\t"+((Animal) food).getAnimalName():"";
         String s="["+food.getClass().getSimpleName()+"]"+v;
-        MessageUtility.logBooleanFunction(this.name, "eat", s , flag);
+//        MessageUtility.logBooleanFunction(this.name, "eat", s , flag);
         this.makeSound();
         return flag;
     }
@@ -210,7 +218,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @return return the object's details in a String format.
      */
     public String toString(){
-        return "[!] ["+this.name+"] "+" weight: ["+this.weight+"], color: ["+this.getColor()+"]";
+//        return "[!] ["+this.name+"] "+" weight: ["+this.weight+"], color: ["+this.getColor()+"]";
+        return null;
     }
 
     /**
