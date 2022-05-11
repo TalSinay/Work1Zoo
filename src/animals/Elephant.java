@@ -40,7 +40,7 @@ public class Elephant extends chew{
      * tnis method use to make the elephant's sound.
      */
     public void chew() {
-        MessageUtility.logSound(getName(),"Trumpets with joy while flapping its ears, then chews");
+//        MessageUtility.logSound(getName(),"Trumpets with joy while flapping its ears, then chews");
     }
 
     /**

@@ -41,7 +41,7 @@ public class Bear extends roar {
      * this method used to make the bear sound.
      */
     public void roar() {
-        MessageUtility.logSound(getName(), "Stands on its hind legs, roars and scratches its belly");
+//        MessageUtility.logSound(getName(), "Stands on its hind legs, roars and scratches its belly");
 
     }
     /**

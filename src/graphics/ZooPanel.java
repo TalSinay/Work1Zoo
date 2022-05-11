@@ -85,9 +85,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
     }
 
+    public Thread getController(){return controller;}
     public void run() {
-
-        manageZoo();
+        while(true)
+            manageZoo();
 
 
     }
@@ -98,10 +99,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void manageZoo() {
 
 
-        for (Animal animal : animals) {
-            animal.run();
-            repaint();
-        }
         if (isChange())
             repaint();
         for (Animal animal : animals) {
@@ -148,7 +145,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 }
             }
         }
-
+        
     }
 
 
