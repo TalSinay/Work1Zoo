@@ -74,6 +74,8 @@ public class AddAnimalDialog extends JDialog {
                 default -> JOptionPane.showMessageDialog(zoopanel, "You Entered a bad choice");
             }
         }
+        animals.get(animals.size()-1).start();
+
     }
 }
 

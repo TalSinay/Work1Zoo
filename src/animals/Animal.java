@@ -28,27 +28,29 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private String col;
     private int horSpeed;
     private int verSpeed;
-    private boolean coordChanged=false;
-    private int x_dir=1;
-    private int y_dir=1;
-    private int eatCount=0;
+    private boolean coordChanged = false;
+    private int x_dir = 1;
+    private int y_dir = 1;
+    private int eatCount = 0;
     private ZooPanel pan;
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
-    private static int TotalEatCount=0;
+    private static int TotalEatCount = 0;
     protected Thread thread;
-    protected boolean threadSuspended=false;
+    private boolean flag = true;
+    protected boolean threadSuspended = false;
+
     /**
      * animal constructor.
      *
-     * @param p the given location (Point).
-     * @param size the given size (int).
-     * @param ver the given vertical speed (int).
-     * @param hor the given horizontal speed (int).
-     * @param color the given color (String).
+     * @param p      the given location (Point).
+     * @param size   the given size (int).
+     * @param ver    the given vertical speed (int).
+     * @param hor    the given horizontal speed (int).
+     * @param color  the given color (String).
      * @param weight the given  weight (double).
-     * @param pan the given  panel (ZooPanel).
+     * @param pan    the given  panel (ZooPanel).
      */
-    public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan){
+    public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan) {
         super(p);
         this.size = size;
         this.verSpeed = ver;
@@ -57,18 +59,25 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.weight = weight;
         this.pan = pan;
         coordChanged = true;
-        this.thread=new Thread(this);
-        setSuspended();
+        this.thread = new Thread(this);
 
 
     }
-    public void start(){
+
+    public void start() {
         this.thread.start();
     }
-    public Thread getThread(){return this.thread;}
 
     public void run() {
-        if (threadSuspended) {
+        while (true) {
+            synchronized (this) {
+                while (this.threadSuspended) {
+                    try {
+                        thread.wait();
+                    } catch (Exception r) {
+                    }
+                }
+            }
             try {
                 int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
                 if (x >= 750 || x <= 0) {
@@ -82,24 +91,40 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                 }
                 this.move(new Point(x, y));
                 setChanges(true);
+                try {
+                    Thread.sleep(65);
+                } catch (Exception s) {
+                    System.out.println("throw exception 2!");
+
+                }
             } catch (Exception e) {
-                System.out.println("throw exception!");
+                System.out.println("throw exception 1!");
 
             }
-
         }
-    }
-
-
-
-    public void setSuspended(){
-        this.threadSuspended = !this.threadSuspended;
-    }
-
-    public void setResumed(){
 
     }
 
+
+
+    public boolean getSuspended(){return this.threadSuspended;}
+
+    public synchronized void  setSuspended(){
+        this.threadSuspended = true;
+    }
+
+    public synchronized void setResumed(){
+        this.threadSuspended = false;
+        notifyAll();
+
+    }
+    public void interrupt(){
+        this.thread.interrupt();
+    }
+
+    public void setFlag() {
+        this.flag=!flag;
+    }
 
     /**
      * this method using to set the 'IDiet' interface in the animal's attribute
@@ -134,17 +159,17 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             flag = true;
         }
 //        MessageUtility.logSetter(this.name, "setWeight", x, flag);
-        if(this instanceof Lion){
-            this.size = (int)(x/0.8);
-        }       else if(this instanceof Bear){
-            this.size = (int)(x/1.5);
-        }       else if(this instanceof Giraffe){
-            this.size = (int)(x/2.2);
-        }       else if(this instanceof Elephant){
-            this.size = (int)(x/10);
-        }        else{
-            this.size = (int)(x/0.5);
-        }
+//        if(this instanceof Lion){
+//            this.size = (int)(x/0.8);
+//        }       else if(this instanceof Bear){
+//            this.size = (int)(x/1.5);
+//        }       else if(this instanceof Giraffe){
+//            this.size = (int)(x/2.2);
+//        }       else if(this instanceof Elephant){
+//            this.size = (int)(x/10);
+//        }        else{
+//            this.size = (int)(x/0.5);
+//        }
         return true;
     }
 

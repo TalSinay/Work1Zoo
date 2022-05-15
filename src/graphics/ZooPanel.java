@@ -97,12 +97,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
      * manageZoo method - repaint all the objects in the zoo.
      */
     public void manageZoo() {
-        if (animals.size()>0) {
-            for (Animal animal : animals) {
-                animal.getThread().start();
-                repaint();
-            }
-        }
         if (isChange())
             repaint();
         for (Animal animal : animals) {
@@ -149,7 +143,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 }
             }
         }
-        
+        repaint();
     }
 
 
@@ -207,30 +201,26 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
         }
         if (e.getSource() == Sleep) {
-                try {
-                    controller.wait(10000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+            for(Animal animal:animals){
+                    animal.setSuspended();
+            }
             repaint();
         }
         if(e.getSource()==WakeUp) {
-            if (animals.size() > 0) {
 
-                try {
-                    controller.notifyAll();
+                for(Animal an:animals) {
+                    an.setResumed();
                     repaint();
-                } catch (Exception es) {
-
                 }
-            }
+
         }
         if (e.getSource() == Clear) {
 
             if(animals.size()>0) {
                 for (int i = 0; i <= animals.size(); i++) {
                     Animal temp = animals.get(0);
-                    animals.get(0).setChanges(true);
+
+                    temp.setChanges(true);
                     animals.remove(0);
                     repaint();
                 }
@@ -302,9 +292,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     meat.drawObject(this.getGraphics());
                     break;
             }
-            manageZoo();
+            repaint();
         }
         if (e.getSource() == Exit) {
+            for(Animal an:animals){
+                an.setFlag();
+            }
             System.exit(0);
         }
     }
