@@ -202,28 +202,24 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         }
         if (e.getSource() == Sleep) {
             for(Animal animal:animals){
-                if (animal.getSuspended()) {
                     animal.setSuspended();
-                }
             }
             repaint();
         }
         if(e.getSource()==WakeUp) {
-            if (animals.size() > 0) {
-                for(Animal an:animals){
-                    if(!an.getSuspended()){
-                        an.setResumed();
-                    }
+
+                for(Animal an:animals) {
+                    an.setResumed();
                     repaint();
                 }
-            }
+
         }
         if (e.getSource() == Clear) {
 
             if(animals.size()>0) {
                 for (int i = 0; i <= animals.size(); i++) {
                     Animal temp = animals.get(0);
-                    temp.interrupt();
+
                     temp.setChanges(true);
                     animals.remove(0);
                     repaint();
@@ -296,9 +292,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     meat.drawObject(this.getGraphics());
                     break;
             }
-            manageZoo();
+            repaint();
         }
         if (e.getSource() == Exit) {
+            for(Animal an:animals){
+                an.setFlag();
+            }
             System.exit(0);
         }
     }

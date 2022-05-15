@@ -28,27 +28,29 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private String col;
     private int horSpeed;
     private int verSpeed;
-    private boolean coordChanged=false;
-    private int x_dir=1;
-    private int y_dir=1;
-    private int eatCount=0;
+    private boolean coordChanged = false;
+    private int x_dir = 1;
+    private int y_dir = 1;
+    private int eatCount = 0;
     private ZooPanel pan;
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
-    private static int TotalEatCount=0;
+    private static int TotalEatCount = 0;
     protected Thread thread;
-    protected boolean threadSuspended=false;
+    private boolean flag = true;
+    protected boolean threadSuspended = false;
+
     /**
      * animal constructor.
      *
-     * @param p the given location (Point).
-     * @param size the given size (int).
-     * @param ver the given vertical speed (int).
-     * @param hor the given horizontal speed (int).
-     * @param color the given color (String).
+     * @param p      the given location (Point).
+     * @param size   the given size (int).
+     * @param ver    the given vertical speed (int).
+     * @param hor    the given horizontal speed (int).
+     * @param color  the given color (String).
      * @param weight the given  weight (double).
-     * @param pan the given  panel (ZooPanel).
+     * @param pan    the given  panel (ZooPanel).
      */
-    public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan){
+    public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan) {
         super(p);
         this.size = size;
         this.verSpeed = ver;
@@ -57,64 +59,72 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.weight = weight;
         this.pan = pan;
         coordChanged = true;
-        setSuspended();
-        this.thread=new Thread(this);
-
+        this.thread = new Thread(this);
 
 
     }
-    public void start(){ this.thread.start();}
+
+    public void start() {
+        this.thread.start();
+    }
 
     public void run() {
         while (true) {
-            if (this.getSuspended()) {
-                try {
-                    int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                    if (x >= 750 || x <= 0) {
-                        x_dir = x_dir * (-1);
-                        x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                    }
-                    int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-                    if (y >= 550 || y <= 0) {
-                        y_dir = y_dir * (-1);
-                        y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-                    }
-                    this.move(new Point(x, y));
-                    setChanges(true);
+            synchronized (this) {
+                while (this.threadSuspended) {
                     try {
-                        Thread.sleep(70);
-                    } catch (Exception s) {
-                        System.out.println("throw exception 2!");
-
+                        thread.wait();
+                    } catch (Exception r) {
                     }
-                } catch (Exception e) {
-                    System.out.println("throw exception 1!");
-
                 }
-
             }
-            else{
-                try {
-                    this.thread.wait();
+            try {
+                int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                if (x >= 750 || x <= 0) {
+                    x_dir = x_dir * (-1);
+                    x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
                 }
-                catch (Exception e){}
+                int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                if (y >= 550 || y <= 0) {
+                    y_dir = y_dir * (-1);
+                    y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                }
+                this.move(new Point(x, y));
+                setChanges(true);
+                try {
+                    Thread.sleep(65);
+                } catch (Exception s) {
+                    System.out.println("throw exception 2!");
+
+                }
+            } catch (Exception e) {
+                System.out.println("throw exception 1!");
+
             }
         }
+
     }
 
+
+
     public boolean getSuspended(){return this.threadSuspended;}
+
+    public synchronized void  setSuspended(){
+        this.threadSuspended = true;
+    }
+
+    public synchronized void setResumed(){
+        this.threadSuspended = false;
+        notifyAll();
+
+    }
     public void interrupt(){
         this.thread.interrupt();
     }
-    public void setSuspended(){
-        this.threadSuspended = !this.threadSuspended;
+
+    public void setFlag() {
+        this.flag=!flag;
     }
-
-    public void setResumed(){
-        this.setSuspended();
-
-    }
-
 
     /**
      * this method using to set the 'IDiet' interface in the animal's attribute
