@@ -57,46 +57,61 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.weight = weight;
         this.pan = pan;
         coordChanged = true;
-        this.thread=new Thread(this);
         setSuspended();
+        this.thread=new Thread(this);
+
 
 
     }
-    public void start(){
-        this.thread.start();
-    }
-    public Thread getThread(){return this.thread;}
+    public void start(){ this.thread.start();}
 
     public void run() {
-        if (threadSuspended) {
-            try {
-                int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                if (x >= 750 || x <= 0) {
-                    x_dir = x_dir * (-1);
-                    x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+        while (true) {
+            if (this.getSuspended()) {
+                try {
+                    int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                    if (x >= 750 || x <= 0) {
+                        x_dir = x_dir * (-1);
+                        x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                    }
+                    int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                    if (y >= 550 || y <= 0) {
+                        y_dir = y_dir * (-1);
+                        y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                    }
+                    this.move(new Point(x, y));
+                    setChanges(true);
+                    try {
+                        Thread.sleep(70);
+                    } catch (Exception s) {
+                        System.out.println("throw exception 2!");
+
+                    }
+                } catch (Exception e) {
+                    System.out.println("throw exception 1!");
+
                 }
-                int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-                if (y >= 550 || y <= 0) {
-                    y_dir = y_dir * (-1);
-                    y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
-                }
-                this.move(new Point(x, y));
-                setChanges(true);
-            } catch (Exception e) {
-                System.out.println("throw exception!");
 
             }
-
+            else{
+                try {
+                    this.thread.wait();
+                }
+                catch (Exception e){}
+            }
         }
     }
 
-
-
+    public boolean getSuspended(){return this.threadSuspended;}
+    public void interrupt(){
+        this.thread.interrupt();
+    }
     public void setSuspended(){
         this.threadSuspended = !this.threadSuspended;
     }
 
     public void setResumed(){
+        this.setSuspended();
 
     }
 
@@ -134,17 +149,17 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             flag = true;
         }
 //        MessageUtility.logSetter(this.name, "setWeight", x, flag);
-        if(this instanceof Lion){
-            this.size = (int)(x/0.8);
-        }       else if(this instanceof Bear){
-            this.size = (int)(x/1.5);
-        }       else if(this instanceof Giraffe){
-            this.size = (int)(x/2.2);
-        }       else if(this instanceof Elephant){
-            this.size = (int)(x/10);
-        }        else{
-            this.size = (int)(x/0.5);
-        }
+//        if(this instanceof Lion){
+//            this.size = (int)(x/0.8);
+//        }       else if(this instanceof Bear){
+//            this.size = (int)(x/1.5);
+//        }       else if(this instanceof Giraffe){
+//            this.size = (int)(x/2.2);
+//        }       else if(this instanceof Elephant){
+//            this.size = (int)(x/10);
+//        }        else{
+//            this.size = (int)(x/0.5);
+//        }
         return true;
     }
 
