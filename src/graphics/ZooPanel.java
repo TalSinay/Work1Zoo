@@ -97,26 +97,28 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
      * manageZoo method - repaint all the objects in the zoo.
      */
     public void manageZoo() {
+
         if (isChange())
             repaint();
-        if(animals.size()>0) {
-            for (Animal animal : animals) {
-                synchronized (animal) {
+        if (animals.size() > 0) {
+            synchronized (this) {
+                for (int i=0;i<animals.size();i++) {
+
                     if (meat != null) {
-                        if (animal.calcDistance(meat.getlocation()) <= 10 && animal.calcDistance(meat.getlocation()) <= 10) {
-                            if (animal.eat(meat)) {
-                                this.callback(animal);
-                                animal.setChanges(true);
+                        if (animals.get(i).calcDistance(meat.getlocation()) <= 10 && animals.get(i).calcDistance(meat.getlocation()) <= 10) {
+                            if (animals.get(i).eat(meat)) {
+                                this.callback(animals.get(i));
+                                animals.get(i).setChanges(true);
                                 meat = null;
                                 repaint();
                             }
                         }
                     }
                     if (plant != null) {
-                        if (animal.calcDistance(plant.getlocation()) <= 10 && animal.calcDistance(plant.getlocation()) <= 10) {
-                            if (animal.eat(plant)) {
-                                this.callback(animal);
-                                animal.setChanges(true);
+                        if (animals.get(i).calcDistance(plant.getlocation()) <= 10 && animals.get(i).calcDistance(plant.getlocation()) <= 10) {
+                            if (animals.get(i).eat(plant)) {
+                                this.callback(animals.get(i));
+                                animals.get(i).setChanges(true);
                                 plant = null;
                                 repaint();
                             }
@@ -126,30 +128,38 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             }
         }
 
+
         if ((animals.size() > 1)) {
-            for (Animal animal : animals) {
-                synchronized (animal) {
-                    for (Animal foodAnimal : animals) {
-                        if (!(animal.equals(foodAnimal))) {
-                            if (animal.getWeight() > foodAnimal.getWeight() * 2 && animal.calcDistance(foodAnimal.getLocation()) < foodAnimal.getSize()) {
-                                if (animal.eat(foodAnimal)) {
-                                    animal.IncEatcount();
-                                    foodAnimal.setSuspended();
-                                    animal.setChanges(true);
-                                    foodAnimal.setChanges(true);
-                                    foodAnimal.interrupt();
-                                    animals.remove(foodAnimal);
-                                    repaint();
-                                    break;
+            boolean flag = false;
+            synchronized (this) {
+                for (Animal animal : animals) {
+                    synchronized (this) {
+                        for (Animal foodAnimal : animals) {
+                            synchronized (foodAnimal) {
+                                if (!(animal.equals(foodAnimal))) {
+                                    if (animal.getWeight() > foodAnimal.getWeight() * 2 && animal.calcDistance(foodAnimal.getLocation()) < foodAnimal.getSize()) {
+                                        if (animal.eat(foodAnimal)) {
+                                            flag = true;
+                                            //foodAnimal.setSuspended();
+                                            foodAnimal.interrupt();
+                                            animals.remove(foodAnimal);
+                                            animal.IncEatcount();
+                                            animal.setChanges(true);
+                                            return;
+                                        }
+                                    }
                                 }
                             }
                         }
+//                        if (flag)
+//                            break;
                     }
                 }
             }
         }
         repaint();
     }
+
 
 
     /**
@@ -174,8 +184,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (animals.size() > 0) {
-            for (Animal animal : animals) {
-                animal.drawObject(g);
+            synchronized (this) {
+                for (Animal animal : animals) {
+                    animal.drawObject(g);
+                }
             }
         }
         if (plant != null)
@@ -201,10 +213,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == Add) {
-            synchronized (this) {
+
                 new AddAnimalDialog(this, animals);
                 repaint();
-            }
+
         }
         if (e.getSource() == Sleep) {
             for(Animal animal:animals){
@@ -213,26 +225,27 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             repaint();
         }
         if(e.getSource()==WakeUp) {
-
-                for(Animal an:animals) {
-                    an.setResumed();
-                    repaint();
+                synchronized (this) {
+                    for (Animal an : animals) {
+                        an.setResumed();
+                        repaint();
+                    }
                 }
 
         }
         if (e.getSource() == Clear) {
 
             if(animals.size()>0) {
-                for (Animal animal:animals) {
-                    synchronized (this) {
-                        animal.setSuspended();
-                        animal.setChanges(true);
-                        animal.interrupt();
-                        int a=animals.indexOf(animal);
-                        animals.remove(a);
-                        repaint();
+                synchronized (this) {
+                    for (Animal animal : animals) {
+                            animal.setSuspended();
+                            animal.setChanges(true);
+                            animal.interrupt();
+                            int a = animals.indexOf(animal);
+                            animals.remove(a);
+                            repaint();
+                        }
                     }
-                }
             }
             if(foods.size()>0){
                 for(int i=0;i<=foods.size();i++){
@@ -241,13 +254,15 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 }
             }
 
-            if(animals.size()>0){
-                for (int i = 0; i <= animals.size(); i++) {
-                    Animal temp = animals.get(0);
-                    temp.interrupt();
-                    temp.setChanges(true);
-                    animals.remove(0);
-                    repaint();
+            if(animals.size()>0) {
+                synchronized (this) {
+                    for (int i = 0; i <= animals.size(); i++) {
+                        Animal temp = animals.get(0);
+                        temp.interrupt();
+                        temp.setChanges(true);
+                        animals.remove(0);
+                        repaint();
+                    }
                 }
             }
             if(foods.size()>0){

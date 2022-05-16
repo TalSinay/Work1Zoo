@@ -91,13 +91,17 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                 }
                 this.move(new Point(x, y));
                 setChanges(true);
-                try {
-                    Thread.sleep(65);
-                } catch (Exception s) {
-                    System.out.println("throw exception 2!");
+                if(!(this.threadSuspended)) {
+                    try {
+                        Thread.sleep(65);
+                    } catch (InterruptedException s) {
+                        System.out.println("throw exception 2! "+getName());
+                        return;
 
+                    }
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 System.out.println("throw exception 1!");
 
             }
