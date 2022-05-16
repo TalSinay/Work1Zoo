@@ -102,7 +102,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             repaint();
         if (animals.size() > 0) {
             synchronized (this) {
-                for (int i=0;i<animals.size();i++) {
+                for (int i = 0; i < animals.size(); i++) {
 
                     if (meat != null) {
                         if (animals.get(i).calcDistance(meat.getlocation()) <= 10 && animals.get(i).calcDistance(meat.getlocation()) <= 10) {
@@ -132,19 +132,21 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         if ((animals.size() > 1)) {
             boolean flag = false;
             synchronized (this) {
-                for (Animal animal : animals) {
-                    synchronized (this) {
-                        for (Animal foodAnimal : animals) {
-                            synchronized (foodAnimal) {
-                                if (!(animal.equals(foodAnimal))) {
-                                    if (animal.getWeight() > foodAnimal.getWeight() * 2 && animal.calcDistance(foodAnimal.getLocation()) < foodAnimal.getSize()) {
-                                        if (animal.eat(foodAnimal)) {
+                for (int i = 0; i < animals.size(); i++) {
+                    synchronized (animals.get(i)) {
+                        for (int j = 0; j < animals.size(); j++) {
+                            synchronized (animals.get(j)) {
+                                if (!(animals.get(i).equals(animals.get(j)))) {
+                                    if (animals.get(i).getWeight() > animals.get(j).getWeight() * 2 && animals.get(i).calcDistance(animals.get(j).getLocation()) < animals.get(j).getSize()) {
+                                        if (animals.get(i).eat(animals.get(j))) {
+                                            if(i>j)
+                                                i--;
                                             flag = true;
                                             //foodAnimal.setSuspended();
-                                            foodAnimal.interrupt();
-                                            animals.remove(foodAnimal);
-                                            animal.IncEatcount();
-                                            animal.setChanges(true);
+                                            animals.get(j).interrupt();
+                                            animals.remove(animals.get(j));
+                                            animals.get(i).IncEatcount();
+                                            animals.get(i).setChanges(true);
                                             return;
                                         }
                                     }
@@ -154,12 +156,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 //                        if (flag)
 //                            break;
                     }
+
                 }
             }
+            repaint();
         }
-        repaint();
     }
-
 
 
     /**
@@ -237,12 +239,11 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
             if(animals.size()>0) {
                 synchronized (this) {
-                    for (Animal animal : animals) {
-                            animal.setSuspended();
-                            animal.setChanges(true);
-                            animal.interrupt();
-                            int a = animals.indexOf(animal);
-                            animals.remove(a);
+                    for (int i=0;i<animals.size();i++) {
+                            animals.get(0).setSuspended();
+                            animals.get(0).setChanges(true);
+                            animals.get(0).interrupt();
+                            animals.remove(0);
                             repaint();
                         }
                     }
