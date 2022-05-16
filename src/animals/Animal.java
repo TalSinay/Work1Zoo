@@ -70,24 +70,24 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
     public void run() {
         while (true) {
-            synchronized (this) {
+
                 while (this.threadSuspended) {
                     try {
                         thread.wait();
                     } catch (Exception r) {
                     }
                 }
-            }
+
             try {
                 int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
                 if (x >= 750 || x <= 0) {
                     x_dir = x_dir * (-1);
                     x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
                 }
-                int y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                int y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
                 if (y >= 550 || y <= 0) {
                     y_dir = y_dir * (-1);
-                    y = this.getLocation().gety() + this.getHorSpeed() * getY_dir();
+                    y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
                 }
                 this.move(new Point(x, y));
                 setChanges(true);
@@ -158,19 +158,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             this.weight = x;
             flag = true;
         }
-//        MessageUtility.logSetter(this.name, "setWeight", x, flag);
-//        if(this instanceof Lion){
-//            this.size = (int)(x/0.8);
-//        }       else if(this instanceof Bear){
-//            this.size = (int)(x/1.5);
-//        }       else if(this instanceof Giraffe){
-//            this.size = (int)(x/2.2);
-//        }       else if(this instanceof Elephant){
-//            this.size = (int)(x/10);
-//        }        else{
-//            this.size = (int)(x/0.5);
-//        }
-        return true;
+        return flag;
     }
 
     /**
