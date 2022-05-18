@@ -20,6 +20,8 @@ import java.io.IOException;
  * @see diet
  * */
 public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior,Runnable {
+    static private boolean plant;
+    static private boolean meat;
     private String name;
     private double weight;
     private IDiet diet;
@@ -64,20 +66,61 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
     }
 
+    /**
+     * setMeat method changes when carnivore eat food (not animal)
+     * @param f boolean flag
+     *          (true - when meat object is created)
+     *          (false - when carnivore reached to the meat location)
+     */
+    public static void setMeat(boolean f){
+        meat = f;
+    }
+    /**
+     * setPlant method changes when carnivore eat food (not animal)
+     * @param f boolean flag
+     *          (true - when lettuce/ cabbage object is created)
+     *          (false - when herbivore reached to the plant location)
+     */
+    public static void setPlant(boolean f){
+        plant = f;
+    }
+
+    /**
+     * start method, override from Runnable  interface
+     * start the animal's thread.
+     */
     public void start() {
         this.thread.start();
     }
 
+    /**
+     * run method
+     * running the thread.
+     */
     public void run() {
         while (true) {
+            if(meat || plant) {
+                if (meat && (diet instanceof Omnivore || diet instanceof Carnivore )){
+                    change_direction(EFoodType.MEAT);
+                    if (getLocation().getx() == 400 && getLocation().gety() == 300) {
+                        if (diet.canEat(EFoodType.VEGETABLE)) plant = false;
+                        meat = false;
+                    }
 
-                while (this.threadSuspended) {
-                    try {
-                        thread.wait();
-                    } catch (Exception r) {
+                }
+                if (plant && (diet instanceof Omnivore || diet instanceof Herbivore )) {
+                    change_direction(EFoodType.VEGETABLE);
+                    if (getLocation().getx() == 400 && getLocation().gety() == 300) {
+                        if (diet.canEat(EFoodType.MEAT)) meat = false;
+                        plant = false;
                     }
                 }
-
+            }
+            while (this.threadSuspended) {
+                try {
+                    thread.wait();
+                } catch (Exception r) {}
+            }
             try {
                 int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
                 if (x >= 750 || x <= 0) {
@@ -107,25 +150,38 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             }
         }
 
+
     }
 
+//    public boolean getSuspended(){return this.threadSuspended;}
 
-
-    public boolean getSuspended(){return this.threadSuspended;}
-
+    /**
+     * set suspended method changing the treadSuspended data member to true
+     */
     public synchronized void  setSuspended(){
         this.threadSuspended = true;
     }
 
+
+    /**
+     * set resumed method changing the treadSuspended data member to false
+     */
     public synchronized void setResumed(){
         this.threadSuspended = false;
         notifyAll();
 
     }
+
+    /**
+     * interrupt method, used to 'kill' the thread
+     */
     public void interrupt(){
         this.thread.interrupt();
     }
 
+    /**
+     * set flag method change the flag from true to false and from false to true
+     */
     public void setFlag() {
         this.flag=!flag;
     }
@@ -258,6 +314,23 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
             g.drawImage(this.getImg2(), this.getLocation().getx(), this.getLocation().gety()-getSize()/10, getSize()/2, getSize(), getPan());
     }
 
+    /**
+     * setX_dir method, change the x direction to the dir value.
+     * @param dir the new direction
+     */
+    public void setX_dir(int dir){
+        this.x_dir = dir;
+    }
+    public void setHorSpeed(int x){this.horSpeed=x;}
+    public void setVerSpeed(int x){this.verSpeed=x;}
+
+    /**
+     * setY_dir change the y direction to the dir value
+     * @param dir the new direction
+     */
+    public void setY_dir(int dir){
+        this.y_dir = dir;
+    }
 
     /**
      * getName method.
