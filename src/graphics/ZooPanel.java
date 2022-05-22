@@ -264,7 +264,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             }
             if (foods.size() > 0) {
                 for (int i = 0; i <= foods.size(); i++) {
-                    foods.remove(foods.get(0));
+
+                    foods.remove(0);
                     repaint();
                 }
             }
@@ -282,10 +283,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             }
             if (foods.size() > 0) {
                 for (int i = 0; i <= foods.size(); i++) {
-                    foods.remove(foods.get(0));
+                    foods.remove(0);
                     repaint();
                 }
             }
+            plant = null;
+            meat = null;
             repaint();
         }
         if (e.getSource() == Info) {
