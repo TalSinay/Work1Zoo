@@ -138,7 +138,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                     try {
                         Thread.sleep(65);
                     } catch (InterruptedException s) {
-                        System.out.println("throw exception 2! "+getName());
+                        System.out.println("end of thread "+getName());
                         return;
 
                     }
