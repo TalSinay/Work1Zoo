@@ -15,15 +15,7 @@ import java.util.Vector;
  * */
 public class Bear extends roar {
     private String furColor;
-    private Vector<Observer> list= new Vector<Observer>();
-    public void addObserver(Observer observer){
-        list.add(observer);
-    }
-    public synchronized void subObserver(Observer observer){
-        int index = list.indexOf(observer);
-        list.set(index,list.lastElement());
-        list.remove(list.size()-1);
-    }
+
 
     /**
      * get_loc -> give the default location of the bear.

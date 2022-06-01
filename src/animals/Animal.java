@@ -12,6 +12,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observer;
+import java.util.Vector;
+
 
 /**
  * 'Animal' class, used to declare all the animals in the zoo.
@@ -39,7 +42,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private static int TotalEatCount = 0;
     private boolean flag = true;
     protected boolean threadSuspended = false;
-
+    private Vector<Observer> list= new Vector<Observer>();
 
     /**
      * animal constructor.
@@ -61,9 +64,15 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.weight = weight;
         this.pan = pan;
         coordChanged = true;
+    }
 
-
-
+    public void addObserver(Observer observer){
+        list.add(observer);
+    }
+    public synchronized void subObserver(Observer observer){
+        int index = list.indexOf(observer);
+        list.set(index,list.lastElement());
+        list.remove(list.size()-1);
     }
 
     /**
@@ -111,11 +120,11 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                     }
                 }
             }
-            while (this.threadSuspended) {
-                try {
-                    thread.wait();
-                } catch (Exception r) {}
-            }
+//            while (this.threadSuspended) {
+//                try {
+//                    Thread.wait();
+//                } catch (Exception r) {}
+//            }
             try {
                 int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
                 if (x >= 750 || x <= 0) {
@@ -129,23 +138,27 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                 }
                 this.move(new Point(x, y));
                 setChanges(true);
-                if(!(this.threadSuspended)) {
+                pan.getThreadPoolExecutor().execute(() -> {
                     try {
-                        Thread.sleep(65);
-                    } catch (InterruptedException s) {
-                        System.out.println("end of thread "+getName());
-                        return;
+                        Thread.sleep(3000L);
+                    } catch (InterruptedException ignore) {}
+                });
 
-                    }
-                }
+//                if(!(this.threadSuspended)) {
+//                    try {
+//                        Thread.sleep(65);
+//                    } catch (InterruptedException s) {
+//                        System.out.println("end of thread "+getName());
+//                        return;
+//
+//                    }
+//                }
             }
             catch (Exception e) {
                 System.out.println("throw exception 1!");
 
             }
         }
-
-
     }
 
 //    public boolean getSuspended(){return this.threadSuspended;}

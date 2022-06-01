@@ -17,7 +17,7 @@ import java.util.Vector;
  * @see Animal
  * */
 public class Lion extends roar {
-    private Vector<Observer> list= new Vector<Observer>();
+
 
     /**
      * Lion Constructor.
@@ -78,12 +78,5 @@ public class Lion extends roar {
         }
         return s;
     }
-    public void addObserver(Observer observer){
-        list.add(observer);
-    }
-    public synchronized void subObserver(Observer observer){
-        int index = list.indexOf(observer);
-        list.set(index,list.lastElement());
-        list.remove(list.size()-1);
-    }
+
 }

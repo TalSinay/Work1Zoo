@@ -14,7 +14,7 @@ import java.util.Vector;
  * @see Animal
  * */
 public class Elephant extends chew{
-    private Vector<Observer> list= new Vector<Observer>();
+
     /**
      * get_loc -> give the default location of the Elephant.
      * @return default location(Point).
@@ -59,14 +59,4 @@ public class Elephant extends chew{
         }
         return s;
     }
-
-    public void addObserver(Observer observer){
-        list.add(observer);
-    }
-    public synchronized void subObserver(Observer observer){
-        int index = list.indexOf(observer);
-        list.set(index,list.lastElement());
-        list.remove(list.size()-1);
-    }
-
 }

@@ -90,6 +90,11 @@ public class ZooPanel extends JPanel implements  ActionListener {
         this.add(panel, BorderLayout.PAGE_END);
 
     }
+
+    public ExecutorService getThreadPoolExecutor() {
+        return threadPoolExecutor;
+    }
+
     public static ZooPanel getZoopanel(){
         if(zoopanel==null){
             synchronized (ZooPanel.class){
@@ -135,8 +140,6 @@ public class ZooPanel extends JPanel implements  ActionListener {
                 }
             }
         }
-
-
         if ((animals.size() > 1)) {
             boolean flag = false;
             synchronized (this) {
@@ -247,10 +250,6 @@ public class ZooPanel extends JPanel implements  ActionListener {
                 }
             }
         }
-
-
-
-
         if (e.getSource() == Sleep) {
             for (Animal animal : animals) {
                 animal.setSuspended();
@@ -264,7 +263,6 @@ public class ZooPanel extends JPanel implements  ActionListener {
                     repaint();
                 }
             }
-
         }
         if (e.getSource() == Clear) {
 
@@ -273,7 +271,6 @@ public class ZooPanel extends JPanel implements  ActionListener {
                     for (int i = 0; i < animals.size(); i++) {
                         animals.get(0).setSuspended();
                         animals.get(0).setChanges(true);
-                        animals.get(0).interrupt();
                         animals.remove(0);
                         repaint();
                     }
@@ -291,7 +288,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
                 synchronized (this) {
                     for (int i = 0; i <= animals.size(); i++) {
                         Animal temp = animals.get(0);
-                        temp.interrupt();
+
                         temp.setChanges(true);
                         animals.remove(0);
                         repaint();
