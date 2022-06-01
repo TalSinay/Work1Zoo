@@ -10,8 +10,8 @@ import java.io.IOException;
 public interface IDrawable {
 
 
-    //   public final static String PICTURE_PATH = "C:\\Users\\moyal\\IdeaProjects\\Work1Zoo\\assignment2_pictures";
-   public final static String PICTURE_PATH = "C:\\Users\\USER\\IdeaProjects\\Work1Zoo\\assignment2_pictures";
+       public final static String PICTURE_PATH = "C:\\Users\\moyal\\IdeaProjects\\Work1Zoo\\assignment2_pictures";
+//   public final static String PICTURE_PATH = "C:\\Users\\USER\\IdeaProjects\\Work1Zoo\\assignment2_pictures";
 
     /**
      * loadImage method - try to load the object's photos from the file

@@ -37,15 +37,14 @@ public class AddAnimalDialog extends JDialog {
         JComboBox cb_object = new JComboBox(Herbivore), cb_color = new JComboBox(colors),cb_type=new JComboBox(types),cb_her=new JComboBox(Herbivore),cb_car=new JComboBox(Carnivore);
         int type = -1, col = -1,obj=-1;
         type=JOptionPane.showConfirmDialog(zoopanel, cb_type, "Choose animal's diet: ", JOptionPane.DEFAULT_OPTION);
-        switch (type){
+        switch (cb_type.getSelectedIndex()){
             case 0:
                 obj = JOptionPane.showConfirmDialog(zoopanel, cb_her, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
                 break;
             case 2:
                 obj = JOptionPane.showConfirmDialog(zoopanel, cb_car, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
-
         }
-        if (obj == JOptionPane.YES_OPTION) {
+        if (obj == JOptionPane.YES_OPTION || cb_type.getSelectedIndex() == 1) {
 
             col = JOptionPane.showConfirmDialog(zoopanel, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
             if (col == JOptionPane.YES_OPTION) {
