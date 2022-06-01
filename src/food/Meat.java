@@ -9,6 +9,7 @@ package food;
 import graphics.IDrawable;
 import graphics.ZooPanel;
 import mobility.Point;
+import plants.Plant;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -27,12 +28,13 @@ public class Meat implements IEdible , IDrawable {
     private ZooPanel pan;
     private Point location;
     private BufferedImage img;
+    private static Meat meat;
 
 
     /**
      * Meat default Constructor.
      */
-    public Meat() {
+    private Meat() {
         Random rand = new Random();
 
         this.location = new Point(400, 300);
@@ -41,10 +43,23 @@ public class Meat implements IEdible , IDrawable {
         loadImages(get_nm());
     }
 
-    /**
-     * getloction method.
-     * @return the location of meat.
-     */
+
+    public static Meat getMeat() {
+        if (meat == null) {
+            synchronized (Meat.class) {
+                if (meat == null) {
+                    meat = new Meat();
+                }
+            }
+        }
+        return meat;
+    }
+
+
+        /**
+         * getloction method.
+         * @return the location of meat.
+         */
     public Point getlocation(){return location;}
     /**
      * get_nm method

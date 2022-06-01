@@ -14,6 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.*;
+
 /**
  * 'ZooPanel' class, used to declare the panel of the zoo, using ActionListener.
  * @version 29.4.22
@@ -23,7 +25,7 @@ import java.util.ArrayList;
  * @see ActionListener
  * @see Animal
  * */
-public class ZooPanel extends JPanel implements Runnable, ActionListener {
+public class ZooPanel extends JPanel implements  ActionListener {
     private BufferedImage img = null;
     private Button Add;
     private Button Sleep;
@@ -38,13 +40,13 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Meat meat;
     private JPanel panel;
     private ArrayList<Object> foods = new ArrayList<Object>();
-    private Thread controller;
     private boolean flag = true;
-
+    private static ZooPanel zoopanel=null;
+    ExecutorService threadPoolExecutor = new ThreadPoolExecutor(10,15,60,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
     /**
      * ZooPanel constructor.
      */
-    public ZooPanel() {
+    private ZooPanel() {
         this.setSize(800, 600);
         Add = new Button("Add Animal");
         Sleep = new Button("Sleep");
@@ -81,25 +83,16 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.PAGE_END);
-        this.controller = new Thread(this);
-        controller.start();
-
 
     }
-
-
-    public Thread getController() {
-        return controller;
-    }
-
-    /**
-     * run the ZooPanel's controller (thread)
-     */
-    public void run() {
-        while (true)
-            manageZoo();
-
-
+    public static ZooPanel getZoopanel(){
+        if(zoopanel==null){
+            synchronized (ZooPanel.class){
+                if(zoopanel==null)
+                    zoopanel=new ZooPanel();
+            }
+        }
+        return zoopanel;
     }
 
     /**
@@ -229,8 +222,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == Add) {
-
             new AddAnimalDialog(this, animals);
+            threadPoolExecutor.execute(animals.get(animals.size()-1));
             repaint();
 
         }
@@ -312,33 +305,29 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             frame.setVisible(true);
         }
         if (e.getSource() == Food) {
+            if(foods.size()>0){
+                JOptionPane.showMessageDialog(this,"cannot build,food is already exist");
+                manageZoo();
+            }
+            else {
+                String[] op = {"plant", "meat"};
+                int x = JOptionPane.showOptionDialog(this, "Please choose type of food", "Food for animal",
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, null);
 
-            String[] op = {"lettuce", "cabbage", "meat"};
-            int x = JOptionPane.showOptionDialog(this, "Please choose food", "Food for animal",
-                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, null);
-
-            switch (x) {
-                case 0:
-                    Animal.setPlant(true);
-                    plant = new Lettuce();
-                    foods.add(plant);
-                    plant.drawObject(this.getGraphics());
-
-                    break;
-                case 1:
-                    Animal.setPlant(true);
-                    plant = new Cabbage();
-                    foods.add(plant);
-                    plant.drawObject(this.getGraphics());
-                    break;
-                case 2:
-                    Animal.setMeat(true);
-                    meat = new Meat();
-                    foods.add(meat);
-                    meat.drawObject(this.getGraphics());
-                    break;
-
-
+                switch (x) {
+                    case 0:
+                        Animal.setPlant(true);
+                        plant = Plant.getplant(this);
+                        foods.add(plant);
+                        plant.drawObject(this.getGraphics());
+                        break;
+                    case 1:
+                        Animal.setMeat(true);
+                        meat = Meat.getMeat();
+                        foods.add(meat);
+                        meat.drawObject(this.getGraphics());
+                        break;
+                }
             }
             if (meat != null || plant != null) {
                 if (meat != null) {

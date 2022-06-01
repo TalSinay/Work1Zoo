@@ -37,7 +37,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private ZooPanel pan;
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
     private static int TotalEatCount = 0;
-    protected Thread thread;
     private boolean flag = true;
     protected boolean threadSuspended = false;
 
@@ -61,7 +60,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.weight = weight;
         this.pan = pan;
         coordChanged = true;
-        this.thread = new Thread(this);
+
 
 
     }
@@ -85,13 +84,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         plant = f;
     }
 
-    /**
-     * start method, override from Runnable  interface
-     * start the animal's thread.
-     */
-    public void start() {
-        this.thread.start();
-    }
 
     /**
      * run method
