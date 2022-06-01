@@ -6,7 +6,9 @@ import diet.*;
 import food.EFoodType;
 import utilities.MessageUtility;
 
+import java.util.Observer;
 import java.util.Random;
+import java.util.Vector;
 
 /**
  * 'Lion' class, used to declare all the lions in the zoo.
@@ -15,6 +17,8 @@ import java.util.Random;
  * @see Animal
  * */
 public class Lion extends roar {
+    private Vector<Observer> list= new Vector<Observer>();
+
     /**
      * Lion Constructor.
      * @param size the animal's size
@@ -74,5 +78,12 @@ public class Lion extends roar {
         }
         return s;
     }
-
+    public void addObserver(Observer observer){
+        list.add(observer);
+    }
+    public synchronized void subObserver(Observer observer){
+        int index = list.indexOf(observer);
+        list.set(index,list.lastElement());
+        list.remove(list.size()-1);
+    }
 }

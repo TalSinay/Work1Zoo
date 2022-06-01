@@ -33,6 +33,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
     private Button Clear;
     private Button Food;
     private Button Info;
+    private Button color;
     private Button Exit;
     private JDialog addAnimalDialog;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
@@ -52,18 +53,21 @@ public class ZooPanel extends JPanel implements  ActionListener {
         Sleep = new Button("Sleep");
         WakeUp = new Button("Wake up");
         Clear = new Button("Clear");
+        color = new Button("Color");
         Food = new Button("Food");
         Info = new Button("Info");
         Exit = new Button("Exit");
         Add.setBackground(Color.WHITE);
         Sleep.setBackground(Color.WHITE);
         WakeUp.setBackground(Color.WHITE);
+        color.setBackground(Color.WHITE);
         Clear.setBackground(Color.WHITE);
         Food.setBackground(Color.WHITE);
         Info.setBackground(Color.WHITE);
         Exit.setBackground(Color.WHITE);
         Exit.addActionListener(this);
         Add.addActionListener(this);
+        color.addActionListener(this);
         Sleep.addActionListener(this);
         WakeUp.addActionListener(this);
         Clear.addActionListener(this);
@@ -75,6 +79,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
         panel.add(Sleep);
         panel.add(WakeUp);
         panel.add(Clear);
+        panel.add(color);
         panel.add(Food);
         panel.add(Info);
         panel.add(Exit);
@@ -102,6 +107,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
 
         if (isChange())
             repaint();
+
         if (animals.size() > 0) {
             synchronized (this) {
                 for (int i = 0; i < animals.size(); i++) {
@@ -145,7 +151,6 @@ public class ZooPanel extends JPanel implements  ActionListener {
                                                 i--;
                                             flag = true;
                                             //foodAnimal.setSuspended();
-                                            animals.get(j).interrupt();
                                             animals.remove(animals.get(j));
                                             animals.get(i).IncEatcount();
                                             animals.get(i).setChanges(true);
@@ -227,6 +232,25 @@ public class ZooPanel extends JPanel implements  ActionListener {
             repaint();
 
         }
+        if (e.getSource() ==color){
+            String[] colors = {"Natural","Red", "Blue"};
+            String [] names=new String[animals.size()] ;
+            for (int i=0;i<animals.size();i++){
+                names[i]=animals.get(i).getName()+":"+i;
+            }
+            JComboBox cb_type = new JComboBox(names),cb_color=new JComboBox(colors);
+            int input = JOptionPane.showConfirmDialog(this, cb_type, "Choose animal: ", JOptionPane.DEFAULT_OPTION);
+            if(input==JOptionPane.YES_OPTION) {
+                int col = JOptionPane.showConfirmDialog(zoopanel, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
+                if(col==JOptionPane.YES_OPTION){
+                    animals.get(input).setColor(((String) cb_color.getSelectedItem()));
+                }
+            }
+        }
+
+
+
+
         if (e.getSource() == Sleep) {
             for (Animal animal : animals) {
                 animal.setSuspended();

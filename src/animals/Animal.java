@@ -40,6 +40,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private boolean flag = true;
     protected boolean threadSuspended = false;
 
+
     /**
      * animal constructor.
      *
@@ -84,7 +85,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         plant = f;
     }
 
-
+    public void setColor(String color){
+        this.col=color;
+    }
     /**
      * run method
      * running the thread.
@@ -164,12 +167,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
     }
 
-    /**
-     * interrupt method, used to 'kill' the thread
-     */
-    public void interrupt(){
-        this.thread.interrupt();
-    }
 
     /**
      * set flag method change the flag from true to false and from false to true

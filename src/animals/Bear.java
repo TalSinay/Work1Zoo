@@ -4,6 +4,9 @@ import graphics.ZooPanel;
 import mobility.*;
 import utilities.MessageUtility;
 
+import java.util.Observer;
+import java.util.Vector;
+
 /**
  * 'Bear' class, used to declare all the bears in the zoo.
  * @version 24.3.22
@@ -12,6 +15,15 @@ import utilities.MessageUtility;
  * */
 public class Bear extends roar {
     private String furColor;
+    private Vector<Observer> list= new Vector<Observer>();
+    public void addObserver(Observer observer){
+        list.add(observer);
+    }
+    public synchronized void subObserver(Observer observer){
+        int index = list.indexOf(observer);
+        list.set(index,list.lastElement());
+        list.remove(list.size()-1);
+    }
 
     /**
      * get_loc -> give the default location of the bear.
@@ -47,6 +59,7 @@ public class Bear extends roar {
      * get_nm method
      * @return the name of the animal in the files.
      */
+
     public String get_nm() {
         String s = new String("");
         switch (getColor()) {
