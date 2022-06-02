@@ -42,7 +42,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private static int TotalEatCount = 0;
     private boolean flag = true;
     protected boolean threadSuspended = false;
-    private Vector<Observer> list= new Vector<Observer>();
+    private Vector<IObserver> list= new Vector<IObserver>();
 
     /**
      * animal constructor.
@@ -66,13 +66,17 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         coordChanged = true;
     }
 
-    public void addObserver(Observer observer){
+    public void registerObserver(IObserver observer){
         list.add(observer);
     }
-    public synchronized void subObserver(Observer observer){
+    public synchronized void unregisterObserver(IObserver observer){
         int index = list.indexOf(observer);
         list.set(index,list.lastElement());
         list.remove(list.size()-1);
+    }
+    private void notifyObservers(boolean coordChanged){
+        for(IObserver ob:list)
+            ob.notify(coordChanged);
     }
 
     /**
@@ -109,6 +113,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                     if (getLocation().getx() == 400 && getLocation().gety() == 300) {
                         if (diet.canEat(EFoodType.VEGETABLE)) plant = false;
                         meat = false;
+
                     }
 
                 }
@@ -138,11 +143,12 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                 }
                 this.move(new Point(x, y));
                 setChanges(true);
-                pan.getThreadPoolExecutor().execute(() -> {
+                this.notifyObservers(getChanges());
+
                     try {
-                        Thread.sleep(3000L);
-                    } catch (InterruptedException ignore) {}
-                });
+                        Thread.sleep(300);
+                    } catch (InterruptedException ignore) {System.out.println("no sleep");}
+
 
 //                if(!(this.threadSuspended)) {
 //                    try {

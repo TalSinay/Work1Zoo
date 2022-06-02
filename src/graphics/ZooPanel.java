@@ -43,7 +43,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
     private ArrayList<Object> foods = new ArrayList<Object>();
     private boolean flag = true;
     private static ZooPanel zoopanel=null;
-    ExecutorService threadPoolExecutor = new ThreadPoolExecutor(10,15,60,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>());
+    ExecutorService threadPoolExecutor = new ThreadPoolExecutor(10,10,60,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
     /**
      * ZooPanel constructor.
      */
@@ -247,6 +247,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
                 int col = JOptionPane.showConfirmDialog(zoopanel, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
                 if(col==JOptionPane.YES_OPTION){
                     animals.get(input).setColor(((String) cb_color.getSelectedItem()));
+                   // animals.get(input).loadImages(((String) cb_color.getSelectedItem()));
                 }
             }
         }

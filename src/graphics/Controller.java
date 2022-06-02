@@ -1,12 +1,13 @@
 package graphics;
 
-import java.util.Observable;
-import java.util.Observer;
-
-public class Controller implements Observer {
-
-    public void update(Observable o, Object arg) {
+public class Controller implements IObserver {
+    private ZooPanel zoo=ZooPanel.getZoopanel();
 
 
+    public void notify(boolean state) {
+        if (state) {
+            zoo.repaint();
+            zoo.manageZoo();
+        }
     }
 }
