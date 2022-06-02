@@ -30,11 +30,12 @@ public class AddAnimalDialog extends JDialog {
         this.zopanel = zoopanel;
         int size = -1, hor_speed = -1, ver_speed = -1;
         boolean flag=false;
+        String[] objects = {"Lion", "Turtle", "Giraffe", "Elephant","Bear"};
         String[] types = {"Herbivore","Omnivore","Carnivore"};
         String[] Herbivore = {"Turtle", "Giraffe", "Elephant","Bear"};
         String[] Carnivore = {"Lion", "Bear"};
         String[] colors = {"Natural","Red", "Blue"};
-        JComboBox cb_object = new JComboBox(Herbivore), cb_color = new JComboBox(colors),cb_type=new JComboBox(types),cb_her=new JComboBox(Herbivore),cb_car=new JComboBox(Carnivore);
+        JComboBox cb_object = new JComboBox(objects), cb_color = new JComboBox(colors),cb_type=new JComboBox(types),cb_her=new JComboBox(Herbivore),cb_car=new JComboBox(Carnivore);
         int type = -1, col = -1,obj=-1;
         type=JOptionPane.showConfirmDialog(zoopanel, cb_type, "Choose animal's diet: ", JOptionPane.DEFAULT_OPTION);
         switch (cb_type.getSelectedIndex()){
@@ -74,10 +75,10 @@ public class AddAnimalDialog extends JDialog {
         }
 
         if (type == JOptionPane.YES_OPTION && col == JOptionPane.YES_OPTION) {
-            String typeItemAt = ((String) cb_type.getItemAt(cb_type.getSelectedIndex()));
+            String typeItemAt = ((String) cb_type.getSelectedItem());
             switch (typeItemAt) {
                 case "Carnivore":
-                    if(obj==0){
+                    if(cb_car.getSelectedIndex() == 0){
                         animal=new Lion(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.8, zoopanel);
                         break;
                     }
@@ -85,14 +86,14 @@ public class AddAnimalDialog extends JDialog {
                     animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel);
                     break;
                 case "Herbivore":
-                    if (obj==0){
+                    if (cb_her.getSelectedIndex() == 0){
                         animal=new Turtle(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.5, zoopanel);
                         break;
                     }
-                    else if (obj==1){
+                    else if (cb_her.getSelectedIndex() == 1){
                         animal=new Giraffe(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 2.2, zoopanel);
                     }
-                    else if(obj==2){
+                    else if(cb_her.getSelectedIndex() == 2){
                         animal=new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel);
                         break;
                     }

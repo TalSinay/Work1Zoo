@@ -246,10 +246,14 @@ public class ZooPanel extends JPanel implements  ActionListener {
             if(input==JOptionPane.YES_OPTION) {
                 int col = JOptionPane.showConfirmDialog(zoopanel, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
                 if(col==JOptionPane.YES_OPTION){
-                    animals.get(input).setColor(((String) cb_color.getSelectedItem()));
+                    animals.get(cb_type.getSelectedIndex()).setColor(((String) cb_color.getSelectedItem()));
+                    animals.get(cb_type.getSelectedIndex()).loadImages(animals.get(cb_type.getSelectedIndex()).get_nm());
                    // animals.get(input).loadImages(((String) cb_color.getSelectedItem()));
+//                    animals.get(cb_type.getSelectedIndex()).drawObject(this.getGraphics());
                 }
             }
+
+            repaint();
         }
         if (e.getSource() == Sleep) {
             for (Animal animal : animals) {
