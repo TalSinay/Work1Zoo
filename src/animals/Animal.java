@@ -144,9 +144,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                 this.move(new Point(x, y));
                 setChanges(true);
                 this.notifyObservers(getChanges());
-
+                //pan.repaint();
                     try {
-                        Thread.sleep(300);
+                        Thread.sleep(65);
                     } catch (InterruptedException ignore) {System.out.println("no sleep");}
 
 
@@ -175,18 +175,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public synchronized void  setSuspended(){
         this.threadSuspended = true;
     }
-
-
     /**
      * set resumed method changing the treadSuspended data member to false
      */
     public synchronized void setResumed(){
         this.threadSuspended = false;
         notifyAll();
-
     }
-
-
     /**
      * set flag method change the flag from true to false and from false to true
      */

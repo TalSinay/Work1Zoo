@@ -25,7 +25,7 @@ import java.util.concurrent.*;
  * @see ActionListener
  * @see Animal
  * */
-public class ZooPanel extends JPanel implements  ActionListener {
+public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private BufferedImage img = null;
     private Button Add;
     private Button Sleep;
@@ -43,7 +43,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
     private ArrayList<Object> foods = new ArrayList<Object>();
     private boolean flag = true;
     private static ZooPanel zoopanel=null;
-    ExecutorService threadPoolExecutor = new ThreadPoolExecutor(10,10,60,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
+    Executor executor = Executors.newFixedThreadPool(10);
     /**
      * ZooPanel constructor.
      */
@@ -83,7 +83,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
         panel.add(Food);
         panel.add(Info);
         panel.add(Exit);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 60, 2));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 2));
         panel.setBackground(Color.BLUE);
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
@@ -91,15 +91,18 @@ public class ZooPanel extends JPanel implements  ActionListener {
 
     }
 
-    public ExecutorService getThreadPoolExecutor() {
-        return threadPoolExecutor;
+    public Executor getThreadPoolExecutor() {
+        return executor;
     }
 
     public static ZooPanel getZoopanel(){
         if(zoopanel==null){
             synchronized (ZooPanel.class){
-                if(zoopanel==null)
-                    zoopanel=new ZooPanel();
+                if(zoopanel==null) {
+                    zoopanel = new ZooPanel();
+
+                }
+
             }
         }
         return zoopanel;
@@ -182,14 +185,12 @@ public class ZooPanel extends JPanel implements  ActionListener {
     public boolean isChange() {
         for (Animal animal : animals) {
             if (animal.getChanges()) {
-
                 animal.setChanges(false);
                 return true;
             }
         }
         return false;
     }
-
     /**
      * paintComponent method
      *
@@ -231,7 +232,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
 
         if (e.getSource() == Add) {
             new AddAnimalDialog(this, animals);
-            threadPoolExecutor.execute(animals.get(animals.size()-1));
+            executor.execute(animals.get(animals.size()-1));
             repaint();
 
         }
@@ -252,22 +253,18 @@ public class ZooPanel extends JPanel implements  ActionListener {
 //                    animals.get(cb_type.getSelectedIndex()).drawObject(this.getGraphics());
                 }
             }
-
             repaint();
         }
         if (e.getSource() == Sleep) {
-            for (Animal animal : animals) {
-                animal.setSuspended();
+            try {
+                ((ExecutorService)executor).wait();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
             }
             repaint();
         }
         if (e.getSource() == WakeUp) {
-            synchronized (this) {
-                for (Animal an : animals) {
-                    an.setResumed();
-                    repaint();
-                }
-            }
+            ((ExecutorService)executor).notifyAll();
         }
         if (e.getSource() == Clear) {
 
@@ -279,11 +276,11 @@ public class ZooPanel extends JPanel implements  ActionListener {
                         animals.remove(0);
                         repaint();
                     }
+                    ((ExecutorService)executor).shutdown();
                 }
             }
             if (foods.size() > 0) {
                 for (int i = 0; i <= foods.size(); i++) {
-
                     foods.remove(0);
                     repaint();
                 }
@@ -320,7 +317,6 @@ public class ZooPanel extends JPanel implements  ActionListener {
                 data[i][3] = String.valueOf(animals.get(i).getHorSpeed());
                 data[i][4] = String.valueOf(animals.get(i).getVerSpeed());
                 data[i][5] = String.valueOf(animals.get(i).getEatCounter());
-
             }
             String[] col = {"Animal", "Color", "Weight", "Hor.speed", "Ver.speed", "Eat Counter"};
             JTable table = new JTable(data, col);
@@ -379,8 +375,15 @@ public class ZooPanel extends JPanel implements  ActionListener {
             for(Animal an:animals){
                 an.setFlag();
             }
+            ((ExecutorService)executor).shutdown();
             System.exit(0);
         }
+    }
+
+
+    public void run() {
+        while (true)
+            manageZoo();
     }
 }
 
