@@ -96,7 +96,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
         panel.add(Save);
         panel.add(Back);
         panel.add(Exit);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 60, 2));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 2));
         panel.setBackground(Color.BLUE);
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
@@ -283,19 +283,16 @@ public class ZooPanel extends JPanel implements  ActionListener {
             repaint();
         }
         if (e.getSource() == Sleep) {
-            for (Animal animal : animals) {
-                animal.setSuspended();
-            }
+            Animal.setState();
             repaint();
         }
         if (e.getSource() == WakeUp) {
-            synchronized (this) {
-                for (Animal an : animals) {
-                    an.setResumed();
+                    Animal.setState();
+                    threadPoolExecutor.notifyAll();
                     repaint();
                 }
-            }
-        }
+
+
         if (e.getSource() == Clear) {
 
             if (animals.size() > 0) {

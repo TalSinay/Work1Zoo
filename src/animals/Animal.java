@@ -113,6 +113,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public void run() {
         while (true) {
             if (state) {
+                pan.repaint();
                 if (meat || plant) {
                     if (meat && (diet instanceof Omnivore || diet instanceof Carnivore)) {
                         change_direction(EFoodType.MEAT);
