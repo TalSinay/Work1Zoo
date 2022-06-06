@@ -62,7 +62,7 @@ public class AddAnimalDialog extends JDialog {
                     }
                 }
                 catch (Exception e) {
-                JOptionPane.showMessageDialog(zoopanel, "Canot build ,only numbers");
+                JOptionPane.showMessageDialog(zoopanel, "Cannot build ,only numbers");
                     return;
                 }
             } else {

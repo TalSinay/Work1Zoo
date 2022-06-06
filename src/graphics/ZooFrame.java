@@ -46,7 +46,7 @@ public class ZooFrame extends JFrame implements ActionListener {
      */
     ZooFrame(){
         zoo=ZooPanel.getZoopanel();
-        zoo.executor.execute(zoo);
+//        zoo.executor.execute(zoo);
         this.setTitle("zoo");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800,600);
