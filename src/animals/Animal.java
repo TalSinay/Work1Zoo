@@ -41,6 +41,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
     private static int TotalEatCount = 0;
     private boolean flag = true;
+    static boolean state;
     protected boolean threadSuspended = false;
     private Vector<IObserver> list= new Vector<IObserver>();
 
@@ -64,6 +65,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.weight = weight;
         this.pan = pan;
         coordChanged = true;
+        state=true;
     }
 
     public void registerObserver(IObserver observer){
@@ -101,53 +103,59 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public void setColor(String color){
         this.col=color;
     }
+    public static void setState(){
+        Animal.state=!state;
+    }
     /**
      * run method
      * running the thread.
      */
     public void run() {
         while (true) {
-            if(meat || plant) {
-                if (meat && (diet instanceof Omnivore || diet instanceof Carnivore )){
-                    change_direction(EFoodType.MEAT);
-                    if (getLocation().getx() == 400 && getLocation().gety() == 300) {
-                        if (diet.canEat(EFoodType.VEGETABLE)) plant = false;
-                        meat = false;
+            if (state) {
+                if (meat || plant) {
+                    if (meat && (diet instanceof Omnivore || diet instanceof Carnivore)) {
+                        change_direction(EFoodType.MEAT);
+                        if (getLocation().getx() == 400 && getLocation().gety() == 300) {
+                            if (diet.canEat(EFoodType.VEGETABLE)) plant = false;
+                            meat = false;
+
+                        }
 
                     }
-
-                }
-                if (plant && (diet instanceof Omnivore || diet instanceof Herbivore )) {
-                    change_direction(EFoodType.VEGETABLE);
-                    if (getLocation().getx() == 400 && getLocation().gety() == 300) {
-                        if (diet.canEat(EFoodType.MEAT)) meat = false;
-                        plant = false;
+                    if (plant && (diet instanceof Omnivore || diet instanceof Herbivore)) {
+                        change_direction(EFoodType.VEGETABLE);
+                        if (getLocation().getx() == 400 && getLocation().gety() == 300) {
+                            if (diet.canEat(EFoodType.MEAT)) meat = false;
+                            plant = false;
+                        }
                     }
                 }
-            }
 //            while (this.threadSuspended) {
 //                try {
 //                    Thread.wait();
 //                } catch (Exception r) {}
 //            }
-            try {
-                int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                if (x >= 750 || x <= 0) {
-                    x_dir = x_dir * (-1);
-                    x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                }
-                int y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
-                if (y >= 550 || y <= 0) {
-                    y_dir = y_dir * (-1);
-                    y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
-                }
-                this.move(new Point(x, y));
-                setChanges(true);
-                this.notifyObservers(getChanges());
-                //pan.repaint();
+                try {
+                    int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                    if (x >= 750 || x <= 0) {
+                        x_dir = x_dir * (-1);
+                        x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                    }
+                    int y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
+                    if (y >= 550 || y <= 0) {
+                        y_dir = y_dir * (-1);
+                        y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
+                    }
+                    this.move(new Point(x, y));
+                    setChanges(true);
+                    //this.notifyObservers(getChanges());
+                    //pan.repaint();
                     try {
                         Thread.sleep(65);
-                    } catch (InterruptedException ignore) {System.out.println("no sleep");}
+                    } catch (InterruptedException ignore) {
+                        System.out.println("no sleep");
+                    }
 
 
 //                if(!(this.threadSuspended)) {
@@ -159,13 +167,15 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 //
 //                    }
 //                }
-            }
-            catch (Exception e) {
-                System.out.println("throw exception 1!");
+                } catch (Exception e) {
+                    System.out.println("throw exception 1!");
 
+                }
             }
         }
     }
+
+
 
 //    public boolean getSuspended(){return this.threadSuspended;}
 

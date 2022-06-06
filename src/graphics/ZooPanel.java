@@ -100,9 +100,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             synchronized (ZooPanel.class){
                 if(zoopanel==null) {
                     zoopanel = new ZooPanel();
-
                 }
-
             }
         }
         return zoopanel;
@@ -256,15 +254,12 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             repaint();
         }
         if (e.getSource() == Sleep) {
-            try {
-                ((ExecutorService)executor).wait();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            Animal.setState();
             repaint();
         }
         if (e.getSource() == WakeUp) {
-            ((ExecutorService)executor).notifyAll();
+            Animal.setState();
+            repaint();
         }
         if (e.getSource() == Clear) {
 
