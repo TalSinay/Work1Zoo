@@ -1,6 +1,7 @@
 package graphics;
 import food.EFoodType;
 import food.Meat;
+import graphics.graphics.CopyZoo;
 import mobility.Point;
 import plants.Cabbage;
 import plants.Lettuce;
@@ -14,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.concurrent.*;
 
 /**
@@ -25,13 +27,15 @@ import java.util.concurrent.*;
  * @see ActionListener
  * @see Animal
  * */
-public class ZooPanel extends JPanel implements Runnable, ActionListener {
+public class ZooPanel extends JPanel implements  ActionListener {
     private BufferedImage img = null;
     private Button Add;
     private Button Sleep;
     private Button WakeUp;
     private Button Clear;
     private Button Food;
+    private Button Save;
+    private Button Back;
     private Button Info;
     private Button color;
     private Button Exit;
@@ -43,7 +47,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private ArrayList<Object> foods = new ArrayList<Object>();
     private boolean flag = true;
     private static ZooPanel zoopanel=null;
-    Executor executor = Executors.newFixedThreadPool(10);
+    private Stack<CopyZoo> reuse = new Stack<CopyZoo>();
+    ExecutorService threadPoolExecutor = new ThreadPoolExecutor(10,10,60,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
     /**
      * ZooPanel constructor.
      */
@@ -54,9 +59,13 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         WakeUp = new Button("Wake up");
         Clear = new Button("Clear");
         color = new Button("Color");
+        Save = new Button("Save");
+        Back = new Button("Back");
         Food = new Button("Food");
         Info = new Button("Info");
         Exit = new Button("Exit");
+        Back.setBackground(Color.WHITE);
+        Save.setBackground(Color.WHITE);
         Add.setBackground(Color.WHITE);
         Sleep.setBackground(Color.WHITE);
         WakeUp.setBackground(Color.WHITE);
@@ -73,6 +82,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         Clear.addActionListener(this);
         Food.addActionListener(this);
         Info.addActionListener(this);
+        Save.addActionListener(this);
+        Back.addActionListener(this);
         panel = new JPanel();
         panel.setPreferredSize(new Dimension(800, 25));
         panel.add(Add);
@@ -82,8 +93,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         panel.add(color);
         panel.add(Food);
         panel.add(Info);
+        panel.add(Save);
+        panel.add(Back);
         panel.add(Exit);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 50, 2));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 60, 2));
         panel.setBackground(Color.BLUE);
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
@@ -91,16 +104,15 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
     }
 
-    public Executor getThreadPoolExecutor() {
-        return executor;
+    public ExecutorService getThreadPoolExecutor() {
+        return threadPoolExecutor;
     }
 
     public static ZooPanel getZoopanel(){
         if(zoopanel==null){
             synchronized (ZooPanel.class){
-                if(zoopanel==null) {
-                    zoopanel = new ZooPanel();
-                }
+                if(zoopanel==null)
+                    zoopanel=new ZooPanel();
             }
         }
         return zoopanel;
@@ -174,6 +186,20 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         }
     }
 
+    public ArrayList<Animal> getAnimals() {
+        ArrayList<Animal> animalss = new ArrayList<Animal>(animals);
+        return animalss;
+    }
+
+    public ArrayList<Object> getFoods() {
+        ArrayList<Object> foodss = new ArrayList<Object>(foods);
+        return foodss;
+    }
+
+    public void setZooPanel(CopyZoo cz){
+        animals = cz.getAnimals();
+        foods = cz.getFoods();
+    }
 
     /**
      * isChange method, checks if some object moved.
@@ -183,12 +209,14 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public boolean isChange() {
         for (Animal animal : animals) {
             if (animal.getChanges()) {
+
                 animal.setChanges(false);
                 return true;
             }
         }
         return false;
     }
+
     /**
      * paintComponent method
      *
@@ -230,7 +258,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
         if (e.getSource() == Add) {
             new AddAnimalDialog(this, animals);
-            executor.execute(animals.get(animals.size()-1));
+            threadPoolExecutor.execute(animals.get(animals.size()-1));
             repaint();
 
         }
@@ -251,15 +279,22 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 //                    animals.get(cb_type.getSelectedIndex()).drawObject(this.getGraphics());
                 }
             }
+
             repaint();
         }
         if (e.getSource() == Sleep) {
-            Animal.setState();
+            for (Animal animal : animals) {
+                animal.setSuspended();
+            }
             repaint();
         }
         if (e.getSource() == WakeUp) {
-            Animal.setState();
-            repaint();
+            synchronized (this) {
+                for (Animal an : animals) {
+                    an.setResumed();
+                    repaint();
+                }
+            }
         }
         if (e.getSource() == Clear) {
 
@@ -271,11 +306,11 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                         animals.remove(0);
                         repaint();
                     }
-                    ((ExecutorService)executor).shutdown();
                 }
             }
             if (foods.size() > 0) {
                 for (int i = 0; i <= foods.size(); i++) {
+
                     foods.remove(0);
                     repaint();
                 }
@@ -312,6 +347,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 data[i][3] = String.valueOf(animals.get(i).getHorSpeed());
                 data[i][4] = String.valueOf(animals.get(i).getVerSpeed());
                 data[i][5] = String.valueOf(animals.get(i).getEatCounter());
+
             }
             String[] col = {"Animal", "Color", "Weight", "Hor.speed", "Ver.speed", "Eat Counter"};
             JTable table = new JTable(data, col);
@@ -366,19 +402,31 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
         repaint();
         }
+
+        if (e.getSource() == Back) {
+            if (reuse.empty()){
+                JOptionPane.showMessageDialog(this,"You didn't save anything");
+            }else{
+                setZooPanel(reuse.pop());
+                manageZoo();
+            }
+            repaint();
+
+        }
+        if (e.getSource() == Save) {
+            if(reuse.size() == 3){
+                JOptionPane.showMessageDialog(this,"You get the max amount of saves");
+            }else{
+                reuse.push(new CopyZoo(this));
+                repaint();
+            }
+        }
         if (e.getSource() == Exit) {
             for(Animal an:animals){
                 an.setFlag();
             }
-            ((ExecutorService)executor).shutdown();
             System.exit(0);
         }
-    }
-
-
-    public void run() {
-        while (true)
-            manageZoo();
     }
 }
 
