@@ -27,7 +27,7 @@ import java.util.concurrent.*;
  * @see ActionListener
  * @see Animal
  * */
-public class ZooPanel extends JPanel implements  ActionListener {
+public class ZooPanel extends JPanel implements  ActionListener,Runnable {
     private BufferedImage img = null;
     private Button Add;
     private Button Sleep;
@@ -47,6 +47,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
     private ArrayList<Object> foods = new ArrayList<Object>();
     private boolean flag = true;
     private static ZooPanel zoopanel=null;
+    Controller controllerOB;
     private Stack<CopyZoo> reuse = new Stack<CopyZoo>();
     ExecutorService threadPoolExecutor = new ThreadPoolExecutor(10,10,60,TimeUnit.MILLISECONDS,new LinkedBlockingQueue<Runnable>(5));
     /**
@@ -101,11 +102,18 @@ public class ZooPanel extends JPanel implements  ActionListener {
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.PAGE_END);
+        controllerOB=new Controller(this);
+        threadPoolExecutor.execute(this);
 
     }
 
     public ExecutorService getThreadPoolExecutor() {
         return threadPoolExecutor;
+    }
+
+
+    public void run() {
+        this.manageZoo();
     }
 
     public static ZooPanel getZoopanel(){
@@ -259,6 +267,7 @@ public class ZooPanel extends JPanel implements  ActionListener {
         if (e.getSource() == Add) {
             new AddAnimalDialog(this, animals);
             threadPoolExecutor.execute(animals.get(animals.size()-1));
+            animals.get(animals.size()-1).registerObserver(controllerOB);
             repaint();
 
         }
@@ -288,7 +297,6 @@ public class ZooPanel extends JPanel implements  ActionListener {
         }
         if (e.getSource() == WakeUp) {
                     Animal.setState();
-                    threadPoolExecutor.notifyAll();
                     repaint();
                 }
 

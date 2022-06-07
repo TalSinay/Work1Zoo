@@ -7,6 +7,8 @@ import food.Meat;
 import plants.Plant;
 import utilities.MessageUtility;
 
+import java.util.Observable;
+
 /**
  * Mobile class, declare location and total distance of objects.
 
@@ -14,7 +16,7 @@ import utilities.MessageUtility;
  * @author Tal and Shoham
  * @see Point
  * */
-public class Mobile {
+public class Mobile extends Observable {
     private Point location = new Point();
     private double totalDistance;
 
@@ -23,6 +25,7 @@ public class Mobile {
      * @param p (Point)
      */
     public Mobile(Point p){
+        super();
         if(Point.cheackBounderies(p)){
             this.location.setx(p.getx());
             this.location.sety(p.gety());
@@ -50,17 +53,17 @@ public class Mobile {
      */
     public double move(Point p) {
         boolean flag = false;
-        if(Point.cheackBounderies(p)){
-                flag = true;
+        if(Point.cheackBounderies(p)) {
+            flag = true;
             addTotalDistance(calcDistance(p));
             double distance = calcDistance(p);
             this.location.setx(p.getx());
             this.location.sety(p.gety());
             if (this instanceof Animal) {
-                    double x = ((Animal) this).getWeight() - (distance * ((Animal) this).getWeight() * 0.00025);
-                    ((Animal) this).setWeight(x);
+                double x = ((Animal) this).getWeight() - (distance * ((Animal) this).getWeight() * 0.00025);
+                ((Animal) this).setWeight(x);
                 MessageUtility.logBooleanFunction(((Animal) this).getName(), "move", p.toString(), flag);
-                }
+            }
             return this.calcDistance(p);
         }
         return 0;

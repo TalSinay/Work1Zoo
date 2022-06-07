@@ -41,9 +41,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private BufferedImage img1, img2; // img1 to move right,img2 to move left.
     private static int TotalEatCount = 0;
     private boolean flag = true;
-    static boolean state;
+    static  boolean state;
     protected boolean threadSuspended = false;
-    private Vector<IObserver> list= new Vector<IObserver>();
+    private Vector<Observer> list= new Vector<Observer>();
 
     /**
      * animal constructor.
@@ -68,17 +68,17 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         state=true;
     }
 
-    public void registerObserver(IObserver observer){
+    public void registerObserver(Observer observer){
         list.add(observer);
     }
-    public synchronized void unregisterObserver(IObserver observer){
+    public synchronized void unregisterObserver(Observer observer){
         int index = list.indexOf(observer);
         list.set(index,list.lastElement());
         list.remove(list.size()-1);
     }
-    private void notifyObservers(boolean coordChanged){
-        for(IObserver ob:list)
-            ob.notify(coordChanged);
+    public void notifyObservers(){
+        for(Observer ob:list)
+            ob.notify();
     }
 
     /**
@@ -120,15 +120,15 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                         if (getLocation().getx() == 400 && getLocation().gety() == 300) {
                             if (diet.canEat(EFoodType.VEGETABLE)) plant = false;
                             meat = false;
-
+                            pan.repaint();
                         }
-
                     }
                     if (plant && (diet instanceof Omnivore || diet instanceof Herbivore)) {
                         change_direction(EFoodType.VEGETABLE);
                         if (getLocation().getx() == 400 && getLocation().gety() == 300) {
                             if (diet.canEat(EFoodType.MEAT)) meat = false;
                             plant = false;
+                            pan.repaint();
                         }
                     }
                 }
@@ -150,15 +150,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                     }
                     this.move(new Point(x, y));
                     setChanges(true);
-                    //this.notifyObservers(getChanges());
+                    //this.notifyObservers();
                     //pan.repaint();
                     try {
                         Thread.sleep(65);
                     } catch (InterruptedException ignore) {
                         System.out.println("no sleep");
                     }
-
-
 //                if(!(this.threadSuspended)) {
 //                    try {
 //                        Thread.sleep(65);
@@ -170,7 +168,13 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 //                }
                 } catch (Exception e) {
                     System.out.println("throw exception 1!");
-
+                }
+            }
+            else {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }
