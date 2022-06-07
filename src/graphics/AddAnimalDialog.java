@@ -3,6 +3,8 @@ import animals.*;
 import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observer;
+
 /**
  * 'AddAnimalDialog' class, used to add animal to zoo, using message dialog with user.
  * @version 29.4.22
@@ -22,7 +24,7 @@ public class AddAnimalDialog extends JDialog {
      * @param zoopanel the zoo panel (were we want to show the dialog).
      * @param animals  ArrayList of animals
      */
-    public AddAnimalDialog(ZooPanel zoopanel, ArrayList<Animal> animals) {
+    public AddAnimalDialog(ZooPanel zoopanel, ArrayList<Animal> animals, Observer observer) {
         if (animals.size() == 10) {
             JOptionPane.showMessageDialog(null, "You cannot add more than 10 animals");
             return;
@@ -79,26 +81,26 @@ public class AddAnimalDialog extends JDialog {
             switch (typeItemAt) {
                 case "Carnivore":
                     if(cb_car.getSelectedIndex() == 0){
-                        animal=new Lion(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.8, zoopanel);
+                        animal=new Lion(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.8, zoopanel,observer);
                         break;
                     }
                 case "Omnivore":
-                    animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel);
+                    animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel,observer);
                     break;
                 case "Herbivore":
                     if (cb_her.getSelectedIndex() == 0){
-                        animal=new Turtle(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.5, zoopanel);
+                        animal=new Turtle(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.5, zoopanel,observer);
                         break;
                     }
                     else if (cb_her.getSelectedIndex() == 1){
-                        animal=new Giraffe(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 2.2, zoopanel);
+                        animal=new Giraffe(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 2.2, zoopanel,observer);
                     }
                     else if(cb_her.getSelectedIndex() == 2){
-                        animal=new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel);
+                        animal=new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel,observer);
                         break;
                     }
                     else{
-                        animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel);
+                        animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel,observer);
                         break;
                     }
                 default:
@@ -107,6 +109,7 @@ public class AddAnimalDialog extends JDialog {
         }
 
         animals.add(animal);
+        animals.get(animals.size()-1).start();
 
     }
 }

@@ -28,7 +28,7 @@ public class Meat implements IEdible , IDrawable {
     private ZooPanel pan;
     private Point location;
     private BufferedImage img;
-    private static Meat meat;
+    private static Meat meat=null;
 
 
     /**

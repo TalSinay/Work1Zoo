@@ -28,8 +28,8 @@ public class Lion extends roar {
      * @param weight the animal's weight
      * @param pan the zoo panel.
      */
-    public Lion(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
-        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
+    public Lion(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan,Observer observer){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan,observer);
         setName("Lion");
         loadImages(get_nm());
         this.setDiet(new Carnivore());

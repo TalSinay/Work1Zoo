@@ -2,6 +2,9 @@ package animals;
 
 import graphics.ZooPanel;
 import mobility.Point;
+
+import java.util.Observer;
+
 /**
  * 'chew' an abstract class, used to declare all the animals in the zoo who chews.
  * @version 2.4.22
@@ -22,8 +25,8 @@ public abstract class chew  extends Animal{
      * @param weight the animal's weight
      * @param pan the zoo panel.
      */
-    public chew(Point p, int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
-        super(p, size, ver_speed, hor_speed, color, weight, pan);
+    public chew(Point p, int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan, Observer observer){
+        super(p, size, ver_speed, hor_speed, color, weight, pan,observer);
     }
     /**
      * makeSound method. using to make the animal's sound (in this case: to chew).

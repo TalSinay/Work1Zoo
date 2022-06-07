@@ -3,6 +3,8 @@ package animals;
 import graphics.ZooPanel;
 import mobility.*;
 
+import java.util.Observer;
+
 /**
  * 'roar' an abstract class, used to declare all the animals in the zoo who roars.
  * @version 2.4.22
@@ -21,8 +23,8 @@ public abstract class roar  extends Animal{
      * @param weight the animal's weight
      * @param pan the zoo panel.
      */
-    public roar(Point p, int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
-        super(p, size, ver_speed, hor_speed, color, weight, pan);
+    public roar(Point p, int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan, Observer observer){
+        super(p, size, ver_speed, hor_speed, color, weight, pan,observer);
     }
     /**
      * makeSound method. using to make the animal's sound (in this case: to roar).

@@ -4,6 +4,7 @@ import food.*;
 import graphics.*;
 import mobility.*;
 import mobility.Point;
+import plants.Plant;
 import utilities.MessageUtility;
 
 import javax.imageio.ImageIO;
@@ -12,6 +13,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Observer;
+import java.util.Vector;
 
 /**
  * 'Animal' class, used to declare all the animals in the zoo.
@@ -20,8 +23,7 @@ import java.io.IOException;
  * @see diet
  * */
 public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnimalBehavior,Runnable {
-    static private boolean plant;
-    static private boolean meat;
+
     private String name;
     private double weight;
     private IDiet diet;
@@ -41,6 +43,10 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private boolean flag = true;
     protected boolean threadSuspended = false;
     private Vector<Observer> list= new Vector<Observer>();
+    private Meat meaT=null;
+    private Plant plant=null;
+    private boolean Alive;
+    private boolean flag1;
 
 
 
@@ -55,7 +61,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * @param weight the given  weight (double).
      * @param pan    the given  panel (ZooPanel).
      */
-    public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan) {
+    public Animal(Point p, int size, int ver, int hor, String color, double weight, ZooPanel pan,Observer observer) {
         super(p);
         this.size = size;
         this.verSpeed = ver;
@@ -64,10 +70,14 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.weight = weight;
         this.pan = pan;
         coordChanged = true;
+        Alive=true;
+        flag1=true;
         this.thread = new Thread(this);
+        this.registerObserver(observer);
 
 
     }
+
 
     /**
      * setMeat method changes when carnivore eat food (not animal)
@@ -75,18 +85,18 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      *          (true - when meat object is created)
      *          (false - when carnivore reached to the meat location)
      */
-    public static void setMeat(boolean f){
-        meat = f;
-    }
-    /**
-     * setPlant method changes when carnivore eat food (not animal)
-     * @param f boolean flag
-     *          (true - when lettuce/ cabbage object is created)
-     *          (false - when herbivore reached to the plant location)
-     */
-    public static void setPlant(boolean f){
-        plant = f;
-    }
+//    public static void setMeat(boolean f){
+//        meat = f;
+//    }
+//    /**
+//     * setPlant method changes when carnivore eat food (not animal)
+//     * @param f boolean flag
+//     *          (true - when lettuce/ cabbage object is created)
+//     *          (false - when herbivore reached to the plant location)
+//     */
+//    public static void setPlant(boolean f){
+//        plant = f;
+//    }
 
     /**
      * start method, override from Runnable  interface
@@ -101,58 +111,68 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      * running the thread.
      */
     public void run() {
-        while (true) {
-            if(meat || plant) {
-                if (meat && (diet instanceof Omnivore || diet instanceof Carnivore )){
-                    change_direction(EFoodType.MEAT);
-                    if (getLocation().getx() == 400 && getLocation().gety() == 300) {
-                        if (diet.canEat(EFoodType.VEGETABLE)) plant = false;
-                        meat = false;
+        while (Alive) {
+            this.notifyObservers();
+            if (flag1) {
+                if (meaT != null || plant != null) {
+                    if (meaT != null && (diet instanceof Omnivore || diet instanceof Carnivore)) {
+                        change_direction(EFoodType.MEAT);
+                        if (getLocation().getx() == 400 && getLocation().gety() == 300) {
+                            if (diet.canEat(EFoodType.VEGETABLE)) plant = null;
+                            meaT = null;
+                        }
+
                     }
+                    if (plant != null && (diet instanceof Omnivore || diet instanceof Herbivore)) {
+                        change_direction(EFoodType.VEGETABLE);
+                        if (getLocation().getx() == 400 && getLocation().gety() == 300) {
+                            if (diet.canEat(EFoodType.MEAT)) meaT = null;
+                            plant = null;
+                        }
+                    }
+                }
+                while (this.threadSuspended) {
+                    try {
+                        thread.wait();
+                    } catch (Exception r) {
+                    }
+                }
+                try {
+                    int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                    if (x >= 750 || x <= 0) {
+                        x_dir = x_dir * (-1);
+                        x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
+                    }
+                    int y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
+                    if (y >= 550 || y <= 0) {
+                        y_dir = y_dir * (-1);
+                        y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
+                    }
+                    this.move(new Point(x, y));
+                    setChanges(true);
+                    if (!(this.threadSuspended)) {
+                        try {
+                            Thread.sleep(65);
+                        } catch (InterruptedException s) {
+                            System.out.println("end of thread " + getName());
+                            return;
+
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("throw exception 1!");
 
                 }
-                if (plant && (diet instanceof Omnivore || diet instanceof Herbivore )) {
-                    change_direction(EFoodType.VEGETABLE);
-                    if (getLocation().getx() == 400 && getLocation().gety() == 300) {
-                        if (diet.canEat(EFoodType.MEAT)) meat = false;
-                        plant = false;
-                    }
-                }
             }
-            while (this.threadSuspended) {
+            else {
                 try {
                     thread.wait();
-                } catch (Exception r) {}
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-            try {
-                int x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                if (x >= 750 || x <= 0) {
-                    x_dir = x_dir * (-1);
-                    x = this.getLocation().getx() + this.getHorSpeed() * getX_dir();
-                }
-                int y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
-                if (y >= 550 || y <= 0) {
-                    y_dir = y_dir * (-1);
-                    y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
-                }
-                this.move(new Point(x, y));
-                setChanges(true);
-                if(!(this.threadSuspended)) {
-                    try {
-                        Thread.sleep(65);
-                    } catch (InterruptedException s) {
-                        System.out.println("end of thread "+getName());
-                        return;
 
-                    }
-                }
-            }
-            catch (Exception e) {
-                System.out.println("throw exception 1!");
-
-            }
         }
-
 
     }
 
@@ -164,7 +184,18 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public synchronized void  setSuspended(){
         this.threadSuspended = true;
     }
+public void setMeat(){
+        meaT=null;
 
+    }
+    public void setPlant(){plant=null;}
+    public void setAlive(boolean alive) {
+        Alive = alive;
+    }
+
+    public void setFlag1(boolean flag1) {
+        this.flag1 = flag1;
+    }
 
     /**
      * set resumed method changing the treadSuspended data member to false
@@ -470,5 +501,25 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.col=selectedItem;
         loadImages(get_nm());
     }
+
+
+    public void registerObserver(Observer observer){
+        list.add(observer);
+    }
+    public synchronized void unregisterObserver(Observer observer){
+        int index = list.indexOf(observer);
+        list.set(index,list.lastElement());
+        list.remove(list.size()-1);
+    }
+    public void notifyObservers(){
+        for(Observer ob:list)
+            ob.notify();
+    }
+
+
+
+
+
+
 }
 

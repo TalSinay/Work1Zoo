@@ -39,6 +39,7 @@ public class ZooFrame extends JFrame implements ActionListener {
     private  ImageIcon image =new ImageIcon("savanna.png");
     private JLabel label1;
     JComboBox comboBox;
+    private Controller controller;
 
     /**
      * ZooFrame Constructor.
@@ -46,6 +47,7 @@ public class ZooFrame extends JFrame implements ActionListener {
      */
     ZooFrame(){
         zoo=ZooPanel.getZoopanel();
+
 //        zoo.executor.execute(zoo);
         this.setTitle("zoo");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

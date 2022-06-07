@@ -32,8 +32,8 @@ public class Elephant extends chew{
      * @param weight the animal's weight
      * @param pan the zoo panel.
      */
-    public Elephant(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan){
-        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan);
+    public Elephant(int size, int ver_speed, int hor_speed, String color, double weight, ZooPanel pan,Observer observer){
+        super(get_loc(), size, ver_speed, hor_speed, color, weight, pan,observer);
         loadImages(get_nm());
         setName("Elephant");
         setDiet(new Herbivore());

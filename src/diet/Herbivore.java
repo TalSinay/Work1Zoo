@@ -34,7 +34,7 @@ public class Herbivore implements IDiet {
      */
     public double eat(Animal animal, IEdible food) {
         if (canEat(food.getFoodtype())) {
-            if(!(food instanceof  Animal))Animal.setPlant(false);
+            if(!(food instanceof  Animal))animal.setPlant();
             return animal.getWeight()*0.07;
         }
         return 0;
