@@ -32,13 +32,16 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Button Food;
     private Button Info;
     private Button Exit;
+    private Button colorBottun;
+    private Button save;
+    private Button back;
     private JDialog addAnimalDialog;
     private ArrayList<Animal> animals = new ArrayList<Animal>();
     private Plant plant;
     private Meat meat;
     private JPanel panel;
     private ArrayList<Object> foods = new ArrayList<Object>();
-    private Thread controller;
+    private Controller controller;
     private boolean flag = true;
 
     /**
@@ -53,7 +56,14 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         Food = new Button("Food");
         Info = new Button("Info");
         Exit = new Button("Exit");
+        save = new Button("Save");
+        back = new Button("Back");
+        colorBottun = new Button("Color");
+
         Add.setBackground(Color.WHITE);
+        colorBottun.setBackground(Color.WHITE);
+        back.setBackground(Color.WHITE);
+        save.setBackground(Color.WHITE);
         Sleep.setBackground(Color.WHITE);
         WakeUp.setBackground(Color.WHITE);
         Clear.setBackground(Color.WHITE);
@@ -62,6 +72,9 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         Exit.setBackground(Color.WHITE);
         Exit.addActionListener(this);
         Add.addActionListener(this);
+        colorBottun.addActionListener(this);
+        back.addActionListener(this);
+        save.addActionListener(this);
         Sleep.addActionListener(this);
         WakeUp.addActionListener(this);
         Clear.addActionListener(this);
@@ -71,18 +84,21 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         panel.setPreferredSize(new Dimension(800, 25));
         panel.add(Add);
         panel.add(Sleep);
+        panel.add(colorBottun);
+        panel.add(save);
+        panel.add(back);
         panel.add(WakeUp);
         panel.add(Clear);
         panel.add(Food);
         panel.add(Info);
         panel.add(Exit);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 60, 2));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 2));
         panel.setBackground(Color.BLUE);
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.PAGE_END);
-        this.controller = new Thread(this);
-        controller.start();
+        this.controller = new Controller(this);//controller
+        controller.start();//notify( observer)
 
 
     }
@@ -231,6 +247,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         if (e.getSource() == Add) {
 
             new AddAnimalDialog(this, animals);
+            animals.get(animals.size()-1).registerObserver(controllerOB);
+
             repaint();
 
         }
@@ -366,6 +384,28 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             }
             System.exit(0);
         }
+
+        if (e.getSource() ==colorBottun){
+            String[] colors = {"Natural","Red", "Blue"};
+            String [] names=new String[animals.size()] ;
+            for (int i=0;i<animals.size();i++){
+                names[i]=animals.get(i).getName()+":"+i;
+            }
+            JComboBox cb_type = new JComboBox(names),cb_color=new JComboBox(colors);
+            int input = JOptionPane.showConfirmDialog(this, cb_type, "Choose animal: ", JOptionPane.DEFAULT_OPTION);
+            if(input==JOptionPane.YES_OPTION) {
+                int col = JOptionPane.showConfirmDialog(this, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
+                if(col==JOptionPane.YES_OPTION){
+                    animals.get(cb_type.getSelectedIndex()).setColor(((String) cb_color.getSelectedItem()));
+                    animals.get(cb_type.getSelectedIndex()).loadImages(animals.get(cb_type.getSelectedIndex()).get_nm());
+                    // animals.get(input).loadImages(((String) cb_color.getSelectedItem()));
+//                    animals.get(cb_type.getSelectedIndex()).drawObject(this.getGraphics());
+                }
+            }
+
+            repaint();
+        }
+
     }
 }
 

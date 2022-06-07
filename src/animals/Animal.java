@@ -40,6 +40,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     protected Thread thread;
     private boolean flag = true;
     protected boolean threadSuspended = false;
+    private Vector<Observer> list= new Vector<Observer>();
+
+
 
     /**
      * animal constructor.
@@ -463,6 +466,9 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public int getEatCounter(){return eatCount;}
 
 
-
+    public void setColor(String selectedItem) {
+        this.col=selectedItem;
+        loadImages(get_nm());
+    }
 }
 
