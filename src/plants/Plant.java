@@ -14,6 +14,7 @@ import mobility.Point;
 import utilities.MessageUtility;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 /**
  * 'Plant' class, used to declare all the plants in the zoo.
@@ -30,18 +31,37 @@ public abstract class Plant implements IEdible, ILocatable, IDrawable {
 	private String col;
 	private BufferedImage img;
 	private ZooPanel pan;
+	private static Plant plant=null;
 
 	/**
 	 * Plant constructor.
 	 */
-	public Plant() {
+	protected Plant() {
 		Random rand = new Random();
-
 		this.location = new Point(400, 300);
 		this.height = rand.nextInt(30);
 		this.weight = rand.nextInt(12);
 		loadImages(get_nm());
 		MessageUtility.logConstractor("Plant", "Plant");
+	}
+	public static Plant getplant(ZooPanel pan){
+		if(plant==null){
+			synchronized (Plant.class) {
+				if (plant == null) {
+					String[] op = {"lettuce", "cabbage"};
+					int x = JOptionPane.showOptionDialog(pan, "Please choose plant", "Food for animal",
+							JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, null);
+					switch (x){
+						case 0:
+							plant = new Lettuce();
+							break;
+						case 1:
+							plant = new Cabbage();
+					}
+				}
+			}
+		}
+		return plant;
 	}
 
 	/*

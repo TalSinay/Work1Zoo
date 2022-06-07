@@ -4,6 +4,9 @@ import graphics.*;
 import mobility.*;
 import utilities.MessageUtility;
 
+import java.util.Observer;
+import java.util.Vector;
+
 /**
  * 'Turtle' class, used to declare all the turtles in the zoo.
  * @version 24.3.22

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class AddAnimalDialog extends JDialog {
     //    private static ArrayList<Animal> my_list = new ArrayList<>();
 //    public static ArrayList<Animal> get_animals(){return my_list;}
+    private Animal animal;
     private ZooPanel zopanel;
 
     /**
@@ -29,13 +30,23 @@ public class AddAnimalDialog extends JDialog {
         this.zopanel = zoopanel;
         int size = -1, hor_speed = -1, ver_speed = -1;
         boolean flag=false;
-        String[] objects = {"Lion", "Bear" ,"Turtle", "Giraffe", "Elephant"};
+        String[] objects = {"Lion", "Turtle", "Giraffe", "Elephant","Bear"};
+        String[] types = {"Herbivore","Omnivore","Carnivore"};
+        String[] Herbivore = {"Turtle", "Giraffe", "Elephant","Bear"};
+        String[] Carnivore = {"Lion", "Bear"};
         String[] colors = {"Natural","Red", "Blue"};
-        JComboBox cb_type = new JComboBox(objects), cb_color = new JComboBox(colors);
-        int type = -1, col = -1;
-        type = JOptionPane.showConfirmDialog(zoopanel, cb_type, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
-        if (type == JOptionPane.YES_OPTION) {
-//        System.out.println("Error");
+        JComboBox cb_object = new JComboBox(objects), cb_color = new JComboBox(colors),cb_type=new JComboBox(types),cb_her=new JComboBox(Herbivore),cb_car=new JComboBox(Carnivore);
+        int type = -1, col = -1,obj=-1;
+        type=JOptionPane.showConfirmDialog(zoopanel, cb_type, "Choose animal's diet: ", JOptionPane.DEFAULT_OPTION);
+        switch (cb_type.getSelectedIndex()){
+            case 0:
+                obj = JOptionPane.showConfirmDialog(zoopanel, cb_her, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
+                break;
+            case 2:
+                obj = JOptionPane.showConfirmDialog(zoopanel, cb_car, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
+        }
+        if (obj == JOptionPane.YES_OPTION || cb_type.getSelectedIndex() == 1) {
+
             col = JOptionPane.showConfirmDialog(zoopanel, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
             if (col == JOptionPane.YES_OPTION) {
                 try {
@@ -51,7 +62,7 @@ public class AddAnimalDialog extends JDialog {
                     }
                 }
                 catch (Exception e) {
-                JOptionPane.showMessageDialog(zoopanel, "Canot build ,only numbers");
+                JOptionPane.showMessageDialog(zoopanel, "Cannot build ,only numbers");
                     return;
                 }
             } else {
@@ -64,17 +75,38 @@ public class AddAnimalDialog extends JDialog {
         }
 
         if (type == JOptionPane.YES_OPTION && col == JOptionPane.YES_OPTION) {
-            String typeItemAt = ((String) cb_type.getItemAt(cb_type.getSelectedIndex()));
+            String typeItemAt = ((String) cb_type.getSelectedItem());
             switch (typeItemAt) {
-                case "Lion" -> animals.add(new Lion(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.8, zoopanel));
-                case "Bear" -> animals.add(new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel));
-                case "Giraffe" -> animals.add(new Giraffe(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 2.2, zoopanel));
-                case "Turtle" -> animals.add(new Turtle(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.5, zoopanel));
-                case "Elephant" -> animals.add(new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel));
-                default -> JOptionPane.showMessageDialog(zoopanel, "You Entered a bad choice");
+                case "Carnivore":
+                    if(cb_car.getSelectedIndex() == 0){
+                        animal=new Lion(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.8, zoopanel);
+                        break;
+                    }
+                case "Omnivore":
+                    animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel);
+                    break;
+                case "Herbivore":
+                    if (cb_her.getSelectedIndex() == 0){
+                        animal=new Turtle(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 0.5, zoopanel);
+                        break;
+                    }
+                    else if (cb_her.getSelectedIndex() == 1){
+                        animal=new Giraffe(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 2.2, zoopanel);
+                    }
+                    else if(cb_her.getSelectedIndex() == 2){
+                        animal=new Elephant(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 10, zoopanel);
+                        break;
+                    }
+                    else{
+                        animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel);
+                        break;
+                    }
+                default:
+                    JOptionPane.showMessageDialog(zoopanel, "You Entered a bad choice");
             }
         }
-        animals.get(animals.size()-1).start();
+
+        animals.add(animal);
 
     }
 }

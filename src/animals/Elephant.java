@@ -4,6 +4,9 @@ import graphics.ZooPanel;
 import mobility.*;
 import utilities.MessageUtility;
 
+import java.util.Observer;
+import java.util.Vector;
+
 /**
  * 'Elephant' class, used to declare all the elephants in the zoo.
  * @version 24.3.22
@@ -56,6 +59,4 @@ public class Elephant extends chew{
         }
         return s;
     }
-
-
 }

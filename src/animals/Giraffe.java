@@ -6,6 +6,8 @@ import mobility.Point;
 import utilities.MessageUtility;
 
 import java.awt.*;
+import java.util.Observer;
+import java.util.Vector;
 
 /**
  * 'Elephant' class, used to declare all the elephants in the zoo.
@@ -57,5 +59,6 @@ public String get_nm() {
     }
     return s;
 }
+
 }
 
