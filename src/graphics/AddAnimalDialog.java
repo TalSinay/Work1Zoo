@@ -44,10 +44,14 @@ public class AddAnimalDialog extends JDialog {
             case 0:
                 obj = JOptionPane.showConfirmDialog(zoopanel, cb_her, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
                 break;
+            case 1:
+                obj=1;
+                break;
             case 2:
                 obj = JOptionPane.showConfirmDialog(zoopanel, cb_car, "Choose animal's type: ", JOptionPane.DEFAULT_OPTION);
+                break;
         }
-        if (obj == JOptionPane.YES_OPTION || cb_type.getSelectedIndex() == 1) {
+        if (obj == JOptionPane.YES_OPTION||obj==1) {
 
             col = JOptionPane.showConfirmDialog(zoopanel, cb_color, "Choose animal's color: ", JOptionPane.DEFAULT_OPTION);
             if (col == JOptionPane.YES_OPTION) {
@@ -103,13 +107,12 @@ public class AddAnimalDialog extends JDialog {
                         animal=new Bear(size, ver_speed, hor_speed, ((String) cb_color.getSelectedItem()), size * 1.5, zoopanel,observer);
                         break;
                     }
-                default:
-                    JOptionPane.showMessageDialog(zoopanel, "You Entered a bad choice");
+
             }
         }
 
         animals.add(animal);
-        animals.get(animals.size()-1).start();
+
 
     }
 }

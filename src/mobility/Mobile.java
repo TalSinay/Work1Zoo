@@ -65,7 +65,7 @@ public class Mobile extends Observable {
                 MessageUtility.logBooleanFunction(((Animal) this).getName(), "move", p.toString(), flag);
             }
             setChanged();
-            notifyObservers();
+            //notifyObservers();
             return this.calcDistance(p);
         }
         return 0;

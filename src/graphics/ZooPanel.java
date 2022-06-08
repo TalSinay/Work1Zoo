@@ -44,9 +44,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Meat meat;
     private JPanel panel;
     private ArrayList<Object> foods = new ArrayList<Object>();
+    private Thread thread;
     private Controller controller;
     private boolean flag = true;
-    private Observer observer;
+    private Observer observer=new Controller(this);
 
     /**
      * ZooPanel constructor.
@@ -101,9 +102,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
         this.add(panel, BorderLayout.PAGE_END);
-        Observer observer=new Controller(this);
+        //Observer observer=new Controller(this);
        //controller
-        this.manageZoo();
+        this.thread=new Thread(this);
+        this.thread.start();
 
     }
 
@@ -130,8 +132,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void run() {
         while (true)
             manageZoo();
-
-
     }
 
     /**
@@ -149,8 +149,10 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                         if (animals.get(i).calcDistance(meat.getlocation()) <= 10 && animals.get(i).calcDistance(meat.getlocation()) <= 10) {
                             if (animals.get(i).eat(meat)) {
                                 this.callback(animals.get(i));
-                                animals.get(i).notifyObservers();
+                                //animals.get(i).notifyObservers();
                                 meat = null;
+                                foods.remove(0);
+
                                 repaint();
                             }
                         }
@@ -159,8 +161,9 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                         if (animals.get(i).calcDistance(plant.getlocation()) <= 10 && animals.get(i).calcDistance(plant.getlocation()) <= 10) {
                             if (animals.get(i).eat(plant)) {
                                 this.callback(animals.get(i));
-                                animals.get(i).notifyObservers();
+                                //animals.get(i).notifyObservers();
                                 plant = null;
+                                foods.remove(0);
                                 repaint();
                             }
                         }
@@ -184,10 +187,11 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                                                 i--;
                                             flag = true;
                                             //foodAnimal.setSuspended();
+                                            animals.get(j).interrupt();
                                             animals.get(j).setAlive(false);
                                             animals.remove(animals.get(j));
                                             animals.get(i).IncEatcount();
-                                            animals.get(i).notifyObservers();
+                                            //animals.get(i).notifyObservers();
                                             return;
                                         }
                                     }
@@ -263,19 +267,26 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         if (e.getSource() == Add) {
 
             new AddAnimalDialog(this, animals,observer);
+            animals.get(animals.size()-1).start();
             repaint();
 
         }
         if (e.getSource() == Sleep) {
             for (Animal animal : animals) {
-                animal.setFlag1(false);
+
+                synchronized (this) {
+                    animal.setSuspended();
+                    //animal.setFlag1(false);
+                }
             }
             repaint();
         }
         if (e.getSource() == WakeUp) {
-            synchronized (this) {
+
                 for (Animal an : animals) {
-                    an.setFlag1(true);
+                    synchronized (this) {
+                        an.setResumed();
+                    //an.setFlag1(true);
                     repaint();
                 }
             }
@@ -287,7 +298,8 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 synchronized (this) {
                     for (int i = 0; i < animals.size(); i++) {
                         animals.get(0).setAlive(false);
-                        animals.get(0).notifyObservers();
+                        animals.get(0).interrupt();
+                        //animals.get(0).notifyObservers();
                         animals.remove(0);
                         repaint();
                     }
@@ -295,19 +307,25 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             }
             if (foods.size() > 0) {
                 for (int i = 0; i <= foods.size(); i++) {
-                    if(foods.get(0) instanceof Meat)
+                    if(foods.get(0) instanceof Meat){
                         meat=null;
+                        repaint();
+                    }
+
+
+                    else
+                        plant=null;
                     foods.remove(0);
                     repaint();
                 }
             }
-
             if (animals.size() > 0) {
                 synchronized (this) {
                     for (int i = 0; i <= animals.size(); i++) {
                         Animal temp = animals.get(0);
                         temp.setAlive(false);
-                        temp.notifyObservers();
+                        temp.interrupt();
+                        //temp.notifyObservers();
                         animals.remove(0);
                         repaint();
                     }
@@ -345,60 +363,55 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
             frame.setVisible(true);
         }
         if (e.getSource() == Food) {
+            if (foods.size() > 0) {
+                JOptionPane.showMessageDialog(this, "Food already exist!");
 
-            String[] op = {"lettuce", "cabbage", "meat"};
-            int x = JOptionPane.showOptionDialog(this, "Please choose food", "Food for animal",
-                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, null);
+            } else {
+                String[] op = {"lettuce", "cabbage", "meat"};
+                int x = JOptionPane.showOptionDialog(this, "Please choose food", "Food for animal",
+                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, null);
 
-            switch (x) {
-                case 0:
-                    if(foods.size()>0){
-                        JOptionPane.showMessageDialog(this,"Food already exist!");
-                    }
-                    else {
+                switch (x) {
+                    case 0:
+
+
                         plant = Plant.getplant(this);
                         foods.add(plant);
                         plant.drawObject(this.getGraphics());
-                    }
-                    break;
-                case 1:
-                    if(foods.size()>0){
-                        JOptionPane.showMessageDialog(this,"Food already exist!");
-                    }
-                    else {
+
+                        break;
+                    case 1:
+
                         plant = Plant.getplant(this);
                         foods.add(plant);
                         plant.drawObject(this.getGraphics());
-                    }
-                    break;
-                case 2:
-                    if(foods.size()>0){
-                        JOptionPane.showMessageDialog(this,"Food already exist!");
-                    }
-                    else {
+
+                        break;
+                    case 2:
                         meat = Meat.getMeat();
                         foods.add(meat);
                         meat.drawObject(this.getGraphics());
-                    }
-                    break;
 
-            }
-            if (foods.size()>0) {
-                if (meat != null) {
+                        break;
 
-                    for (Animal animal : animals) {
-                        animal.change_direction(EFoodType.MEAT);
-                    }
                 }
-//                manageZoo();
-            } else {
+                if (foods.size() > 0) {
+                    if (meat != null) {
 
-                for (Animal a : animals) {
-                    a.change_direction(EFoodType.VEGETABLE);
-                }
+                        for (Animal animal : animals) {
+                            animal.change_direction(EFoodType.MEAT);
+                        }
+                    }
 //                manageZoo();
+                } else {
+
+                    for (Animal a : animals) {
+                        a.change_direction(EFoodType.VEGETABLE);
+                    }
+//                manageZoo();
+                }
+                repaint();
             }
-        repaint();
         }
         if (e.getSource() == Exit) {
             for(Animal an:animals){

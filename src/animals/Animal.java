@@ -72,8 +72,10 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         coordChanged = true;
         Alive=true;
         flag1=true;
+        threadSuspended=false;
         this.thread = new Thread(this);
         this.registerObserver(observer);
+
 
 
     }
@@ -112,7 +114,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      */
     public void run() {
         while (Alive) {
-            this.notifyObservers();
+            //this.notifyObservers();
             if (flag1) {
                 if (meaT != null || plant != null) {
                     if (meaT != null && (diet instanceof Omnivore || diet instanceof Carnivore)) {
@@ -121,7 +123,6 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                             if (diet.canEat(EFoodType.VEGETABLE)) plant = null;
                             meaT = null;
                         }
-
                     }
                     if (plant != null && (diet instanceof Omnivore || diet instanceof Herbivore)) {
                         change_direction(EFoodType.VEGETABLE);
@@ -149,6 +150,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                         y = this.getLocation().gety() + this.getVerSpeed() * getY_dir();
                     }
                     this.move(new Point(x, y));
+
                     setChanges(true);
                     if (!(this.threadSuspended)) {
                         try {
@@ -159,18 +161,22 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 
                         }
                     }
+
                 } catch (Exception e) {
                     System.out.println("throw exception 1!");
 
                 }
             }
-            else {
-                try {
-                    thread.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+
+//            else {
+//                synchronized (this) {
+//                    try {
+//                        thread.wait();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
 
         }
 
