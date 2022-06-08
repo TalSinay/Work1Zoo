@@ -51,7 +51,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     private Controller controller;
     private boolean flag = true;
     private Observer observer=new Controller(this);
-
+    boolean flag1;
     /**
      * ZooPanel constructor.
      */
@@ -142,14 +142,17 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
      */
     public void manageZoo() {
 
-//        sendToFood();
         if (isChange())
             repaint();
         if (animals.size() > 0) {
             synchronized (this) {
                 for (int i = 0; i < animals.size(); i++) {
+                    if (foods.size()>0)
+                        sendToFood();
 
                     if (meat != null && animals.get(i).getDiet() instanceof Carnivore) {
+
+
                         if (animals.get(i).calcDistance(meat.getlocation()) <= 10 && animals.get(i).calcDistance(meat.getlocation()) <= 10) {
                             if (animals.get(i).eat(meat)) {
                                 this.callback(animals.get(i));
@@ -162,6 +165,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                         }
                     }
                     if (plant != null && animals.get(i).getDiet() instanceof Herbivore) {
+                        sendToFood();
                         if (animals.get(i).calcDistance(plant.getlocation()) <= 10 && animals.get(i).calcDistance(plant.getlocation()) <= 10) {
                             if (animals.get(i).eat(plant)) {
                                 this.callback(animals.get(i));
@@ -175,8 +179,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 }
             }
         }
-
-
         if ((animals.size() > 1)) {
             boolean flag = false;
             synchronized (this) {
@@ -265,18 +267,21 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
                 for (Animal animal : animals) {
                     animal.change_direction(EFoodType.MEAT);
+                    repaint();
                 }
-            }
-//                manageZoo();
-        } else {
 
-            for (Animal a : animals) {
-                a.change_direction(EFoodType.VEGETABLE);
-            }
 //                manageZoo();
+            } else if (plant != null) {
+
+                for (Animal a : animals) {
+                    a.change_direction(EFoodType.VEGETABLE);
+                    repaint();
+                }
+//                manageZoo();
+            } else
+                repaint();
+
         }
-        manageZoo();
-        repaint();
     }
 
     /**
@@ -289,14 +294,16 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == Add) {
-            try {
+//            try {
                 new AddAnimalDialog(this, animals, observer);
-                animals.get(animals.size() - 1).start();
-            }
-            catch (Exception ex){
+//                 flag1=true;
 
-            }
-            repaint();
+//            catch (Exception ex){
+//            }
+//            if(flag1) {
+                animals.get(animals.size() - 1).start();
+                repaint();
+//            }
 
         }
         if (e.getSource() == Sleep) {
@@ -395,7 +402,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                 JOptionPane.showMessageDialog(this, "Food already exist!");
 
             } else {
-                String[] op = {"lettuce", "cabbage", "meat"};
+                String[] op = {"plant", "meat"};
                 int x = JOptionPane.showOptionDialog(this, "Please choose food", "Food for animal",
                         JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, op, null);
 
@@ -409,13 +416,6 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
 
                         break;
                     case 1:
-
-                        plant = Plant.getplant(this);
-                        foods.add(plant);
-                        plant.drawObject(this.getGraphics());
-
-                        break;
-                    case 2:
                         meat = Meat.getMeat();
                         foods.add(meat);
                         meat.drawObject(this.getGraphics());

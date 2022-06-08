@@ -39,7 +39,7 @@ public class AddAnimalDialog extends JDialog {
         String[] colors = {"Natural","Red", "Blue"};
         JComboBox cb_object = new JComboBox(objects), cb_color = new JComboBox(colors),cb_type=new JComboBox(types),cb_her=new JComboBox(Herbivore),cb_car=new JComboBox(Carnivore);
         int type = -1, col = -1,obj=-1;
-        try {
+//        try {
             type = JOptionPane.showConfirmDialog(zoopanel, cb_type, "Choose animal's diet: ", JOptionPane.DEFAULT_OPTION);
             switch (cb_type.getSelectedIndex()) {
                 case 0:
@@ -111,10 +111,10 @@ public class AddAnimalDialog extends JDialog {
 
             animals.add(animal);
 
-        }
-        catch (Exception e){
-            JOptionPane.showMessageDialog(zoopanel,"The animal factory fails in building");
-        }
+//        }
+//        catch (Exception e){
+//            JOptionPane.showMessageDialog(zoopanel,"The animal factory fails in building");
+//        }
     }
 }
 

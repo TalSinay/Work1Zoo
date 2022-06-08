@@ -71,9 +71,10 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.pan = pan;
         coordChanged = true;
         Alive=true;
-        //flag1=true;
+        flag1=true;
         threadSuspended=false;
         this.thread = new Thread(this);
+
         this.registerObserver(observer);
 
 
@@ -114,9 +115,11 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
      */
     public void run() {
         while (Alive) {
+            pan.repaint();
             //this.notifyObservers();
             if (meaT != null || plant != null) {
                 if (meaT != null && (diet instanceof Omnivore || diet instanceof Carnivore)) {
+
                     change_direction(EFoodType.MEAT);
                     if (getLocation().getx() == 400 && getLocation().gety() == 300) {
                         if (diet.canEat(EFoodType.VEGETABLE)) {
@@ -133,6 +136,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
                         }
                     }
                 }
+            }
                 while (this.threadSuspended) {
                     try {
                         thread.wait();
@@ -180,7 +184,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 //            }
 
         }
-    }
+
 
 
 //    public boolean getSuspended(){return this.threadSuspended;}
