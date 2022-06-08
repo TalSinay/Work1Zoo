@@ -73,19 +73,20 @@ public class Mobile extends Observable {
 
     public void change_direction(EFoodType f) {
         if(this instanceof Animal) {
-//            if(((Animal) this).getDiet().canEat(f)){
-            if (this.getLocation().getx() < 400 && ((Animal) this).getX_dir() == -1) {
-                ((Animal) this).setX_dir(1);
+            if(((Animal) this).getDiet().canEat(f)) {
+                if (this.getLocation().getx() < 400 && ((Animal) this).getX_dir() == -1) {
+                    ((Animal) this).setX_dir(1);
 
-            }
-            if (this.getLocation().gety() < 300 && ((Animal) this).getY_dir() == -1) {
-                ((Animal) this).setY_dir(1);
-            }
-            if (this.getLocation().getx() > 400 && ((Animal) this).getX_dir() == 1) {
-                ((Animal) this).setX_dir(-1);
-            }
-            if (this.getLocation().gety() > 300 && ((Animal) this).getY_dir() == 1) {
-                ((Animal) this).setY_dir(-1);
+                }
+                if (this.getLocation().gety() < 300 && ((Animal) this).getY_dir() == -1) {
+                    ((Animal) this).setY_dir(1);
+                }
+                if (this.getLocation().getx() > 400 && ((Animal) this).getX_dir() == 1) {
+                    ((Animal) this).setX_dir(-1);
+                }
+                if (this.getLocation().gety() > 300 && ((Animal) this).getY_dir() == 1) {
+                    ((Animal) this).setY_dir(-1);
+                }
             }
         }
     }

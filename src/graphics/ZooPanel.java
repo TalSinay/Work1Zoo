@@ -1,4 +1,7 @@
 package graphics;
+import diet.Carnivore;
+import diet.Herbivore;
+import diet.Omnivore;
 import food.EFoodType;
 import food.Meat;
 import mobility.Point;
@@ -139,13 +142,14 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
      */
     public void manageZoo() {
 
+//        sendToFood();
         if (isChange())
             repaint();
         if (animals.size() > 0) {
             synchronized (this) {
                 for (int i = 0; i < animals.size(); i++) {
 
-                    if (meat != null) {
+                    if (meat != null && animals.get(i).getDiet() instanceof Carnivore) {
                         if (animals.get(i).calcDistance(meat.getlocation()) <= 10 && animals.get(i).calcDistance(meat.getlocation()) <= 10) {
                             if (animals.get(i).eat(meat)) {
                                 this.callback(animals.get(i));
@@ -157,7 +161,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                             }
                         }
                     }
-                    if (plant != null) {
+                    if (plant != null && animals.get(i).getDiet() instanceof Herbivore) {
                         if (animals.get(i).calcDistance(plant.getlocation()) <= 10 && animals.get(i).calcDistance(plant.getlocation()) <= 10) {
                             if (animals.get(i).eat(plant)) {
                                 this.callback(animals.get(i));
@@ -253,6 +257,26 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
      */
     public void callback(Animal animal) {
         animal.IncEatcount();
+    }
+
+    public void sendToFood(){
+        if (foods.size() > 0) {
+            if (meat != null) {
+
+                for (Animal animal : animals) {
+                    animal.change_direction(EFoodType.MEAT);
+                }
+            }
+//                manageZoo();
+        } else {
+
+            for (Animal a : animals) {
+                a.change_direction(EFoodType.VEGETABLE);
+            }
+//                manageZoo();
+        }
+        manageZoo();
+        repaint();
     }
 
     /**
@@ -395,22 +419,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                         break;
 
                 }
-                if (foods.size() > 0) {
-                    if (meat != null) {
-
-                        for (Animal animal : animals) {
-                            animal.change_direction(EFoodType.MEAT);
-                        }
-                    }
-//                manageZoo();
-                } else {
-
-                    for (Animal a : animals) {
-                        a.change_direction(EFoodType.VEGETABLE);
-                    }
-//                manageZoo();
-                }
-                repaint();
+                manageZoo();
             }
         }
         if (e.getSource() == Exit) {
