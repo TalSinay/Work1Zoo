@@ -71,7 +71,7 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
         this.pan = pan;
         coordChanged = true;
         Alive=true;
-        flag1=true;
+        //flag1=true;
         threadSuspended=false;
         this.thread = new Thread(this);
         this.registerObserver(observer);
@@ -115,20 +115,21 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     public void run() {
         while (Alive) {
             //this.notifyObservers();
-            if (flag1) {
-                if (meaT != null || plant != null) {
-                    if (meaT != null && (diet instanceof Omnivore || diet instanceof Carnivore)) {
-                        change_direction(EFoodType.MEAT);
-                        if (getLocation().getx() == 400 && getLocation().gety() == 300) {
-                            if (diet.canEat(EFoodType.VEGETABLE)) plant = null;
+            if (meaT != null || plant != null) {
+                if (meaT != null && (diet instanceof Omnivore || diet instanceof Carnivore)) {
+                    change_direction(EFoodType.MEAT);
+                    if (getLocation().getx() == 400 && getLocation().gety() == 300) {
+                        if (diet.canEat(EFoodType.VEGETABLE)) {
+                            //plant = null;
                             meaT = null;
                         }
                     }
                     if (plant != null && (diet instanceof Omnivore || diet instanceof Herbivore)) {
                         change_direction(EFoodType.VEGETABLE);
                         if (getLocation().getx() == 400 && getLocation().gety() == 300) {
-                            if (diet.canEat(EFoodType.MEAT)) meaT = null;
-                            plant = null;
+                            if (diet.canEat(EFoodType.MEAT))
+                                //meaT = null;
+                                plant = null;
                         }
                     }
                 }
@@ -179,8 +180,8 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
 //            }
 
         }
-
     }
+
 
 //    public boolean getSuspended(){return this.threadSuspended;}
 

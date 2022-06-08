@@ -100,7 +100,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
         panel.add(Food);
         panel.add(Info);
         panel.add(Exit);
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 40, 2));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 2));
         panel.setBackground(Color.BLUE);
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
@@ -289,9 +289,13 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         if (e.getSource() == Add) {
+            try {
+                new AddAnimalDialog(this, animals, observer);
+                animals.get(animals.size() - 1).start();
+            }
+            catch (Exception ex){
 
-            new AddAnimalDialog(this, animals,observer);
-            animals.get(animals.size()-1).start();
+            }
             repaint();
 
         }
