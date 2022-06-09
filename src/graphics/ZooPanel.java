@@ -218,7 +218,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     if (foods.size()>0)
                         sendToFood();
 
-                    if (meat != null && animals.get(i).getDiet() instanceof Carnivore) {
+                    if (meat != null && (animals.get(i).getDiet() instanceof Carnivore||animals.get(i).getDiet() instanceof Omnivore )) {
 
 
                         if (animals.get(i).calcDistance(meat.getlocation()) <= 10 && animals.get(i).calcDistance(meat.getlocation()) <= 10) {
@@ -478,6 +478,7 @@ public class ZooPanel extends JPanel implements Runnable, ActionListener {
                     case 0:
 
 
+                        plant = Plant.getplant(this);
                         plant = Plant.getplant(this);
                         foods.add(plant);
                         plant.drawObject(this.getGraphics());
