@@ -34,6 +34,12 @@ public class Lion extends roar {
         loadImages(get_nm());
         this.setDiet(new Carnivore());
     }
+    public Lion(Lion l){
+        super(get_loc(), l.getSize(), l.getVerSpeed(), l.getHorSpeed(), l.getColor(), l.getWeight(), l.getPan(),null);
+        setName("Lion");
+        loadImages(get_nm());
+        this.setDiet(new Carnivore());
+    }
     /**
      * get_loc -> give the default location of the Lion.
      * @return default location(Point).

@@ -41,6 +41,12 @@ public class Bear extends roar {
         setDiet(new Omnivore());
     }
 
+    public Bear(Bear b) {
+        super(get_loc(), b.getSize(), b.getVerSpeed(), b.getHorSpeed(), b.getColor(), b.getWeight(), b.getPan(),null);
+        loadImages(get_nm());
+        setName("Bear");
+        setDiet(new Omnivore());
+    }
     /**
      * this method used to make the bear sound.
      */

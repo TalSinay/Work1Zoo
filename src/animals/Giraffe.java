@@ -39,6 +39,12 @@ public class Giraffe extends chew{
         loadImages(get_nm());
         setDiet(new Herbivore());
     }
+    public Giraffe(Giraffe g){
+        super(get_loc(), g.getSize(), g.getVerSpeed(), g.getHorSpeed(), g.getColor(), g.getWeight(), g.getPan(),null);
+        setName("Giraffe");
+        loadImages(get_nm());
+        setDiet(new Herbivore());
+    }
     /**
      * tnis method use to make the giraffe's sound.
      */

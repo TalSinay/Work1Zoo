@@ -38,6 +38,12 @@ public class Elephant extends chew{
         setName("Elephant");
         setDiet(new Herbivore());
     }
+    public Elephant(Elephant e){
+        super(get_loc(), e.getSize(), e.getVerSpeed(), e.getHorSpeed(), e.getColor(), e.getWeight(), e.getPan(),null);
+        loadImages(get_nm());
+        setName("Elephant");
+        setDiet(new Herbivore());
+    }
 
     /**
      * tnis method use to make the elephant's sound.

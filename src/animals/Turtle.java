@@ -31,6 +31,12 @@ public class Turtle extends chew{
         loadImages(get_nm());
         setDiet(new Herbivore());
     }
+    public Turtle(Turtle t){
+        super(get_loc(), t.getSize(), t.getVerSpeed(), t.getHorSpeed(), t.getColor(), t.getWeight(), t.getPan(),null);
+        setName("Turtle");
+        loadImages(get_nm());
+        setDiet(new Herbivore());
+    }
 
     /**
      * get_loc -> give the default location of the Turtle.

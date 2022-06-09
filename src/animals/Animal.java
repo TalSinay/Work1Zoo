@@ -49,6 +49,26 @@ public abstract class Animal extends Mobile implements IEdible, IDrawable, IAnim
     private boolean flag1;
 
 
+    public Animal(Animal a) {
+        super(a.getLocation());
+        this.size = a.getSize();
+        this.verSpeed = a.getVerSpeed();
+        this.horSpeed = a.getHorSpeed();
+        this.col = a.getColor();
+        this.weight = a.getWeight();
+        this.pan = a.getPan();
+        coordChanged = true;
+        Alive=true;
+        flag1=true;
+        threadSuspended=false;
+        this.thread = new Thread(this);
+
+//        this.registerObserver(a.observer);
+
+
+
+    }
+
 
     /**
      * animal constructor.
